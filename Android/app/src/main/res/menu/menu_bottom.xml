@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/bottom_navigation_mypage"
         android:icon="@drawable/user"
         android:enabled="true"
         android:title="" />
 
     <item
+        android:id="@+id/bottom_navigation_chatting"
         android:icon="@drawable/discussion"
         android:enabled="true"
         android:title="" />
 
     <item
+        android:id="@+id/bottom_navigation_total_chatting"
         android:icon="@drawable/discussion2"
         android:enabled="true"
         android:title=""/>
 
     <item
+        android:id="@+id/bottom_navigation_setting"
         android:icon="@drawable/settings"
         android:enabled="true"
         android:title="" />
