@@ -17,13 +17,6 @@
         android:textColor="@color/mainGreen"
         android:textSize="20dp" />
 
-    <ImageView
-        android:layout_width="311dp"
-        android:layout_height="205dp"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:background="@color/colorTransparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/title" />
+
 
 </LinearLayout>
