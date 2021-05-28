@@ -7,13 +7,13 @@
         android:title="" />
 
     <item
-        android:id="@+id/bottom_navigation_chatting"
+        android:id="@+id/bottom_navigation_chat"
         android:icon="@drawable/discussion"
         android:enabled="true"
         android:title="" />
 
     <item
-        android:id="@+id/bottom_navigation_total_chatting"
+        android:id="@+id/bottom_navigation_total_chat"
         android:icon="@drawable/discussion2"
         android:enabled="true"
         android:title=""/>

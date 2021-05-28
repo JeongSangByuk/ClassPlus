@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new MyPageFragment());
                     break;
 
-                case R.id.bottom_navigation_chatting:
-                    replaceFragment(new ChattingFragment());
+                case R.id.bottom_navigation_chat:
+                    replaceFragment(new ChatFragment());
                     break;
 
-                case R.id.bottom_navigation_total_chatting:
-                    replaceFragment(new TotalChattingFragment());
+                case R.id.bottom_navigation_total_chat:
+                    replaceFragment(new TotalChatFragment());
                     break;
 
                 case R.id.bottom_navigation_setting:
