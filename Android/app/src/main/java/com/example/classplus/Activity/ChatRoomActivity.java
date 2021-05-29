@@ -1,5 +1,6 @@
 package com.example.classplus.Activity;
 
+import android.app.Application;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.classplus.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
@@ -18,6 +22,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
         setStatusBar();
+
+//        FirebaseApp.initializeApp(this);
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference dbRef = database.getReference("test");
+//        dbRef.setValue("text");
 
     }
 

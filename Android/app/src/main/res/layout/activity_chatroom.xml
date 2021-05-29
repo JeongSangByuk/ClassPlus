@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/mainLightColor"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/nanumsquareeb"
             android:text="운영 체제"
@@ -26,9 +26,9 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_marginTop="20dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_marginTop="20dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/setting"
@@ -45,7 +45,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_chatroom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/white"
         android:orientation="vertical"
         android:overScrollMode="never"
@@ -54,6 +55,49 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/mainLightColor"
+        android:paddingBottom="10dp"
+>
 
+        <ImageButton
+            android:id="@+id/bnt_chat_plus"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorTransparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plus" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanumsquarer"
+            android:hint="메시지를 입력하세요."
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <ImageButton
+            android:id="@+id/bnt_chat_send"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:background="@color/colorTransparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/send" />
+
+    </LinearLayout>
 
 </LinearLayout>
