@@ -15,7 +15,7 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/nanumsquareeb"
         android:text="수업 전체 대화방"
-        android:textColor="@color/mainGreen"
+        android:textColor="@color/mainColor"
         android:textSize="20dp" />
 
     <View

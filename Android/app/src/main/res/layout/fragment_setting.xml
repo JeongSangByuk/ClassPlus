@@ -14,7 +14,7 @@
         android:fontFamily="@font/nanumsquareeb"
         android:text="설 정"
 
-        android:textColor="@color/mainGreen"
+        android:textColor="@color/mainColor"
         android:textSize="20dp" />
 
 </LinearLayout>

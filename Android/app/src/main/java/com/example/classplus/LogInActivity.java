@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,9 +23,10 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
         setStatusBar();
-        setContentView(R.layout.activity_login);
+        setUnderLine();
 
         logInButton = findViewById(R.id.btn_login_activity);
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -43,5 +45,18 @@ public class LogInActivity extends AppCompatActivity {
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getWindow().setStatusBarColor(Color.parseColor("#00000000"));//색 지정
+    }
+
+    private void setUnderLine(){
+
+        TextView signUpBnt = findViewById(R.id.tv_loggin_sigupbnt);
+        TextView findIdBnt = findViewById(R.id.tv_loggin_findidbnt);
+
+        String signUpString = (String) signUpBnt.getText();
+        String findIdString = (String) findIdBnt.getText();
+
+        signUpBnt.setText(Html.fromHtml("<u>" + signUpString + "</u>"));
+        findIdBnt.setText(Html.fromHtml("<u>" + findIdString + "</u>"));
+
     }
 }

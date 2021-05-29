@@ -16,7 +16,7 @@
         android:fontFamily="@font/nanumsquareeb"
         android:text="팀 대화방"
 
-        android:textColor="@color/mainGreen"
+        android:textColor="@color/mainColor"
         android:textSize="20dp" />
 
 
