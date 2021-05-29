@@ -1,4 +1,4 @@
-package com.example.classplus;
+package com.example.classplus.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class settingFragment extends Fragment {
+import com.example.classplus.R;
+
+public class SettingFragment extends Fragment {
 
     @Nullable
     @Override

@@ -1,4 +1,4 @@
-package com.example.classplus;
+package com.example.classplus.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -13,6 +13,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.classplus.Fragment.TeamChatFragment;
+import com.example.classplus.Fragment.MyPageFragment;
+import com.example.classplus.Fragment.TotalChatFragment;
+import com.example.classplus.Fragment.SettingFragment;
+import com.example.classplus.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.bottom_navigation_chat:
-                    replaceFragment(new ChatFragment());
+                    replaceFragment(new TeamChatFragment());
                     break;
 
                 case R.id.bottom_navigation_total_chat:
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.bottom_navigation_setting:
-                    replaceFragment(new settingFragment());
+                    replaceFragment(new SettingFragment());
                     break;
             }
             return true;

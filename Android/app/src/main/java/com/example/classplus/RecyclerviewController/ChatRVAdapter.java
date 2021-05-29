@@ -1,6 +1,7 @@
 package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.classplus.Activity.ChatRoomActivity;
 import com.example.classplus.DTO.ChatRoomInfo;
-import com.example.classplus.MainActivity;
+import com.example.classplus.Activity.MainActivity;
 import com.example.classplus.R;
 
 import java.util.ArrayList;
 
-public class TotalChatRVAdapter extends RecyclerView.Adapter<TotalChatViewHolder> {
+public class ChatRVAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 
     private View view;
     private Context context;
@@ -23,38 +25,41 @@ public class TotalChatRVAdapter extends RecyclerView.Adapter<TotalChatViewHolder
     private ArrayList<ChatRoomInfo> chatList;
     private MainActivity mainActivity;
 
-    public TotalChatRVAdapter(Context context,ArrayList<ChatRoomInfo> chatList) {
+    public ChatRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList) {
         this.context = context;
         this.chatList = chatList;
     }
 
     @NonNull
     @Override
-    public TotalChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("qwe","qweqwe");
-        //layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        //view = layoutInflater.inflate(R.layout.item_chat_room_list, parent, false);
+    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_room_list, parent, false);
-        TotalChatViewHolder holder = new TotalChatViewHolder(view);
-        return holder;
 
-        //return new TotalChatViewHolder(view);
+
+        ChatViewHolder holder = new ChatViewHolder(view);
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TotalChatViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
 
         holder.name.setText(chatList.get(position).getName());
-        Log.d("qwe", chatList.get(position).getName());
         holder.lastTime.setText(chatList.get(position).getLastTime());
         holder.lastChat.setText(chatList.get(position).getLastChat());
         holder.chatImg.setImageResource(chatList.get(position).getImg());
+        holder.frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChatRoomActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        Log.d("qwe","qwe");
+
         return chatList.size();
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/white"
+        android:background="@color/mainLightColor"
         android:elevation="4dp">
 
         <TextView
@@ -20,8 +20,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/nanumsquareeb"
-            android:text="수업 전체 대화방"
-            android:textColor="@color/mainColor"
+            android:text="운영 체제"
+            android:textColor="@color/black"
             android:textSize="20dp" />
 
         <Space
@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_total_chat"
+        android:id="@+id/recyclerview_chatroom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -53,5 +53,7 @@
 
 
     </androidx.recyclerview.widget.RecyclerView>
+
+
 
 </LinearLayout>

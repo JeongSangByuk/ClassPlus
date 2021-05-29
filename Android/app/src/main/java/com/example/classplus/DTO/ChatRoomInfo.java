@@ -2,24 +2,41 @@ package com.example.classplus.DTO;
 
 import com.example.classplus.R;
 
+import java.util.Random;
+
 public class ChatRoomInfo {
     private String name;
     private String lastTime;
     private String lastChat;
     private int img;
 
-    public ChatRoomInfo(String name, String lastTime, String lastChat) {
+    public ChatRoomInfo(String name, String lastTime, String lastChat,int img) {
         this.name = name;
         this.lastTime = lastTime;
         this.lastChat = lastChat;
-        this.img = R.drawable.img_chat_desktop;
-    }
-
-    public ChatRoomInfo(String name, String chat, String lastTime, int img) {
-        this.name = name;
-        this.lastTime = lastTime;
-        this.lastChat = chat;
         this.img = img;
+
+        switch (this.img){
+            case 0 :
+                this.img = R.drawable.study1;
+                break;
+            case 1 :
+                this.img = R.drawable.study2;
+                break;
+            case 2 :
+                this.img = R.drawable.study3;
+                break;
+            case 3 :
+                this.img = R.drawable.study4;
+                break;
+            case 4 :
+                this.img = R.drawable.study5;
+                break;
+            case 5 :
+                this.img = R.drawable.study6;
+                break;
+        }
+
     }
 
     public String getName() {
