@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.R;
-import com.example.classplus.RecyclerviewController.ChatRVAdapter;
+import com.example.classplus.RecyclerviewController.ChatInfoRVAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,7 +20,7 @@ import java.util.Random;
 public class TotalChatFragment extends Fragment {
 
     private RecyclerView recyclerviewTotalChat;
-    private ChatRVAdapter totalChatRVAdapter;
+    private ChatInfoRVAdapter totalChatRVAdapter;
     private View view;
     private ArrayList<ChatRoomInfo> chatRoomInfoList;
 
@@ -33,28 +33,16 @@ public class TotalChatFragment extends Fragment {
 
         testInit(); //테스트 데이터 삽입.
 
-        totalChatRVAdapter = new ChatRVAdapter(getActivity(),chatRoomInfoList);
+        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList);
         recyclerviewTotalChat.setAdapter(totalChatRVAdapter);
 
         return view;
     }
     public void testInit(){
-
-        Random random = new Random();
+        
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
-        chatRoomInfoList.add(new ChatRoomInfo("운영체제","12:12:12","안녕하세요",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("오픈소스","12:15:12","언제다하냐",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("사랑해요","12:12:30","헐헐헐",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("우아앙","12:12:12","ㅠㅡㅠㅡㅠ",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("운영체제","12:12:12","안녕하세요",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("오픈소스","12:15:12","언제다하냐",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("사랑해요","12:12:30","헐헐헐",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("우아앙","12:12:12","ㅠㅡㅠㅡㅠ",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("운영체제","12:12:12:","안녕하세요",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("오픈소스","12:15:12","언제다하냐",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("사랑해요","12:12:30","헐헐헐",random.nextInt(6)));
-        chatRoomInfoList.add(new ChatRoomInfo("우아앙","12:12:12","ㅠㅡㅠㅡㅠ",random.nextInt(6)));
-
-
+        chatRoomInfoList.add(new ChatRoomInfo("멀티미디어 프로그래밍","18:42","과제 제출 공지합니다.",0));
+        chatRoomInfoList.add(new ChatRoomInfo("오픈 소스","14:15","블랙보드 과제 확인하세요.",1));
+        chatRoomInfoList.add(new ChatRoomInfo("고급 C프로그래밍 및 실습","12:11","질문 있습니다!",2));
     }
 }

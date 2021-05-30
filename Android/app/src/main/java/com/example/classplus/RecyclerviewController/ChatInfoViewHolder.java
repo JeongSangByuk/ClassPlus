@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.R;
 
-public class ChatViewHolder extends RecyclerView.ViewHolder {
+public class ChatInfoViewHolder extends RecyclerView.ViewHolder {
 
     protected FrameLayout frameLayout;
     protected TextView name;
@@ -19,7 +19,7 @@ public class ChatViewHolder extends RecyclerView.ViewHolder {
     protected TextView lastTime;
     protected ImageView chatImg;
 
-    public ChatViewHolder(@NonNull View itemView) {
+    public ChatInfoViewHolder(@NonNull View itemView) {
         super(itemView);
         frameLayout = (FrameLayout) itemView.findViewById(R.id.parent_layout_item_chatinfo_list);
         name = itemView.findViewById(R.id.tv_itemmsg_name);

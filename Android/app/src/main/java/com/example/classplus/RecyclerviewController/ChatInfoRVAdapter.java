@@ -2,7 +2,6 @@ package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.example.classplus.R;
 
 import java.util.ArrayList;
 
-public class ChatRVAdapter extends RecyclerView.Adapter<ChatViewHolder> {
+public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> {
 
     private View view;
     private Context context;
@@ -25,24 +24,24 @@ public class ChatRVAdapter extends RecyclerView.Adapter<ChatViewHolder> {
     private ArrayList<ChatRoomInfo> chatList;
     private MainActivity mainActivity;
 
-    public ChatRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList) {
+    public ChatInfoRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList) {
         this.context = context;
         this.chatList = chatList;
     }
 
     @NonNull
     @Override
-    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChatInfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_room_list, parent, false);
 
 
-        ChatViewHolder holder = new ChatViewHolder(view);
+        ChatInfoViewHolder holder = new ChatInfoViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatInfoViewHolder holder, int position) {
 
         holder.name.setText(chatList.get(position).getName());
         holder.lastTime.setText(chatList.get(position).getLastTime());

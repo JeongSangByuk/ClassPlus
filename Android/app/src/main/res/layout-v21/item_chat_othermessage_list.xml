@@ -2,10 +2,12 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/parent_layout_item_chatinfo_list"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout_item_otherchatmessage_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true">
+    android:clickable="true"
+    tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,13 +24,13 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/iv_itemmsg_image"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/study1"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/study5"
                 app:riv_corner_radius="10dp"
-                app:riv_oval="false" />
+                app:riv_oval="true" />
 
 
             <LinearLayout
@@ -41,7 +43,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="7dp"
                     android:orientation="horizontal">
 
@@ -52,35 +54,45 @@
                         android:fontFamily="@font/nanumsquareb"
                         android:paddingLeft="10dp"
 
-                        android:text="운영체제 전체 대화방"
-                        android:textColor="@color/black"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/tv_itemmsg_time"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-
-                        android:fontFamily="@font/nanumsquareb"
-                        android:gravity="right"
-                        android:paddingRight="10dp"
-                        android:text="21:44:34"
+                        android:text="정상벽"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_itemmsg_lastchat"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanumsquarer"
-                    android:paddingLeft="10dp"
+                    android:orientation="horizontal">
 
-                    android:text="이번주 과제 공지합니다."
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/tv_itemmsg_lastchat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_msg_text_item"
+                        android:fontFamily="@font/nanumsquarer"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+
+                        android:text="여러분들 워크 스택 확인해주세요!여러분들 워크 스택 확인해주세요!"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/tv_itemmsg_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+
+                        android:fontFamily="@font/nanumsquarer"
+                        android:layout_gravity="bottom"
+                        android:paddingLeft="10dp"
+                        android:paddingBottom="5dp"
+                        android:text="21:44"
+                        android:textColor="@color/black"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
