@@ -7,19 +7,32 @@ public class ChatData {
     private String message;
     private String time;
     private int userImg;
+    private boolean isMe;
 
-    public ChatData(String userName, String message, String time) {
-        this.userName = userName;
-        this.message = message;
-        this.time = time;
-        this.userImg = R.drawable.study2;
-    }
+    public ChatData(){}
 
-    public ChatData(String userName, String message, String time, int userImg) {
+//    public ChatData(String userName, String message, String time,boolean isMe) {
+//        this.userName = userName;
+//        this.message = message;
+//        this.time = time;
+//        this.userImg = R.drawable.study2;
+//        this.isMe = isMe;
+//    }
+
+    public ChatData(String userName, String message, String time, int userImg, boolean isMe) {
         this.userName = userName;
         this.message = message;
         this.time = time;
         this.userImg = userImg;
+        this.isMe = isMe;
+    }
+
+    public boolean isMe() {
+        return isMe;
+    }
+
+    public void setMe(boolean me) {
+        isMe = me;
     }
 
     public String getUserName() {

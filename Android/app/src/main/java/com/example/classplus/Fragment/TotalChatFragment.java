@@ -39,7 +39,7 @@ public class TotalChatFragment extends Fragment {
         return view;
     }
     public void testInit(){
-        
+
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
         chatRoomInfoList.add(new ChatRoomInfo("멀티미디어 프로그래밍","18:42","과제 제출 공지합니다.",0));
         chatRoomInfoList.add(new ChatRoomInfo("오픈 소스","14:15","블랙보드 과제 확인하세요.",1));
