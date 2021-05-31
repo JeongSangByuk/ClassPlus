@@ -24,6 +24,13 @@ public class TeamChatFragment extends Fragment {
     private View view;
     private ArrayList<ChatRoomInfo> chatRoomInfoList;
 
+    //test login
+    private String user_email;
+
+    public TeamChatFragment(String user_email) {
+        this.user_email = user_email;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,7 +40,7 @@ public class TeamChatFragment extends Fragment {
 
         testInit(); //테스트 데이터 삽입.
 
-        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList);
+        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList,this.user_email);
         recyclerviewTotalChat.setAdapter(totalChatRVAdapter);
 
         return view;

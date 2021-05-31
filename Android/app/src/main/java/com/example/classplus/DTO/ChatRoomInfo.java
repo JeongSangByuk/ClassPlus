@@ -5,10 +5,12 @@ import com.example.classplus.R;
 import java.util.Random;
 
 public class ChatRoomInfo {
+    private int uuid;
     private String name;
     private String lastTime;
     private String lastChat;
     private int img;
+
 
     public ChatRoomInfo(String name, String lastTime, String lastChat,int img) {
         this.name = name;

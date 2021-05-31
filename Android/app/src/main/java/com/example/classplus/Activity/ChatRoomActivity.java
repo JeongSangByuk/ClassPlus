@@ -1,6 +1,7 @@
 package com.example.classplus.Activity;
 
 import android.app.Application;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +45,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private DatabaseReference dbRef;
     private String chatRoomName;
 
+    //test id
+    private String user_email;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +56,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         setStatusBar();
 
         chatRoomName = "TEST1";
+        // test login
+        Intent intent = getIntent();
+        user_email = intent.getStringExtra("user_id");
+        Log.d("qwe",user_email);
+
 
         //firebase DB Connect
         FirebaseApp.initializeApp(this);
@@ -63,7 +72,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatDataList = new ArrayList<>();
 
         chatRecyclerView = findViewById(R.id.recyclerview_chatroom);
-        chatMessageRVAdapter = new ChatMessageRVAdapter(getApplicationContext(), chatDataList, true);
+        chatMessageRVAdapter = new ChatMessageRVAdapter(getApplicationContext(), chatDataList, user_email);
         chatRecyclerView.setAdapter(chatMessageRVAdapter);
 
         setEventListener();
@@ -95,7 +104,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 ChatData chatData = snapshot.getValue(ChatData.class);  // chatData를 가져오고
+
+                // 내가 보낸 메세지일 경우 그냥 리턴
+                if(chatData.getUser_email().equals(user_email))
+                    return;
+
                 chatDataList.add(chatData);
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
@@ -154,7 +169,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
 
                 //firebase 데이터 삽입 및 리사이클러뷰 업데이트
-                ChatData addedData = new ChatData("나", messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2, true);
+                ChatData addedData = new ChatData(user_email,user_email, messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2);
                 chatDataList.add(addedData);
                 dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).push().setValue(addedData);
 

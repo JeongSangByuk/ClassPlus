@@ -3,36 +3,28 @@ package com.example.classplus.DTO;
 import com.example.classplus.R;
 
 public class ChatData {
+    private String user_email;
     private String userName;
     private String message;
     private String time;
     private int userImg;
-    private boolean isMe;
 
     public ChatData(){}
 
-//    public ChatData(String userName, String message, String time,boolean isMe) {
-//        this.userName = userName;
-//        this.message = message;
-//        this.time = time;
-//        this.userImg = R.drawable.study2;
-//        this.isMe = isMe;
-//    }
-
-    public ChatData(String userName, String message, String time, int userImg, boolean isMe) {
+    public ChatData(String user_email, String userName, String message, String time, int userImg) {
+        this.user_email = user_email;
         this.userName = userName;
         this.message = message;
         this.time = time;
         this.userImg = userImg;
-        this.isMe = isMe;
     }
 
-    public boolean isMe() {
-        return isMe;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public void setMe(boolean me) {
-        isMe = me;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
     public String getUserName() {

@@ -10,18 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.R;
 
-public class ChatMessageViewHolder extends RecyclerView.ViewHolder {
+public class MyChatMessageViewHolder extends RecyclerView.ViewHolder {
 
     protected TextView msg;
     protected TextView time;
 
 
-    public ChatMessageViewHolder(@NonNull View itemView) {
+    public MyChatMessageViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        // my message
         msg = itemView.findViewById(R.id.tv_itemmychat_msg);
-        time = itemView.findViewById(R.id.tv_itemmsg_time);
+        time = itemView.findViewById(R.id.tv_itemmymsg_time);
     }
 
 }
