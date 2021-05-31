@@ -42,9 +42,9 @@ public class TeamChatFragment extends Fragment {
     public void testInit(){
 
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
-        chatRoomInfoList.add(new ChatRoomInfo("운영 체제 팀프로젝트","22:51","워크 스택확인해주세요",2));
-        chatRoomInfoList.add(new ChatRoomInfo("오픈 소스 2조","18:15","안녕하세요",4));
-        chatRoomInfoList.add(new ChatRoomInfo("고급 c 조교방","13:12","넵넵!",5));
+        chatRoomInfoList.add(new ChatRoomInfo(0, "운영 체제 팀프로젝트","22:51","워크 스택확인해주세요",2));
+        chatRoomInfoList.add(new ChatRoomInfo(1, "오픈 소스 2조","18:15","안녕하세요",4));
+        chatRoomInfoList.add(new ChatRoomInfo(2, "고급 c 조교방","13:12","넵넵!",5));
 
 
     }

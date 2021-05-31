@@ -18,6 +18,7 @@ import com.example.classplus.Fragment.MyPageFragment;
 import com.example.classplus.Fragment.TotalChatFragment;
 import com.example.classplus.Fragment.SettingFragment;
 import com.example.classplus.R;
+import com.example.classplus.firebase.FirebaseConnector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setStatusBar();
         startActivity();
+        FirebaseConnector.getInstance(this);
     }
 
     public void startActivity() {

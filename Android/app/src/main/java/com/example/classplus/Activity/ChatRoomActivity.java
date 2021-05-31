@@ -1,6 +1,7 @@
 package com.example.classplus.Activity;
 
 import android.app.Application;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.ChatMessageRVAdapter;
+import com.example.classplus.firebase.FirebaseConnector;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +37,7 @@ import java.util.Date;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
+
     private View messageSendBnt;
     private EditText messageEdittext;
     private RecyclerView chatRecyclerView;
@@ -43,7 +46,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
     private String chatRoomName;
-
+    private int chatRoomUUID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,12 +54,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatroom);
         setStatusBar();
 
-        chatRoomName = "TEST1";
+        Intent nowIntent = getIntent();
+        chatRoomName = nowIntent.getStringExtra("name");
+        chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
 
         //firebase DB Connect
-        FirebaseApp.initializeApp(this);
-        database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
+        dbRef = FirebaseConnector.getDatabaseReference();
 
         messageSendBnt = findViewById(R.id.bnt_chat_send);
         messageEdittext = findViewById(R.id.et_chatcontext);

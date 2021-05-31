@@ -5,12 +5,15 @@ import com.example.classplus.R;
 import java.util.Random;
 
 public class ChatRoomInfo {
+
+    int uuid;
     private String name;
     private String lastTime;
     private String lastChat;
     private int img;
 
-    public ChatRoomInfo(String name, String lastTime, String lastChat,int img) {
+    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
+        uuid = this.uuid;
         this.name = name;
         this.lastTime = lastTime;
         this.lastChat = lastChat;
@@ -70,4 +73,7 @@ public class ChatRoomInfo {
     public void setImg(int img) {
         this.img = img;
     }
+
+    public int getUUID() { return uuid;}
+
 }

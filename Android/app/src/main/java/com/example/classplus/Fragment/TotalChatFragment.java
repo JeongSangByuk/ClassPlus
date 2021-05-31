@@ -41,8 +41,8 @@ public class TotalChatFragment extends Fragment {
     public void testInit(){
 
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
-        chatRoomInfoList.add(new ChatRoomInfo("멀티미디어 프로그래밍","18:42","과제 제출 공지합니다.",0));
-        chatRoomInfoList.add(new ChatRoomInfo("오픈 소스","14:15","블랙보드 과제 확인하세요.",1));
-        chatRoomInfoList.add(new ChatRoomInfo("고급 C프로그래밍 및 실습","12:11","질문 있습니다!",2));
+        chatRoomInfoList.add(new ChatRoomInfo(3, "멀티미디어 프로그래밍","18:42","과제 제출 공지합니다.",0));
+        chatRoomInfoList.add(new ChatRoomInfo(4, "오픈 소스","14:15","블랙보드 과제 확인하세요.",1));
+        chatRoomInfoList.add(new ChatRoomInfo(5, "고급 C프로그래밍 및 실습","12:11","질문 있습니다!",2));
     }
 }
