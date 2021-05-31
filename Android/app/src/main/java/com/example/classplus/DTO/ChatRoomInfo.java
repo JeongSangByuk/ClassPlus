@@ -10,6 +10,7 @@ public class ChatRoomInfo {
     private String lastTime;
     private String lastChat;
     private int img;
+    private int totalNum;
 
 
     public ChatRoomInfo(String name, String lastTime, String lastChat,int img) {

@@ -34,6 +34,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import gun0912.tedkeyboardobserver.TedKeyboardObserver;
+
 public class ChatRoomActivity extends AppCompatActivity {
 
     private View messageSendBnt;
@@ -43,7 +45,10 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ArrayList<ChatData> chatDataList;
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
-    private String chatRoomName;
+    private String chatRoomUUID;
+
+    // 처음 방에 입장했을때를 가르키는 boolean
+    private boolean isFirstAccess;
 
     //test id
     private String user_email;
@@ -55,7 +60,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatroom);
         setStatusBar();
 
-        chatRoomName = "TEST1";
+        isFirstAccess = true;
+
+        chatRoomUUID = "TEST1"; // 이게 채팅창의 UUID여야 한다.
         // test login
         Intent intent = getIntent();
         user_email = intent.getStringExtra("user_id");
@@ -77,7 +84,10 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         setEventListener();
 
-
+        // 키보드 감지 리스너
+        new TedKeyboardObserver(this).listen(isShow->{
+            chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
+        });
 
 
     }
@@ -101,14 +111,14 @@ public class ChatRoomActivity extends AppCompatActivity {
     private void setEventListener(){
 
         // 데이터 추가될 때 추가해주는 리스너, 즉 내가 다른 사람의 채팅이 올때.
-        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).addChildEventListener(new ChildEventListener() {
+        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomUUID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                 ChatData chatData = snapshot.getValue(ChatData.class);  // chatData를 가져오고
 
-                // 내가 보낸 메세지일 경우 그냥 리턴
-                if(chatData.getUser_email().equals(user_email))
+                // 내가 보낸 메세지일 경우 그냥 리턴 , but 맨처음 에는 return 하지 않는다!
+                if(!isFirstAccess && chatData.getUser_email().equals(user_email))
                     return;
 
                 chatDataList.add(chatData);
@@ -138,7 +148,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
 
         //  맨 처음 채팅방 진입시 데이터 읽어오는 리스너
-        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).addValueEventListener(new ValueEventListener() {
+        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomUUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -150,6 +160,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                     chatMessageRVAdapter.notifyDataSetChanged();
                     chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
+                    isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
                 }
             }
 
@@ -171,11 +182,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //firebase 데이터 삽입 및 리사이클러뷰 업데이트
                 ChatData addedData = new ChatData(user_email,user_email, messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2);
                 chatDataList.add(addedData);
-                dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).push().setValue(addedData);
+                isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
+                dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomUUID).push().setValue(addedData);
 
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
                 messageEdittext.setText("");
+
             }
         });
 

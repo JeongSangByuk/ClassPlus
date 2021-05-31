@@ -52,7 +52,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nanumsquareb"
-                        android:paddingLeft="10dp"
 
                         android:text="정상벽"
                         android:textColor="@color/black"
