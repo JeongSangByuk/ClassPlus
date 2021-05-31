@@ -35,7 +35,6 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_room_list, parent, false);
 
-
         ChatInfoViewHolder holder = new ChatInfoViewHolder(view);
         return holder;
     }
