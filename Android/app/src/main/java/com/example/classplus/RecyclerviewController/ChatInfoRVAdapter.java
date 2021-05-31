@@ -50,9 +50,10 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ChatRoomActivity.class);
-                context.startActivity(intent);
                 intent.putExtra("uuid", chatList.get(position).getUUID());
                 intent.putExtra("name", chatList.get(position).getName());
+                context.startActivity(intent);
+
             }
         });
     }

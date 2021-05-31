@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRoomName = nowIntent.getStringExtra("name");
         chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
 
+        ((TextView) findViewById(R.id.chat_name)).setText(chatRoomName);
+
         //firebase DB Connect
         dbRef = FirebaseConnector.getDatabaseReference();
 
@@ -70,9 +73,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRecyclerView.setAdapter(chatMessageRVAdapter);
 
         setEventListener();
-
-
-
 
     }
 
@@ -95,7 +95,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private void setEventListener(){
 
         // 데이터 추가될 때 추가해주는 리스너, 즉 내가 다른 사람의 채팅이 올때.
-        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).addChildEventListener(new ChildEventListener() {
+        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ChatData chatData = snapshot.getValue(ChatData.class);  // chatData를 가져오고
@@ -126,7 +126,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
 
         //  맨 처음 채팅방 진입시 데이터 읽어오는 리스너
-        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).addValueEventListener(new ValueEventListener() {
+        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -159,7 +159,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //firebase 데이터 삽입 및 리사이클러뷰 업데이트
                 ChatData addedData = new ChatData("나", messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2, true);
                 chatDataList.add(addedData);
-                dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(chatRoomName).push().setValue(addedData);
+                dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
 
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);

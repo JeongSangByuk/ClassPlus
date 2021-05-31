@@ -19,7 +19,7 @@ public class FirebaseConnector {
 
     public static FirebaseConnector getInstance(Activity activity) {
 
-        if(ourInstance == null) ourInstance = new FirebaseConnector(activity);
+        ourInstance = new FirebaseConnector(activity);
         return ourInstance;
     }
 
