@@ -1,6 +1,5 @@
 package com.example.chat.DTO;
 
-import com.example.chat.ChatService;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.socket.WebSocketSession;
