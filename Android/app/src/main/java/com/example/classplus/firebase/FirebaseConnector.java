@@ -23,7 +23,7 @@ public class FirebaseConnector {
         return ourInstance;
     }
 
-    static FirebaseConnector getInstance() {
+    public static FirebaseConnector getInstance() {
         return ourInstance;
     }
 
@@ -35,10 +35,10 @@ public class FirebaseConnector {
         dbRef = database.getReference();
     }
 
-    public static FirebaseDatabase getFirebaseDatabase(){
+    public FirebaseDatabase getFirebaseDatabase(){
         return database;
     }
 
-    public static DatabaseReference getDatabaseReference(){ return dbRef; }
+    public DatabaseReference getDatabaseReference(){ return dbRef; }
 
 }

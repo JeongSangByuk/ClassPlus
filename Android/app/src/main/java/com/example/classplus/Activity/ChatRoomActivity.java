@@ -80,7 +80,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
         //firebase DB Connect
-        dbRef = FirebaseConnector.getDatabaseReference();
+        dbRef = FirebaseConnector.getInstance().getDatabaseReference();
 
         messageSendBnt = findViewById(R.id.bnt_chat_send);
         messageEdittext = findViewById(R.id.et_chatcontext);
@@ -196,6 +196,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
 
                 isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
+
 
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
