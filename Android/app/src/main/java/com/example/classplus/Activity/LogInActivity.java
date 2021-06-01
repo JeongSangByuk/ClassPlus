@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.classplus.AppManager;
+import com.example.classplus.DTO.User;
+import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.R;
 
 public class LogInActivity extends AppCompatActivity {
@@ -22,6 +25,7 @@ public class LogInActivity extends AppCompatActivity {
     private EditText idEditText;
     private EditText pwEditText;
     private TextView logInButton;
+    IModel model;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -48,7 +52,20 @@ public class LogInActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("user_id",idEditText.getText().toString());
                 startActivity(intent); //다음화면으로 넘어감
+
+                // DB 구현된 경우
+
+                /*
+                User user = (User) model.login(idEditText.getText().toString(), pwEditText.getText().toString());
+
+                if(user == null) return;
+
+                AppManager.getInstance().setLoginUser(user);
+                */
+
+
                 finish();
+
             }
         });
     }
