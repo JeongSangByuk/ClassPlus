@@ -1,6 +1,6 @@
 <?php
 
-    $host = '49.50.175.57';
+    $host = '106.10.33.192';
     $username = 'root'; # MySQL 계정 아이디
     $password = '0000'; # MySQL 계정 패스워드
     $dbname = 'classplus_data';  # DATABASE 이름
