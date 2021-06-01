@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -17,6 +19,8 @@ import com.example.classplus.R;
 public class LogInActivity extends AppCompatActivity {
 
 
+    private EditText idEditText;
+    private EditText pwEditText;
     private TextView logInButton;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -28,11 +32,21 @@ public class LogInActivity extends AppCompatActivity {
         setStatusBar();
         setUnderLine();
 
+        idEditText = findViewById(R.id.et_login_id);
+        pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // 우선 테스트용으로 id 값 있을 경우만, 넘어가게끔
+                if(idEditText.getText().length() == 0){
+                    Toast.makeText(getApplicationContext(), "ID를 입력해주세요.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("user_id",idEditText.getText().toString());
                 startActivity(intent); //다음화면으로 넘어감
                 finish();
             }

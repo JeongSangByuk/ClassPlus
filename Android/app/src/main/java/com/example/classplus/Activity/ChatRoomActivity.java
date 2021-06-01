@@ -36,6 +36,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import gun0912.tedkeyboardobserver.TedKeyboardObserver;
+
 public class ChatRoomActivity extends AppCompatActivity {
 
 
@@ -49,6 +51,14 @@ public class ChatRoomActivity extends AppCompatActivity {
     private String chatRoomName;
     private int chatRoomUUID;
 
+
+    // 처음 방에 입장했을때를 가르키는 boolean
+    private boolean isFirstAccess;
+
+    //test id
+    private String user_email;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +71,14 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.chat_name)).setText(chatRoomName);
 
+        isFirstAccess = true;
+
+        // test login
+        Intent intent = getIntent();
+        user_email = intent.getStringExtra("user_id");
+        Log.d("qwe",user_email);
+
+
         //firebase DB Connect
         dbRef = FirebaseConnector.getDatabaseReference();
 
@@ -69,10 +87,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatDataList = new ArrayList<>();
 
         chatRecyclerView = findViewById(R.id.recyclerview_chatroom);
-        chatMessageRVAdapter = new ChatMessageRVAdapter(getApplicationContext(), chatDataList, true);
+        chatMessageRVAdapter = new ChatMessageRVAdapter(getApplicationContext(), chatDataList, user_email);
         chatRecyclerView.setAdapter(chatMessageRVAdapter);
 
         setEventListener();
+
+        // 키보드 감지 리스너
+        new TedKeyboardObserver(this).listen(isShow->{
+            chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
+        });
 
     }
 
@@ -96,9 +119,16 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         // 데이터 추가될 때 추가해주는 리스너, 즉 내가 다른 사람의 채팅이 올때.
         dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                 ChatData chatData = snapshot.getValue(ChatData.class);  // chatData를 가져오고
+
+                // 내가 보낸 메세지일 경우 그냥 리턴 , but 맨처음 에는 return 하지 않는다!
+                if(!isFirstAccess && chatData.getUser_email().equals(user_email))
+                    return;
+
                 chatDataList.add(chatData);
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
@@ -126,7 +156,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
 
         //  맨 처음 채팅방 진입시 데이터 읽어오는 리스너
+
         dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -138,6 +170,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     }
                     chatMessageRVAdapter.notifyDataSetChanged();
                     chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
+                    isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
                 }
             }
 
@@ -157,13 +190,17 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
 
                 //firebase 데이터 삽입 및 리사이클러뷰 업데이트
-                ChatData addedData = new ChatData("나", messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2, true);
+                ChatData addedData = new ChatData(user_email,user_email, messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2);
                 chatDataList.add(addedData);
+
                 dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
+
+                isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
 
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
                 messageEdittext.setText("");
+
             }
         });
 

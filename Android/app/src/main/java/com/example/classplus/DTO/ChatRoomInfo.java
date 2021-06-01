@@ -6,11 +6,13 @@ import java.util.Random;
 
 public class ChatRoomInfo {
 
-    int uuid;
+    private int uuid;
     private String name;
     private String lastTime;
     private String lastChat;
     private int img;
+    private int totalNum;
+
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
         uuid = this.uuid;

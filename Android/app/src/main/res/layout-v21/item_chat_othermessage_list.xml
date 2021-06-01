@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/iv_itemmsg_image"
+                android:id="@+id/iv_itemothermsg_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="10dp"
@@ -48,11 +48,10 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_itemmsg_name"
+                        android:id="@+id/tv_itemothermsg_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nanumsquareb"
-                        android:paddingLeft="10dp"
 
                         android:text="정상벽"
                         android:textColor="@color/black"
@@ -66,7 +65,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_itemmsg_lastchat"
+                        android:id="@+id/tv_itemothermsg_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_msg_text_item"
@@ -79,7 +78,7 @@
                         android:textSize="12dp" />
 
                     <TextView
-                        android:id="@+id/tv_itemmsg_time"
+                        android:id="@+id/tv_itemothermsg_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"

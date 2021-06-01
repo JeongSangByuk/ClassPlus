@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction transaction;
 
+    //test용 user_id
+    public String user_email;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setStatusBar();
         startActivity();
         FirebaseConnector.getInstance(this);
+        // test login
+        Intent intent = getIntent();
+        user_email = intent.getStringExtra("user_id");
+        Log.d("qwe",user_email);
+
+
     }
 
     public void startActivity() {
@@ -58,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.bottom_navigation_chat:
-                    replaceFragment(new TeamChatFragment());
+                    replaceFragment(new TeamChatFragment(user_email));
                     break;
 
                 case R.id.bottom_navigation_total_chat:
-                    replaceFragment(new TotalChatFragment());
+                    replaceFragment(new TotalChatFragment(user_email));
                     break;
 
                 case R.id.bottom_navigation_setting:

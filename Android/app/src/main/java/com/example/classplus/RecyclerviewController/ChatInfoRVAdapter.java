@@ -23,10 +23,12 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
     private LayoutInflater layoutInflater;
     private ArrayList<ChatRoomInfo> chatList;
     private MainActivity mainActivity;
+    private String user_email;
 
-    public ChatInfoRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList) {
+    public ChatInfoRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList, String user_email) {
         this.context = context;
         this.chatList = chatList;
+        this.user_email = user_email;
     }
 
     @NonNull
@@ -52,6 +54,7 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
                 Intent intent = new Intent(context, ChatRoomActivity.class);
                 intent.putExtra("uuid", chatList.get(position).getUUID());
                 intent.putExtra("name", chatList.get(position).getName());
+                intent.putExtra("user_id",user_email);
                 context.startActivity(intent);
 
             }
