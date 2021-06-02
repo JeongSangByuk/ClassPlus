@@ -7,7 +7,7 @@ import com.example.classplus.Constant.*;
 
 public interface IModel<User> {
 
-    User login(String email, String password); //login 못하면 User = NULL 반환
+    User login(String email); //login 못하면 User = NULL 반환
 
     User getUserinfo(String email);
 

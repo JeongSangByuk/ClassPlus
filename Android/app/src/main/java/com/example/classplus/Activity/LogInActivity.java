@@ -1,10 +1,13 @@
 package com.example.classplus.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,10 +17,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.classplus.AppManager;
-import com.example.classplus.DTO.User;
+import com.example.classplus.Constant;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.R;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -25,7 +33,8 @@ public class LogInActivity extends AppCompatActivity {
     private EditText idEditText;
     private EditText pwEditText;
     private TextView logInButton;
-    IModel model;
+    private char result2;
+    private String email;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -42,33 +51,16 @@ public class LogInActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                email = idEditText.getText().toString();
+                String password = pwEditText.getText().toString();
 
-                // 우선 테스트용으로 id 값 있을 경우만, 넘어가게끔
-                if(idEditText.getText().length() == 0){
-                    Toast.makeText(getApplicationContext(), "ID를 입력해주세요.", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("user_id",idEditText.getText().toString());
-                startActivity(intent); //다음화면으로 넘어감
-
-                // DB 구현된 경우
-
-                /*
-                User user = (User) model.login(idEditText.getText().toString(), pwEditText.getText().toString());
-
-                if(user == null) return;
-
-                AppManager.getInstance().setLoginUser(user);
-                */
-
-
-                finish();
-
+                // 로그인
+                Login task = new Login();
+                task.execute("http://" + Constant.IP_ADDRESS + "/login.php", email,password);
             }
         });
     }
+
 
     // 상태바 색 바꾸기
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

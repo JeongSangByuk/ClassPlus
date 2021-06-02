@@ -1,0 +1,42 @@
+<?php
+   error_reporting(E_ALL);
+    ini_set('display_errors',1);
+
+    include('dbcon.php');
+
+   //  $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
+
+    $email= isset($_GET['email']) ? $_GET['email'] : '';
+    $password= isset($_GET['password']) ? $_GET['password'] : '';
+      $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
+
+if ($email != "" ){
+     $sql ="select * from user where email='$email' and password='$password'";
+     $stmt = $con->prepare($sql);
+     $stmt->execute();
+
+    if ($stmt->rowCount() == 0){
+        echo "'";
+        echo $email,", ",$password;
+        echo "'은 찾을 수 없습니다.";
+    }else{
+   	$data = array();
+        while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+        	extract($row);
+         	echo '1';
+        }
+        if (!$android) {
+            echo "<pre>";
+            print_r($data);
+            echo '</pre>';
+        }else {
+            header('Content-Type: application/json; charset=utf8');
+            $json = json_encode(array("class_plus"=>$data), JSON_PRETTY_PRINT+JSON_UNESCAPED_UNICODE);
+            echo $json;
+        }
+    }
+}
+else {
+    #echo ".";
+}
+?>
