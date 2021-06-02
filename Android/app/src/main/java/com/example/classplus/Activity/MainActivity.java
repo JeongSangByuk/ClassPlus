@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         user_email = intent.getStringExtra("user_id");
         Log.d("qwe",user_email);
 
-
     }
 
     public void startActivity() {

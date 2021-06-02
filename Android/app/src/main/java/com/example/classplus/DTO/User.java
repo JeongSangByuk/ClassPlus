@@ -15,7 +15,6 @@ public class User {
         this.isStudent = isStudent;
     }
 
-
     public String getEmail() {
         return email;
     }
