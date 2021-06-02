@@ -15,10 +15,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.classplus.AppManager;
+import com.example.classplus.DTO.User;
 import com.example.classplus.Fragment.TeamChatFragment;
 import com.example.classplus.Fragment.MyPageFragment;
 import com.example.classplus.Fragment.TotalChatFragment;
 import com.example.classplus.Fragment.SettingFragment;
+import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.R;
 import com.example.classplus.firebase.FirebaseConnector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     // FrameLayout에 각 메뉴의 Fragment를 바꿔 줌
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction transaction;
+    private IModel model;
 
     //test용 user_id
     public String user_email;
@@ -40,10 +44,15 @@ public class MainActivity extends AppCompatActivity {
         setStatusBar();
         startActivity();
         FirebaseConnector.getInstance(this);
-        // test login
+        
+        // 현재 로그인된 email 추가
         Intent intent = getIntent();
-        user_email = intent.getStringExtra("user_id");
-        Log.d("qwe",user_email);
+        user_email = intent.getStringExtra("email");
+        //Log.d("qqq", user_email + "\n\n");
+        //User user = (User) model.login(user_email);
+        //if(user == null) return;
+        //AppManager.getInstance().setLoginUser(user);
+        //Log.d("qqq",AppManager.getLoginUser().getEmail());
 
     }
 
