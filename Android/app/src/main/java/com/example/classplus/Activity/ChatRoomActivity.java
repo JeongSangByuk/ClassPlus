@@ -67,8 +67,8 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         Intent nowIntent = getIntent();
         chatRoomName = nowIntent.getStringExtra("name");
-        chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
-
+        //chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
+        chatRoomUUID = 2;
         ((TextView) findViewById(R.id.chat_name)).setText(chatRoomName);
 
         isFirstAccess = true;
