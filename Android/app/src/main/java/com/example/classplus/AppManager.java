@@ -10,17 +10,15 @@ public class AppManager {
         return ourInstance;
     }
 
-    static User loginUser;
-
     private AppManager() {
 
     }
 
-    public User getLoginUser() {
-        return loginUser;
-    }
-
+    private static User loginUser;
     public void setLoginUser(User loginUser) {
-        AppManager.loginUser = loginUser;
+        this.loginUser = loginUser;
+    }
+    public static User getLoginUser() {
+        return loginUser;
     }
 }

@@ -47,11 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 현재 로그인된 email 추가
         Intent intent = getIntent();
-        user_email = intent.getStringExtra("user_id");
-        User user = (User) model.login(user_email);
-        if(user == null) return;
-        AppManager.getInstance().setLoginUser(user);
-
+        user_email = intent.getStringExtra("email");
+        //Log.d("qqq", user_email + "\n\n");
+        //User user = (User) model.login(user_email);
+        //if(user == null) return;
+        //AppManager.getInstance().setLoginUser(user);
+        //Log.d("qqq",AppManager.getLoginUser().getEmail());
 
     }
 
