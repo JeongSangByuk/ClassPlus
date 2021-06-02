@@ -61,6 +61,69 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
+    class Login extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            result2 = result.toString().charAt(0);
+
+            if (result2 == Constant.LOGIN_SUCCESS) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 다릅니다. ", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String email = (String) params[1];
+            String password = (String) params[2];
+
+            String serverURL = (String) params[0];
+            serverURL = serverURL + "?" + "email=" + email + "&password=" + password;
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.connect();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+
+                InputStream inputStream;
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                } else {
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    sb.append(line);
+                }
+                bufferedReader.close();
+                return sb.toString();
+
+            } catch (Exception e) {
+                return new String("Error: " + e.getMessage());
+            }
+        }
+    }
 
     // 상태바 색 바꾸기
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
