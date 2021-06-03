@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         /*
+        // uuid에 따른 채팅방 이름 가져옴
+        
         model = new MysqlImpl();     // IModel 생성
         String name = null;
         try {
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*  
         // 채팅방 생성 (관리자)
+        
         model = new MysqlImpl();     // IModel 생성
         int uuid = 0;
         try {
@@ -94,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
+        /*  
+        // 로그인한 email에 따라서 uuid값 가져옴
+        
         model = new MysqlImpl();     // IModel 생성
         ArrayList<ChatRoomToUser> user = null;
         try {
@@ -104,10 +110,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        for(int i = 0; i < user.size(); i++) {
-            Log.d("asd", "uuid 1 : " + user.get(i).getUuid() + "email 1 : " + user.get(i).getUser_email());
-        }
+        }*/
     }
 
     public void startActivity() {
