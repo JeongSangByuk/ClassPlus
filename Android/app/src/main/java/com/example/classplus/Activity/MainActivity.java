@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setStatusBar();
         startActivity();
         FirebaseConnector.getInstance(this);
-        
+
         /*
         // 유저 정보 가져오는 코드
 
