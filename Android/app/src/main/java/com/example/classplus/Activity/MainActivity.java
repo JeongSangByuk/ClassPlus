@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.classplus.AppManager;
+import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Fragment.TeamChatFragment;
 import com.example.classplus.Fragment.MyPageFragment;
@@ -29,6 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
-        /*
+        /*  
+        // 채팅방 생성 (관리자)
         model = new MysqlImpl();     // IModel 생성
         int uuid = 0;
         try {
@@ -89,6 +92,22 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
+
+
+        model = new MysqlImpl();     // IModel 생성
+        ArrayList<ChatRoomToUser> user = null;
+        try {
+            user = model.getChattingRoomToUser(AppManager.getInstance().getLoginUser().getEmail());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for(int i = 0; i < user.size(); i++) {
+            Log.d("asd", "uuid 1 : " + user.get(i).getUuid() + "email 1 : " + user.get(i).getUser_email());
+        }
     }
 
     public void startActivity() {

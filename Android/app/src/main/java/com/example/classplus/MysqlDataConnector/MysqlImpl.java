@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.classplus.Activity.MainActivity;
 import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 
 import org.json.JSONArray;
@@ -19,6 +20,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 public class MysqlImpl implements IModel {
@@ -69,6 +72,30 @@ public class MysqlImpl implements IModel {
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
             String name = classplussObject.getString("name");
             return name;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException {
+        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email).get();
+
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
+            ArrayList<ChatRoomToUser> chatRoomToUsers = new ArrayList<ChatRoomToUser>();
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray classplusArray = jsonObject.getJSONArray("classplus");
+            for(int i=0; i<classplusArray.length(); i++)
+            {
+                JSONObject classplussObject = classplusArray.getJSONObject(i);
+
+                ChatRoomToUser chatroom = new ChatRoomToUser();
+                chatroom.setUser_email(user_email);
+                chatroom.setUuid(classplussObject.getInt("uuid"));
+                chatRoomToUsers.add(chatroom);
+            }
+            return chatRoomToUsers;
         } else {
             return null;
         }
