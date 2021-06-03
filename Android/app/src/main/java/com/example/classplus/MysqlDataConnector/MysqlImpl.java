@@ -59,8 +59,20 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public String getChattingName(int uuid) {
-        return null;
+    public String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException {
+        UserInformationSender task = new UserInformationSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonchattingname.php", String.valueOf(uuid)).get();
+
+        JSONObject jsonObject = new JSONObject(result);
+        JSONArray classplusArray = jsonObject.getJSONArray("classplus");
+        JSONObject classplussObject = classplusArray.getJSONObject(0);
+
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
+            String name = classplussObject.getString("name");
+            return name;
+        } else {
+            return null;
+        }
     }
 
     @Override

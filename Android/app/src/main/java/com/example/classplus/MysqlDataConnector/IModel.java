@@ -16,7 +16,7 @@ public interface IModel {
 
     User getUserinfo(String email) throws ExecutionException, InterruptedException, JSONException;
 
-    String getChattingName(int uuid); // 없는 uui == null 반환
+    String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException; // 없는 uui == null 반환
 
     int createChattingRoom(String roomName); // 채팅방 이름 후 uuid 반환
 
