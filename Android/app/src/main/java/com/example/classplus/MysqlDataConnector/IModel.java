@@ -4,14 +4,17 @@ package com.example.classplus.MysqlDataConnector;
 import com.example.classplus.Constant;
 
 import com.example.classplus.Constant.*;
+import com.example.classplus.DTO.User;
+
+import org.json.JSONException;
 
 import java.util.concurrent.ExecutionException;
 
-public interface IModel<User> {
+public interface IModel {
 
     User login(String email, String password) throws ExecutionException, InterruptedException; //login 못하면 User = NULL 반환
 
-    User getUserinfo(String email);
+    User getUserinfo(String email) throws ExecutionException, InterruptedException, JSONException;
 
     String getChattingName(int uuid); // 없는 uui == null 반환
 

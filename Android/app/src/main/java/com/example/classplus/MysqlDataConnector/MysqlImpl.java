@@ -10,6 +10,10 @@ import com.example.classplus.Activity.MainActivity;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,11 +22,12 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class MysqlImpl implements IModel {
+    private String result;
 
     @Override
     public User login(String email, String password) throws ExecutionException, InterruptedException {
         IsLogin task = new IsLogin();
-        String result = task.execute("http://" + Constant.IP_ADDRESS + "/login.php", email, password).get();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/login.php", email, password).get();
 
         if(result.charAt(0) == Constant.LOGIN_SUCCESS) {
             User user = new User(email);
@@ -33,8 +38,24 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public User getUserinfo(String email) {
-        return null;
+    public User getUserinfo(String email) throws ExecutionException, InterruptedException, JSONException {
+        UserInformationSender task = new UserInformationSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonusertable.php", email).get();
+
+        JSONObject jsonObject = new JSONObject(result);
+        JSONArray classplusArray = jsonObject.getJSONArray("classplus");
+        JSONObject classplussObject = classplusArray.getJSONObject(0);
+
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
+            User user = new User();
+            user.setEmail(classplussObject.getString("email"));
+            user.setName(classplussObject.getString("name"));
+            user.setMajor(classplussObject.getString("major"));
+            //user.setStudent(Integer.parseInt(jsonObject.getString("isStudent")));
+            return user;
+        } else {
+            return null;
+        }
     }
 
     @Override

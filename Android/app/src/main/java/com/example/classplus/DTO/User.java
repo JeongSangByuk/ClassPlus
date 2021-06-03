@@ -7,6 +7,8 @@ public class User {
     private String major;
     private boolean isStudent;
 
+    public User() {}
+
     public User(String email) {
         this.email = email;
     }

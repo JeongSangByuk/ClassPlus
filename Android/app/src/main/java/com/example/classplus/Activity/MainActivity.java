@@ -22,9 +22,14 @@ import com.example.classplus.Fragment.MyPageFragment;
 import com.example.classplus.Fragment.TotalChatFragment;
 import com.example.classplus.Fragment.SettingFragment;
 import com.example.classplus.MysqlDataConnector.IModel;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 import com.example.classplus.firebase.FirebaseConnector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,16 +49,21 @@ public class MainActivity extends AppCompatActivity {
         setStatusBar();
         startActivity();
         FirebaseConnector.getInstance(this);
-/*
-        // 현재 로그인된 email 추가
-        Intent intent = getIntent();
-        user_email = intent.getStringExtra("email");
-        //Log.d("qqq", user_email + "\n\n");
-        //User user = (User) model.login(user_email);
-        //if(user == null) return;
-        //AppManager.getInstance().setLoginUser(user);
-        //Log.d("qqq",AppManager.getLoginUser().getEmail());*/
+        
+        /*
+        // 유저 정보 가져오는 코드
 
+        model = new MysqlImpl();     // IModel 생성
+        User user = null;
+        try {
+            user = (User) model.getUserinfo(AppManager.getInstance().getLoginUser().getEmail());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void startActivity() {
