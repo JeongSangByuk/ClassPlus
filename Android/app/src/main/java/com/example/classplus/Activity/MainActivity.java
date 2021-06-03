@@ -79,10 +79,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
+
+        /*
         model = new MysqlImpl();     // IModel 생성
         int uuid = 0;
-        uuid = model.createChattingRoom("운영체제", "qazkyj0310@gmail.com");        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
-
+        try {
+            uuid = model.createChattingRoom("운영체제", "qazkyj0310@gmail.com");        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void startActivity() {

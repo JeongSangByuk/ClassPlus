@@ -22,7 +22,6 @@ public class ChattingRoomCreator extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        Log.d("asd", "POST response  - " + result);
     }
 
     @Override
