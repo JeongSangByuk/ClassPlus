@@ -76,8 +76,10 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public int createChattingRoom(String roomName) {
-        return 0;
+    public int createChattingRoom(String roomName, String admin_email) {
+        ChattingRoomCreator task = new ChattingRoomCreator();
+        task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtable.php", roomName, admin_email);
+        return 1;
     }
 
     @Override
