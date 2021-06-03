@@ -1,13 +1,16 @@
-<?php 
+<?php
 
-    error_reporting(E_ALL); 
-    ini_set('display_errors',1); 
+    error_reporting(E_ALL);
+    ini_set('display_errors',1);
 
     include('dbcon.php');
 
 
-    if( ($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit']))
-    {
+    $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
+
+
+     if( (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) || $android )
+     {
 
         $uuid=$_POST['uuid'];
         $name=$_POST['name'];
@@ -21,7 +24,7 @@
         }
         else if(empty($admin_email)){
             $errMSG = "이메일을 입력하세요.";
-        } 
+        }
 
         if(!isset($errMSG))
         {
@@ -41,7 +44,7 @@
                 }
 
             } catch(PDOException $e) {
-                die("Database error: " . $e->getMessage()); 
+                die("Database error: " . $e->getMessage());
             }
         }
 
