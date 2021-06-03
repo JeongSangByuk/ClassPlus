@@ -4,10 +4,11 @@ package com.example.classplus.MysqlDataConnector;
 import com.example.classplus.Constant;
 
 import com.example.classplus.Constant.*;
+import com.example.classplus.DTO.User;
 
-public interface IModel<User> {
+public interface IModel {
 
-    User login(String email); //login 못하면 User = NULL 반환
+    User login(String email, String password); //login 못하면 User = NULL 반환
 
     User getUserinfo(String email);
 

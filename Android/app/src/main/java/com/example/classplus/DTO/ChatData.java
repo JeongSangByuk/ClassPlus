@@ -13,9 +13,8 @@ public class ChatData {
     private String message;
     private String time;
     private int userImg;
-
-
     private MessageType type;
+
 
     public ChatData(){}
 
@@ -29,7 +28,8 @@ public class ChatData {
     }
 
 
-    public ChatData(String userName, String message, String time, int userImg, MessageType type) {
+    public ChatData(String user_email, String userName, String message, String time, int userImg, MessageType type) {
+        this.user_email = user_email;
         this.userName = userName;
         this.message = message;
         this.time = time;

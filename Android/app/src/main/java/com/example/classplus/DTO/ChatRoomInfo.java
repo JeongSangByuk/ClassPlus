@@ -15,7 +15,7 @@ public class ChatRoomInfo {
 
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
-        uuid = this.uuid;
+        this.uuid = uuid;
         this.name = name;
         this.lastTime = lastTime;
         this.lastChat = lastChat;

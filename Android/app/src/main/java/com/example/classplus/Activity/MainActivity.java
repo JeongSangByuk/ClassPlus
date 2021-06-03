@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setStatusBar();
         startActivity();
         FirebaseConnector.getInstance(this);
-        
+
         // 현재 로그인된 email 추가
         Intent intent = getIntent();
         user_email = intent.getStringExtra("email");
