@@ -7,8 +7,6 @@ public class User {
     private String major;
     private boolean isStudent;
 
-    public User() {}
-
     public User(String email) {
         this.email = email;
     }
@@ -46,11 +44,11 @@ public class User {
         this.major = major;
     }
 
-    public boolean isStudent() {
+    public boolean getIsStudent() {
         return isStudent;
     }
 
-    public void setStudent(boolean student) {
+    public void setIsStudent(boolean student) {
         isStudent = student;
     }
 

@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
-
         /*
         model = new MysqlImpl();     // IModel 생성
         String name = null;

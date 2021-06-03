@@ -47,11 +47,10 @@ public class MysqlImpl implements IModel {
         JSONObject classplussObject = classplusArray.getJSONObject(0);
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
-            User user = new User();
-            user.setEmail(classplussObject.getString("email"));
-            user.setName(classplussObject.getString("name"));
-            user.setMajor(classplussObject.getString("major"));
-            //user.setStudent(Integer.parseInt(jsonObject.getString("isStudent")));
+            boolean isStudent = false;
+            if(classplussObject.getString("isStudent").equals("1")) isStudent = true;
+            User user = new User(classplussObject.getString("email"), classplussObject.getString("name"),
+                    classplussObject.getString("major"), isStudent);
             return user;
         } else {
             return null;
