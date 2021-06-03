@@ -60,8 +60,8 @@ public class MysqlImpl implements IModel {
 
     @Override
     public String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException {
-        UserInformationSender task = new UserInformationSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonchattingname.php", String.valueOf(uuid)).get();
+        ChattingNameSender task = new ChattingNameSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonchattingname.php", Integer.toString(uuid)).get();
 
         JSONObject jsonObject = new JSONObject(result);
         JSONArray classplusArray = jsonObject.getJSONArray("classplus");

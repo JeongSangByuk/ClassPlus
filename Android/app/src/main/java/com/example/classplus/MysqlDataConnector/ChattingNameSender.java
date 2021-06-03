@@ -2,6 +2,7 @@ package com.example.classplus.MysqlDataConnector;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -24,8 +25,7 @@ public class ChattingNameSender   extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String uuid = (String) params[1];
-
+        int uuid = Integer.parseInt(params[1]);
         String serverURL = (String) params[0];
         serverURL = serverURL + "?" + "uuid=" + uuid;
         try {
