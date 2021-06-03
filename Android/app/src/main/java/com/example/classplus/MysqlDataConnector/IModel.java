@@ -20,6 +20,7 @@ public interface IModel {
 
     String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException; // 없는 uui == null 반환
 
+    // email에 따라서 email에 맞는 uuid 가져옴
     ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException;
 
     int createChattingRoom(String roomName, String admin_email) throws ExecutionException, InterruptedException; // 채팅방 이름 후 uuid 반환
