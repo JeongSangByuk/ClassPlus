@@ -165,6 +165,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 // 맨 처음 시작일 경우
                 if (chatDataList.size() == 0) {
                     for (DataSnapshot tempSnapshot : snapshot.getChildren()) {
+
                         ChatData chatData = tempSnapshot.getValue(ChatData.class);
                         chatDataList.add(chatData);
                     }
