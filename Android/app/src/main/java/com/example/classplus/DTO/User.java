@@ -7,11 +7,15 @@ public class User {
     private String major;
     private boolean isStudent;
 
+    public User(String email) {
+        this.email = email;
+    }
+
     public User(String email, String name, String major, boolean isStudent)
     {
         this.email =email;
         this.name = name;
-        this. major = major;
+        this.major = major;
         this.isStudent = isStudent;
     }
 

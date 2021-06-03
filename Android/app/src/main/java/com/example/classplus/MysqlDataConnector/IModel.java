@@ -5,9 +5,11 @@ import com.example.classplus.Constant;
 
 import com.example.classplus.Constant.*;
 
+import java.util.concurrent.ExecutionException;
+
 public interface IModel<User> {
 
-    User login(String email); //login 못하면 User = NULL 반환
+    User login(String email, String password) throws ExecutionException, InterruptedException; //login 못하면 User = NULL 반환
 
     User getUserinfo(String email);
 
