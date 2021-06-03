@@ -17,6 +17,7 @@ public class ChatInfoViewHolder extends RecyclerView.ViewHolder {
     protected TextView name;
     protected TextView lastChat;
     protected TextView lastTime;
+    protected TextView newSignal;
     protected ImageView chatImg;
 
     public ChatInfoViewHolder(@NonNull View itemView) {
@@ -25,6 +26,7 @@ public class ChatInfoViewHolder extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.tv_itemmsg_name);
         lastChat = itemView.findViewById(R.id.tv_itemmsg_lastchat);
         lastTime = itemView.findViewById(R.id.tv_itemmsg_time);
+        newSignal = itemView.findViewById(R.id.tv_itemmsg_newsignal);
         chatImg = itemView.findViewById(R.id.iv_itemmsg_image);
     }
 

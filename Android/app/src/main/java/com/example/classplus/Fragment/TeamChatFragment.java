@@ -47,10 +47,10 @@ import java.util.Random;
 public class TeamChatFragment extends Fragment {
 
     private RecyclerView recyclerviewTotalChat;
-    private ChatInfoRVAdapter totalChatRVAdapter;
+    public ChatInfoRVAdapter totalChatRVAdapter;
     private View view;
     private Context context;
-    private ArrayList<ChatRoomInfo> chatRoomInfoList;
+    public ArrayList<ChatRoomInfo> chatRoomInfoList;
     private DatabaseReference dbRef;
     private SQLiteDatabase roomChatLocalReadableDB;
     private SQLiteDatabase roomChatLocalWritadbleDB;
@@ -154,11 +154,18 @@ public class TeamChatFragment extends Fragment {
                             }
 
                             ChatData chatData = tempSnapshot.getValue(ChatData.class);
-                            chatRoomInfoList.add(0,new ChatRoomInfo(chatRoomUUID, getChatRoomName(chatRoomUUID),chatData.getTime(),chatData.getMessage(),2, tempSnapshot.getKey()));
+
+                            boolean isRead = false;
+                            //내가 보낸 메세지 인 경우 isRead 값 true
+                            if(chatData.getUser_email().equals(user_email))
+                                isRead = true;
+
+                            chatRoomInfoList.add(0,new ChatRoomInfo(chatRoomUUID, getChatRoomName(chatRoomUUID),chatData.getTime(),chatData.getMessage()
+                                    ,2, tempSnapshot.getKey(),isRead));
 
                             //이후 데베에 insert
                             ChatRoomLocalDB.getInstance(context).insertRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID, getChatRoomName(chatRoomUUID),
-                                    chatData.getTime(),chatData.getMessage(),2, tempSnapshot.getKey());
+                                    chatData.getTime(),chatData.getMessage(),2, tempSnapshot.getKey(),isRead);
                         }
 
                         //마지막에 한번만 화면 업데이트.
@@ -189,7 +196,14 @@ public class TeamChatFragment extends Fragment {
                             chatRoomInfoList.get(listIndex).setLastChatID(tempSnapshot.getKey());
                             chatRoomInfoList.get(listIndex).setLastTime(chatData.getTime());
                             chatRoomInfoList.get(listIndex).setLastChat(chatData.getMessage());
-                            ChatRoomLocalDB.getInstance(context).updateRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID, chatData.getTime(), chatData.getMessage(), tempSnapshot.getKey());
+
+                            boolean isRead = false;
+                            //내가 보낸 메세지 인 경우 isRead 값 true
+                            if(chatData.getUser_email().equals(user_email))
+                                isRead = true;
+
+                            chatRoomInfoList.get(listIndex).setRead(isRead);
+                            ChatRoomLocalDB.getInstance(context).updateRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID, chatData.getTime(), chatData.getMessage(), tempSnapshot.getKey(),isRead);
 
                             totalChatRVAdapter.notifyDataSetChanged();
                         }

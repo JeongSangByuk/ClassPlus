@@ -12,4 +12,7 @@ public class Constant {
     public final static int MY_CHAT_VIEWTYPE = 1;
     public final static int OTHER_CHAT_VIEWTYPE = 2;
 
+    public final static int CHAT_ACTIVITY_REQUEST_CODE = 1101;
+
+
 }

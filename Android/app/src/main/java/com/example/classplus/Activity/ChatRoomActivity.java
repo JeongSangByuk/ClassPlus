@@ -1,5 +1,6 @@
 package com.example.classplus.Activity;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.graphics.Color;
@@ -50,6 +51,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private DatabaseReference dbRef;
     private String chatRoomName;
     private int chatRoomUUID;
+    private int listIndex;
 
 
     // 처음 방에 입장했을때를 가르키는 boolean
@@ -68,6 +70,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         Intent nowIntent = getIntent();
         chatRoomName = nowIntent.getStringExtra("name");
         chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
+        listIndex = nowIntent.getIntExtra("index",0);
 
         ((TextView) findViewById(R.id.chat_name)).setText(chatRoomName);
 
@@ -97,6 +100,14 @@ public class ChatRoomActivity extends AppCompatActivity {
             chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("index",listIndex);
+        setResult(Constant.CHAT_ACTIVITY_REQUEST_CODE,intent);
+        finish();
     }
 
     // 상태바 색 바꾸기
@@ -207,5 +218,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
 
     }
+
 }
 

@@ -40,8 +40,8 @@ public class ChatRoomLocalDB extends SQLiteOpenHelper {
 
     public void createTable(SQLiteDatabase database) {
 
-        String sqlString = "CREATE TABLE " + roomChatTable + " (uuid INTEGER, name TEXT, lastTime TEXT,lastChat TEXT " +
-                ",img INTEGER, lastChatID TEXT)";
+        String sqlString = "CREATE TABLE " + roomChatTable + " (uuid INTEGER, name TEXT, lastTime TEXT,lastChat TEXT, " +
+                "img INTEGER, lastChatID TEXT, isRead INTEGER)";
 
         try {
             database.execSQL(sqlString);
@@ -61,20 +61,26 @@ public class ChatRoomLocalDB extends SQLiteOpenHelper {
         }
     }
 
-    public void insertRoomInfo(SQLiteDatabase database,int uuid, String name, String lastTime, String lastChat, int img, String lastChatID ){
-
-        String sqlString = "insert into " + roomChatTable + "(uuid,name,lastTime,lastChat,img,lastChatID)"
-                + " values('" + uuid + "', '" + name + "', '" + lastTime + "', '" + lastChat + "', '" + img + "', '" + lastChatID + "')";
+    public void insertRoomInfo(SQLiteDatabase database,int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead ){
+        int readingFlag = (isRead)? 1 : 0;
+        String sqlString = "insert into " + roomChatTable + "(uuid,name,lastTime,lastChat,img,lastChatID,isRead)"
+                + " values('" + uuid + "', '" + name + "', '" + lastTime + "', '" + lastChat + "', '" + img + "', '" + lastChatID + "', '" + readingFlag + "')";
 
         runDb(database, sqlString);
     }
 
-    public void updateRoomInfo(SQLiteDatabase database, int uuid,String lastTime,String lastChat,String lastChatID){
-
+    public void updateRoomInfo(SQLiteDatabase database, int uuid,String lastTime,String lastChat,String lastChatID,boolean isRead){
+        int readingFlag = (isRead)? 1 : 0;
         String sqlString = "UPDATE " + roomChatTable + " SET lastTime = '" + lastTime + "', lastChat = '" + lastChat + "', lastChatID = '"
-                + lastChatID + "' WHERE uuid = '" + uuid + "'";
+                + lastChatID +  "', isRead = '" + readingFlag + "' WHERE uuid = '" + uuid  + "'";
         runDb(database, sqlString);
 
+    }
+
+    public void updateReadingFlagTrue(SQLiteDatabase database,int uuid ){
+
+        String sqlString = "UPDATE " + roomChatTable +" SET isRead = '" + 1 + "' WHERE uuid = '" + uuid  + "'";
+        runDb(database, sqlString);
     }
 
     public ChatRoomInfo getChatRoomInfo(SQLiteDatabase database, int index){
@@ -87,8 +93,9 @@ public class ChatRoomLocalDB extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
 
             if (count == index) {
+                boolean readingFlag = (cursor.getInt(6) == 1)? true : false;
                 return new ChatRoomInfo(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-                        cursor.getInt(4), cursor.getString(5));
+                        cursor.getInt(4), cursor.getString(5), readingFlag);
             }
             count++;
         }

@@ -15,6 +15,7 @@ public class ChatRoomInfo {
     private String lastChatID;
     private int img;
     private int totalNum;
+    private boolean isRead;
 
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img) {
@@ -26,12 +27,13 @@ public class ChatRoomInfo {
         setImageNum(img);
     }
 
-    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID) {
+    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead) {
         this.uuid = uuid;
         this.name = name;
         this.lastTime = lastTime;
         this.lastChat = lastChat;
         this.lastChatID = lastChatID;
+        this.isRead = isRead;
         setImageNum(img);
     }
 
@@ -56,6 +58,18 @@ public class ChatRoomInfo {
                 this.img = R.drawable.study6;
                 break;
         }
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
+    }
+
+    public ChatRoomInfo(boolean isRead) {
+        this.isRead = isRead;
     }
 
     public String getLastChatID() {
