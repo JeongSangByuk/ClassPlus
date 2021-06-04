@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,7 +51,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private String chatRoomName;
     private int chatRoomUUID;
     private int listIndex;
-    private Context context;
+    private ImageView backBnt;
+    private ImageButton workStackBnt;
 
     // 처음 방에 입장했을때를 가르키는 boolean
     private boolean isFirstAccess;
@@ -69,7 +72,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRoomName = nowIntent.getStringExtra("name");
         chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
         listIndex = nowIntent.getIntExtra("index",0);
-        context = getApplicationContext();
 
         ((TextView) findViewById(R.id.chat_name)).setText(chatRoomName);
 
@@ -82,6 +84,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         //firebase DB Connect
         dbRef = FirebaseConnector.getInstance().getDatabaseReference();
 
+        workStackBnt = findViewById(R.id.ib_stack_chatroom);
+        backBnt = findViewById(R.id.iv_back_chatroom);
         messageSendBnt = findViewById(R.id.bnt_chat_send);
         messageEdittext = findViewById(R.id.et_chatcontext);
         chatDataList = new ArrayList<>();
@@ -120,6 +124,23 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setEventListener(){
+
+        //워크스택 리스너
+        workStackBnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WorkStackActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 뒤로가기 리스너
+        backBnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
         //키보드 리스너
