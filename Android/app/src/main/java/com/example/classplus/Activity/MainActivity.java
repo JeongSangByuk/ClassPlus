@@ -102,34 +102,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    // 챗룸액티비티 종료 리스너
-//    ActivityResultLauncher<Intent> chatRoomActivityLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    Log.d("qwe", String.valueOf(result.getResultCode()) + "  " +  Activity.RESULT_OK);
-//                    if (result.getResultCode() == Activity.RESULT_OK) {
-//                        Log.d("qwe", "MainActivity로 돌아왔다. ");
-//                    }
-//                }
-//            });
+    // 챗룸액티비티 종료 리스너
+    ActivityResultLauncher<Intent> chatRoomActivityLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+
+                        int index = result.getData().getIntExtra("index",0);
+                        teamChatFragment.chatRoomInfoList.get(index).setRead(true);
+                        teamChatFragment.totalChatRVAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == Constant.CHAT_ACTIVITY_REQUEST_CODE){
-            int index = data.getIntExtra("index",0);
-            teamChatFragment.chatRoomInfoList.get(index).setRead(true);
-            teamChatFragment.totalChatRVAdapter.notifyDataSetChanged();
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode == Constant.CHAT_ACTIVITY_REQUEST_CODE){
+//            int index = data.getIntExtra("index",0);
+//            teamChatFragment.chatRoomInfoList.get(index).setRead(true);
+//            teamChatFragment.totalChatRVAdapter.notifyDataSetChanged();
+//        }
+//    }
 
     public void moveToChatActivity(Intent intent){
-        //chatRoomActivityLauncher.launch(intent);
-        startActivityForResult(intent, Constant.CHAT_ACTIVITY_REQUEST_CODE);
+        chatRoomActivityLauncher.launch(intent);
+        //startActivityForResult(intent, Constant.CHAT_ACTIVITY_REQUEST_CODE);
     }
 
     //fragment 전환하는 메소드

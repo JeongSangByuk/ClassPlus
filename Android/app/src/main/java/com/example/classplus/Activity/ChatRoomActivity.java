@@ -106,7 +106,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("index",listIndex);
-        setResult(Constant.CHAT_ACTIVITY_REQUEST_CODE,intent);
+        setResult(Activity.RESULT_OK,intent);
         finish();
     }
 
