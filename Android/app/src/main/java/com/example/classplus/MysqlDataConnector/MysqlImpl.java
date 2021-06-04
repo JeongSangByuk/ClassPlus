@@ -114,6 +114,12 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
+    public void createChattingRoomToUser(JSONArray jsonArray) {
+        ChattingRoomToUserCreator task = new ChattingRoomToUserCreator();
+        task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", jsonArray.toString());
+    }
+
+    @Override
     public int enterChattingRoom(int uuid, String email) {
         return 0;
     }

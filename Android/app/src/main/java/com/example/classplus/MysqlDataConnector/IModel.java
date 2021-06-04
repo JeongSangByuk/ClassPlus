@@ -7,6 +7,7 @@ import com.example.classplus.Constant.*;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public interface IModel {
     int createChattingRoom(String roomName, String admin_email) throws ExecutionException, InterruptedException; // 채팅방 이름 후 uuid 반환
 
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
+
+    void createChattingRoomToUser(JSONArray jsonArray);
 
     int enterChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
 

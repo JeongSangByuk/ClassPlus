@@ -28,7 +28,9 @@ import com.example.classplus.R;
 import com.example.classplus.firebase.FirebaseConnector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -111,6 +113,30 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }*/
+
+
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("uuid",123);
+            jsonObject.put("user_email","qazkyj0310@gmail.com");
+            jsonArray.put(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("uuid",12);
+            jsonObject.put("user_email","qazkyj@gmail.com");
+            jsonArray.put(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd", jsonArray.toString());
+
+        model = new MysqlImpl();     // IModel 생성
+        model.createChattingRoomToUser(jsonArray);
     }
 
     public void startActivity() {
