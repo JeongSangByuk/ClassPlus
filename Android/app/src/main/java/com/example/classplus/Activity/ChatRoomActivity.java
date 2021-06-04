@@ -1,7 +1,7 @@
 package com.example.classplus.Activity;
 
 import android.app.Activity;
-import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,33 +11,30 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.ChatMessageRVAdapter;
+import com.example.classplus.SoftKeyboardDectectorView;
 import com.example.classplus.firebase.FirebaseConnector;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import gun0912.tedkeyboardobserver.TedKeyboardObserver;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
@@ -52,7 +49,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private String chatRoomName;
     private int chatRoomUUID;
     private int listIndex;
-
+    private Context context;
 
     // 처음 방에 입장했을때를 가르키는 boolean
     private boolean isFirstAccess;
@@ -61,6 +58,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private String user_email;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +69,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRoomName = nowIntent.getStringExtra("name");
         chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
         listIndex = nowIntent.getIntExtra("index",0);
+        context = getApplicationContext();
 
         ((TextView) findViewById(R.id.chat_name)).setText(chatRoomName);
 
@@ -79,8 +78,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         // test login
         Intent intent = getIntent();
         user_email = intent.getStringExtra("user_id");
-        Log.d("qwe",user_email);
-
 
         //firebase DB Connect
         dbRef = FirebaseConnector.getInstance().getDatabaseReference();
@@ -94,11 +91,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRecyclerView.setAdapter(chatMessageRVAdapter);
 
         setEventListener();
-
-        // 키보드 감지 리스너
-        new TedKeyboardObserver(this).listen(isShow->{
-            chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
-        });
 
     }
 
@@ -126,7 +118,30 @@ public class ChatRoomActivity extends AppCompatActivity {
         return simpleDate.format(mDate);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void setEventListener(){
+
+
+        //키보드 리스너
+        final SoftKeyboardDectectorView softKeyboardDecector = new SoftKeyboardDectectorView(this);
+        addContentView(softKeyboardDecector, new FrameLayout.LayoutParams(-1, -1));
+
+        softKeyboardDecector.setOnShownKeyboard(new SoftKeyboardDectectorView.OnShownKeyboardListener() {
+
+            @Override
+            public void onShowSoftKeyboard() {
+                //키보드 등장할 때
+                chatRecyclerView.scrollToPosition(chatDataList.size() - 1);
+            }
+        });
+
+        softKeyboardDecector.setOnHiddenKeyboard(new SoftKeyboardDectectorView.OnHiddenKeyboardListener() {
+
+            @Override
+            public void onHiddenSoftKeyboard() {
+                // 키보드 사라질 때
+            }
+        });
 
         // 데이터 추가될 때 추가해주는 리스너, 즉 내가 다른 사람의 채팅이 올때.
         dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addChildEventListener(new ChildEventListener() {
