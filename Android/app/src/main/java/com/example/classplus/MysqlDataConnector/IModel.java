@@ -21,7 +21,7 @@ public interface IModel {
 
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
 
-    int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException;
+    int createChattingRoom(String roomName, String email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException;
 
     String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException;
 

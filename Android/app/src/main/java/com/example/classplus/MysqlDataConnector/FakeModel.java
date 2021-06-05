@@ -24,18 +24,13 @@ public class FakeModel implements IModel{
     }
 
     @Override
-    public String getChattingName(int uuid) {
-        return "오픈소";
+    public int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
+        return 0;
     }
 
     @Override
     public ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException {
         return null;
-    }
-
-    @Override
-    public int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) {
-        return 0;
     }
 
     @Override
@@ -46,6 +41,11 @@ public class FakeModel implements IModel{
     @Override
     public int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         return 0;
+    }
+
+    @Override
+    public String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException {
+        return null;
     }
 
     @Override

@@ -60,8 +60,8 @@ public class LogInActivity extends AppCompatActivity {
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
 
-        //FileExplorer explorer = new FileExplorer();
-        //explorer.getCsvPath(this);
+        FileExplorer explorer = new FileExplorer();
+        explorer.getCsvPath(this);
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override

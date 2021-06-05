@@ -26,7 +26,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -48,7 +53,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    implementation 'com.github.hedzr:android-file-chooser:v1.1.16'
+    implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
 
 }
 apply plugin: 'com.google.gms.google-services'
