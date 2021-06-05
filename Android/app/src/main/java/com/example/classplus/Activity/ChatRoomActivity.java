@@ -190,13 +190,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
 
                 //firebase 데이터 삽입 및 리사이클러뷰 업데이트
-                ChatData addedData = new ChatData(user_email,user_email, messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2);
+                ChatData addedData = new ChatData(user_email,user_email, messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2, ChatData.MessageType.TALK.toString());
                 chatDataList.add(addedData);
 
                 dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
 
                 isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
-
 
                 chatMessageRVAdapter.notifyDataSetChanged();
                 chatRecyclerView.scrollToPosition(chatDataList.size() - 1);

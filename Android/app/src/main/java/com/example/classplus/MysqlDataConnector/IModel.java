@@ -1,9 +1,5 @@
 package com.example.classplus.MysqlDataConnector;
 
-
-import com.example.classplus.Constant;
-
-import com.example.classplus.Constant.*;
 import com.example.classplus.DTO.User;
 
 public interface IModel {

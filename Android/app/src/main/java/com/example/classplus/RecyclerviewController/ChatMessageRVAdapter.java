@@ -1,6 +1,7 @@
 package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,17 +32,20 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view;
+        View view =  view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
+
+        if(viewType == Constant.WORKSTACK_VIEWTYPE){
+            WorkstackViewHolder holder = new WorkstackViewHolder(view);
+            return holder;
+        }
 
         // 내 채팅인 경우
         if(viewType == Constant.MY_CHAT_VIEWTYPE){
-           view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_mymessage_list, parent, false);
             MyChatMessageViewHolder holder = new MyChatMessageViewHolder(view);
             return holder;
         }
 
         else{
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_othermessage_list, parent, false);
             OtherChatMessageViewHolder holder = new OtherChatMessageViewHolder(view);
             return holder;
         }
@@ -52,8 +56,14 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        if(holder instanceof  WorkstackViewHolder)
+        {
+            ((WorkstackViewHolder) holder).content.setText(chatList.get(position).getMessage());
+
+        }
+
         // 내 채팅인 경우.
-        if(holder instanceof MyChatMessageViewHolder){
+        else if(holder instanceof MyChatMessageViewHolder){
             ((MyChatMessageViewHolder)holder).msg.setText(chatList.get(position).getMessage());
             ((MyChatMessageViewHolder)holder).time.setText(chatList.get(position).getTime());
         }
@@ -76,14 +86,14 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemViewType(int position) {
 
+        if(chatList.get(position).getType() == ChatData.MessageType.WORK_STACK)
+            return Constant.WORKSTACK_VIEWTYPE;
+
         // 여기서 자신인지 아닌지 판단. 자신일 경우 view_type = 1
-        if(chatList.get(position).getUser_email().equals(user_email))
+        else if(chatList.get(position).getUser_email().equals(user_email))
             return Constant.MY_CHAT_VIEWTYPE;
+
         else
             return Constant.OTHER_CHAT_VIEWTYPE;
     }
 }
-
-
-
-

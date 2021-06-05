@@ -4,7 +4,7 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.User;
 
 class FakeModel implements IModel{
-    
+
     @Override
     public User login(String email, String password) {
         return new User("ss@ss","상벽","소웨",true);
