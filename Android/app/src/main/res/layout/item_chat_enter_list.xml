@@ -25,5 +25,5 @@
         android:text="000 님이 입장했습니다."
         android:textColor="@color/black"
         android:textSize="12dp" />
-    
+
 </FrameLayout>
