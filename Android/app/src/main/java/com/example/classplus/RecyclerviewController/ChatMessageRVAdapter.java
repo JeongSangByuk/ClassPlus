@@ -32,7 +32,7 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view =  view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
 
         if(viewType == Constant.WORKSTACK_VIEWTYPE){
             WorkstackViewHolder holder = new WorkstackViewHolder(view);
@@ -40,7 +40,7 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         // 내 채팅인 경우
-        if(viewType == Constant.MY_CHAT_VIEWTYPE){
+        else if(viewType == Constant.MY_CHAT_VIEWTYPE){
             MyChatMessageViewHolder holder = new MyChatMessageViewHolder(view);
             return holder;
         }

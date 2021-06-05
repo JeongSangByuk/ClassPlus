@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.classplus.CSVReader.FileExplorer;
 import com.example.classplus.Constant;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
@@ -56,26 +57,11 @@ public class LogInActivity extends AppCompatActivity {
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
 
-        /*
-        new ChooserDialog(LogInActivity.this)
-                .withStartFile(String.valueOf(getFilesDir().getPath()))
-                .withChosenListener(new ChooserDialog.Result() {
-                    @Override
-                    public void onChoosePath(String path, File pathFile) {
-                        Toast.makeText(LogInActivity.this, "FILE: " + path, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                // to handle the back key pressed or clicked outside the dialog:
-                .withOnCancelListener(new DialogInterface.OnCancelListener() {
-                    public void onCancel(DialogInterface dialog) {
-                        Log.d("CANCEL", "CANCEL");
-                        dialog.cancel(); // MUST have
-                    }
-                })
-                .build()
-                .show();
 
-         */
+        /*
+        FileExplorer explorer = new FileExplorer();
+        explorer.getCsvPath(this);
+        */
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
