@@ -9,7 +9,7 @@ import java.util.Random;
 public class ChatRoomInfo {
 
     public enum ChatRoomType {
-        TEAM, WHOLE
+        TEAM, TOTAL
     }
 
     private int uuid;

@@ -48,7 +48,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    implementation 'com.github.hedzr:android-file-chooser:master-SNAPSHOT'
+    implementation 'com.github.hedzr:android-file-chooser:v1.1.16'
 
 }
 apply plugin: 'com.google.gms.google-services'

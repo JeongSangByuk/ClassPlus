@@ -1,5 +1,6 @@
 package com.example.classplus.MysqlDataConnector;
 
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.User;
 
 import java.util.ArrayList;
@@ -12,7 +13,10 @@ public interface IModel {
 
     String getChattingName(int uuid); // 없는 uui == null 반환
 
-    int createChattingRoom(String roomName); // 채팅방 이름 후 uuid 반환
+    int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type); // 채팅방 이름 후 uuid 반환
+
+    int createChattingRoom(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type);
+
 
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
 

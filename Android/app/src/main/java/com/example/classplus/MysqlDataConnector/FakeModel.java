@@ -1,6 +1,7 @@
 package com.example.classplus.MysqlDataConnector;
 
 import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.User;
 
 import java.util.ArrayList;
@@ -23,7 +24,12 @@ public class FakeModel implements IModel{
     }
 
     @Override
-    public int createChattingRoom(String roomName) {
+    public int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) {
+        return 0;
+    }
+
+    @Override
+    public int createChattingRoom(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type) {
         return 0;
     }
 
