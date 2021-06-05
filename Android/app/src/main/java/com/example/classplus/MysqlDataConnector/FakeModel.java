@@ -3,7 +3,9 @@ package com.example.classplus.MysqlDataConnector;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.User;
 
-class FakeModel implements IModel{
+import java.util.ArrayList;
+
+public class FakeModel implements IModel{
 
     @Override
     public User login(String email, String password) {
@@ -31,7 +33,7 @@ class FakeModel implements IModel{
     }
 
     @Override
-    public int enterChattingRoom(int uuid, String email) {
+    public int enterChattingRoom(int uuid, ArrayList<String> emails) {
         return Constant.SUCCESS;
     }
 
