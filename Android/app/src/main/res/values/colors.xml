@@ -8,6 +8,7 @@
     <color name="red">#ff0000</color>
     <color name="mainColor">#ff6d00</color>
     <color name="mainLightColor">#ffc89f</color>
+    <color name="mainLightColor2">#ffe3cd</color>
     <color name="colorTransparent">#00FF0000</color>
     <color name="colorGray">#f3f3f3</color>
     <color name="colorGray2">#e6e6e6</color>

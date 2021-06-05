@@ -1,7 +1,6 @@
 package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,20 +31,24 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
+        View view;
+
 
         if(viewType == Constant.WORKSTACK_VIEWTYPE){
-            WorkstackViewHolder holder = new WorkstackViewHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
+            WorkstackChatViewHolder holder = new WorkstackChatViewHolder(view);
             return holder;
         }
 
         // 내 채팅인 경우
         else if(viewType == Constant.MY_CHAT_VIEWTYPE){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_mymessage_list, parent, false);
             MyChatMessageViewHolder holder = new MyChatMessageViewHolder(view);
             return holder;
         }
 
         else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_othermessage_list, parent, false);
             OtherChatMessageViewHolder holder = new OtherChatMessageViewHolder(view);
             return holder;
         }
@@ -56,9 +59,9 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof  WorkstackViewHolder)
+        if(holder instanceof WorkstackChatViewHolder)
         {
-            ((WorkstackViewHolder) holder).content.setText(chatList.get(position).getMessage());
+            ((WorkstackChatViewHolder) holder).content.setText(chatList.get(position).getMessage());
 
         }
 
