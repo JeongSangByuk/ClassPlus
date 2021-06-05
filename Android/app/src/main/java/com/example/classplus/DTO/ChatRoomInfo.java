@@ -1,27 +1,49 @@
 package com.example.classplus.DTO;
 
+import androidx.annotation.Nullable;
+
 import com.example.classplus.R;
 
 import java.util.Random;
 
 public class ChatRoomInfo {
 
+    public enum ChatRoomType {
+        TEAM, WHOLE
+    }
+
     private int uuid;
     private String name;
     private String lastTime;
     private String lastChat;
+    private String lastChatID;
     private int img;
     private int totalNum;
+    private boolean isRead;
+    private ChatRoomType type;
 
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
-        uuid = this.uuid;
+        this.uuid = uuid;
         this.name = name;
         this.lastTime = lastTime;
         this.lastChat = lastChat;
-        this.img = img;
+        this.lastChatID = "";
+        setImageNum(img);
+    }
 
-        switch (this.img){
+    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead) {
+        this.uuid = uuid;
+        this.name = name;
+        this.lastTime = lastTime;
+        this.lastChat = lastChat;
+        this.lastChatID = lastChatID;
+        this.isRead = isRead;
+        setImageNum(img);
+    }
+
+    private void setImageNum(int img){
+        switch (img){
             case 0 :
                 this.img = R.drawable.study1;
                 break;
@@ -41,7 +63,26 @@ public class ChatRoomInfo {
                 this.img = R.drawable.study6;
                 break;
         }
+    }
 
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
+    }
+
+    public ChatRoomInfo(boolean isRead) {
+        this.isRead = isRead;
+    }
+
+    public String getLastChatID() {
+        return lastChatID;
+    }
+
+    public void setLastChatID(String lastChatID) {
+        this.lastChatID = lastChatID;
     }
 
     public String getName() {

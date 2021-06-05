@@ -78,6 +78,11 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
+    public int createChattingRoom(String roomName) {
+        return 0;
+    }
+
+    @Override
     public ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException {
         ChattingRoomToUserSender task = new ChattingRoomToUserSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email).get();
@@ -114,13 +119,9 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public void createChattingRoomToUser(JSONArray jsonArray) {
+    public int enterChattingRoom(int uuid, ArrayList<String> emails) {
         ChattingRoomToUserCreator task = new ChattingRoomToUserCreator();
-        task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", jsonArray.toString());
-    }
-
-    @Override
-    public int enterChattingRoom(int uuid, String email) {
+        task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php");
         return 0;
     }
 

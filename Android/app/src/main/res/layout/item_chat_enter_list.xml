@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout_item_enter_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/tv_enter_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:background="@drawable/background_msg_text_item"
+        android:fontFamily="@font/nanumsquarer"
+
+        android:padding="10dp"
+
+        android:text="000 님이 입장했습니다."
+        android:textColor="@color/black"
+        android:textSize="12dp" />
+
+</FrameLayout>
