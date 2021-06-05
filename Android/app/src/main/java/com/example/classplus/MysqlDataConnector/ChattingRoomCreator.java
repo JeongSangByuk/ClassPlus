@@ -28,9 +28,10 @@ public class ChattingRoomCreator extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String name = (String)params[1];
         String admin_email = (String)params[2];
+        String type = (String)params[3];
 
         String serverURL = (String) params[0];
-        String postParameters = "name=" + name + "&admin_email=" + admin_email;
+        String postParameters = "name=" + name + "&admin_email=" + admin_email+ "&type=" + type;
 
         try {
 
