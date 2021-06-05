@@ -12,6 +12,7 @@ import com.example.classplus.firebase.FirebaseConnector;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 class ChattingRoomManagement {
 
@@ -30,7 +31,7 @@ class ChattingRoomManagement {
         return simpleDate.format(mDate);
     }
 
-    void createTotalChattingRoom(ArrayList<String> students, String roomName) {
+    void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
         String chat_maker = AppManager.getLoginUser().getEmail();
         students.add(chat_maker);
 
@@ -46,7 +47,7 @@ class ChattingRoomManagement {
 
     }
 
-    void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) {
+    void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) throws ExecutionException, InterruptedException {
 
         String chat_maker = AppManager.getLoginUser().getEmail();
         int uuid = createChattingRoom(chat_maker, emails, roomName, ChatRoomInfo.ChatRoomType.TEAM);
@@ -62,8 +63,7 @@ class ChattingRoomManagement {
 
     }
 
-   int createChattingRoom(String chat_maker, ArrayList<String> students, String roomName, ChatRoomInfo.ChatRoomType type)
-    {
+   int createChattingRoom(String chat_maker, ArrayList<String> students, String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         int uuid = model.createChattingRoom(roomName, chat_maker, type);
         students.add(chat_maker);
         model.enterChattingRoom(uuid, students);
