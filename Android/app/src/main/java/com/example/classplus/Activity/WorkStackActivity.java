@@ -1,5 +1,6 @@
 package com.example.classplus.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.DTO.Workstack;
+import com.example.classplus.Dialog.WorkStackInsertionDialog;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.WorkstackRVAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ public class WorkStackActivity extends AppCompatActivity {
     private RecyclerView workStackRecyclerView;
     private WorkstackRVAdapter workstackRVAdapter;
     private ArrayList<Workstack> workstackList;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,9 +34,18 @@ public class WorkStackActivity extends AppCompatActivity {
 
         initData();
 
+        floatingActionButton = findViewById(R.id.bnt_workstackdialog_insertion);
         workStackRecyclerView = findViewById(R.id.recyclerview_workstack);
         workstackRVAdapter = new WorkstackRVAdapter(getApplicationContext(),workstackList);
         workStackRecyclerView.setAdapter(workstackRVAdapter);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getApplicationContext(), WorkStackInsertionDialog.class);
+                startActivity(intent);
+            }
+        });
 
 
 
