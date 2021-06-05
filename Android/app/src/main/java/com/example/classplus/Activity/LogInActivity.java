@@ -1,11 +1,13 @@
 package com.example.classplus.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -18,10 +20,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.classplus.Constant;
+import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.R;
+import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -36,6 +41,8 @@ public class LogInActivity extends AppCompatActivity {
     private char result2;
     private String email;
 
+    IModel model = new FakeModel();
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +55,28 @@ public class LogInActivity extends AppCompatActivity {
         idEditText = findViewById(R.id.et_login_id);
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
+
+        /*
+        new ChooserDialog(LogInActivity.this)
+                .withStartFile(String.valueOf(getFilesDir().getPath()))
+                .withChosenListener(new ChooserDialog.Result() {
+                    @Override
+                    public void onChoosePath(String path, File pathFile) {
+                        Toast.makeText(LogInActivity.this, "FILE: " + path, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                // to handle the back key pressed or clicked outside the dialog:
+                .withOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        Log.d("CANCEL", "CANCEL");
+                        dialog.cancel(); // MUST have
+                    }
+                })
+                .build()
+                .show();
+
+         */
+
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

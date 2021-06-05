@@ -2,6 +2,8 @@ package com.example.classplus.MysqlDataConnector;
 
 import com.example.classplus.DTO.User;
 
+import java.util.ArrayList;
+
 public interface IModel {
 
     User login(String email, String password); //login 못하면 User = NULL 반환
@@ -14,7 +16,7 @@ public interface IModel {
 
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
 
-    int enterChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
+    int enterChattingRoom(int uuid, ArrayList<String> emails); // 성공 SUCCESS 반환, 실패 FAILURE
 
     int exitChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
 
