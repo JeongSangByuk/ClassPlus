@@ -19,8 +19,6 @@ public interface IModel {
     
     int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException; // 채팅방 이름 후 uuid 반환
 
-    int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type);
-
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
 
     int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException;

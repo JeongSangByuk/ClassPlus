@@ -39,11 +39,6 @@ public class FakeModel implements IModel{
     }
 
     @Override
-    public int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type) {
-        return 0;
-    }
-
-    @Override
     public void setChattingRoomAdmin(int chattingRoomUUID, String userEmail) {
 
     }

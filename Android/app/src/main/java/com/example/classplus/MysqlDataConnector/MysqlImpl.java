@@ -110,15 +110,9 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type){
-        return 0;
-    }
-
-
-    @Override
-    public int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
+    public int createChattingRoom(String roomName, String email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         ChattingRoomCreator task = new ChattingRoomCreator();
-        int uuid = Integer.parseInt(task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtable.php", roomName, admin_email, type.name()).get());
+        int uuid = Integer.parseInt(task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtable.php", roomName, email, type.name()).get());
         return uuid;
     }
 
