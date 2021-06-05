@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.classplus.AppManager;
 import com.example.classplus.CSVReader.FileExplorer;
 import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.User;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
@@ -58,6 +59,16 @@ public class LogInActivity extends AppCompatActivity {
         idEditText = findViewById(R.id.et_login_id);
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
+
+        model = new MysqlImpl();     // IModel 생성
+        int uuid = 0;
+        try {
+            uuid = model.createChattingRoom("운영체제", ChatRoomInfo.ChatRoomType.TEAM);        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         //FileExplorer explorer = new FileExplorer();
         //explorer.getCsvPath(this);

@@ -1,0 +1,29 @@
+<?php
+    $host = '49.50.175.57';
+    $username = 'root'; # MySQL 계정 아이디
+    $password = '0000'; # MySQL 계정 패스워드
+    $dbname = 'classplus_data';  # DATABASE 이름
+
+    $android = strpos($_SERVER['HTTP_USER_AGENT'], "Android");
+    $con = mysqli_connect($host, $username, $password, $dbname) or  Die("Connection Failed");
+
+    mysqli_query($con, "set session character_set_connection=utf8;");
+    mysqli_query($con, "set session character_set_results=utf8;");
+    mysqli_query($con, "set session character_set_client=utf8;");
+
+    if( (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) || $android )
+    {
+
+      $name=$_POST['name'];
+      $type=$_POST['type'];
+
+      $sql = "INSERT INTO chatting(name, type) VALUES('$name', '$type')";
+
+      if($con -> query($sql) == TRUE) {
+        echo "".$con -> insert_id;
+      } else {
+        // code...
+      }
+      $con->close();
+}
+?>
