@@ -17,7 +17,7 @@ public interface IModel {
 
     User getUserinfo(String email) throws ExecutionException, InterruptedException, JSONException;
     
-    int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type); // 채팅방 이름 후 uuid 반환
+    int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException; // 채팅방 이름 후 uuid 반환
 
     int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type);
 
