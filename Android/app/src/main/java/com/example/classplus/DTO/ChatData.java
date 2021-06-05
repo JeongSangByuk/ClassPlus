@@ -4,6 +4,7 @@ import com.example.classplus.R;
 
 public class ChatData {
 
+
     public enum MessageType {
         ENTER, TALK, EXIT, WORK_STACK
     }

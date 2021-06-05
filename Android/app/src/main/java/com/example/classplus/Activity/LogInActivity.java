@@ -62,7 +62,6 @@ public class LogInActivity extends AppCompatActivity {
         //FileExplorer explorer = new FileExplorer();
         //explorer.getCsvPath(this);
 
-
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

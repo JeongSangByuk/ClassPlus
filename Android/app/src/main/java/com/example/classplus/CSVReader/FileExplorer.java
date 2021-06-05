@@ -3,10 +3,11 @@ package com.example.classplus.CSVReader;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.classplus.Activity.LogInActivity;
+
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
@@ -20,18 +21,12 @@ public class FileExplorer {
         final String[] csvPath = new String[1];
 
         new ChooserDialog(activity)
-                .withStartFile(Environment.getExternalStorageDirectory().getAbsolutePath())
+                .withStartFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath() )
+                // to handle the result(s)
                 .withChosenListener(new ChooserDialog.Result() {
                     @Override
                     public void onChoosePath(String path, File pathFile) {
-                        csvPath[0] = path;
-                    }
-                })
-
-                .withOnCancelListener(new DialogInterface.OnCancelListener() {
-                    public void onCancel(DialogInterface dialog) {
-                        Log.d("CANCEL", "CANCEL");
-                        dialog.cancel(); // MUST have
+                        Toast.makeText(activity, "FOLDER: " + path, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build()
