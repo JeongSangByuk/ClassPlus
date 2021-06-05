@@ -136,6 +136,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
+
+
+        /*
+        // 채팅방 이름 set (uuid에 따른)
+
+        model = new MysqlImpl();     // IModel 생성
+        model.setChattingRoomAdmin(3, "cjk@naver.com");*/
+        
     }
 
     public void startActivity() {
