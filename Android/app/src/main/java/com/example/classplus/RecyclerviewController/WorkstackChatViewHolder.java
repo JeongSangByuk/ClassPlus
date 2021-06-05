@@ -11,12 +11,12 @@ import com.example.classplus.R;
 
 import org.jetbrains.annotations.NotNull;
 
-class WorkstackViewHolder extends RecyclerView.ViewHolder{
+class WorkstackChatViewHolder extends RecyclerView.ViewHolder{
 
     protected TextView time;
     protected TextView content;
 
-    public WorkstackViewHolder(@NotNull View itemView) {
+    public WorkstackChatViewHolder(@NotNull View itemView) {
         super(itemView);
         time = (TextView)itemView.findViewById(R.id.workstack_view_date);
         content = (TextView)itemView.findViewById(R.id.workstack_view_content);
