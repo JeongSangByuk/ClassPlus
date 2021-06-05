@@ -22,16 +22,24 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.classplus.AppManager;
-import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Fragment.TeamChatFragment;
 import com.example.classplus.Fragment.MyPageFragment;
 import com.example.classplus.Fragment.TotalChatFragment;
 import com.example.classplus.Fragment.SettingFragment;
 import com.example.classplus.MysqlDataConnector.IModel;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 import com.example.classplus.firebase.FirebaseConnector;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,15 +62,65 @@ public class MainActivity extends AppCompatActivity {
         startActivity();
         FirebaseConnector.getInstance(this);
 
-        // 현재 로그인된 email 추가
-        Intent intent = getIntent();
-        user_email = intent.getStringExtra("email");
-        //Log.d("qqq", user_email + "\n\n");
-        //User user = (User) model.login(user_email);
-        //if(user == null) return;
-        //AppManager.getInstance().setLoginUser(user);
-        //Log.d("qqq",AppManager.getLoginUser().getEmail());
+        /*
+        // 유저 정보 가져오는 코드
 
+        model = new MysqlImpl();     // IModel 생성
+        User user = null;
+        try {
+            user = (User) model.getUserinfo(AppManager.getInstance().getLoginUser().getEmail());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
+        /*
+        // uuid에 따른 채팅방 이름 가져옴
+        
+        model = new MysqlImpl();     // IModel 생성
+        String name = null;
+        try {
+            name = model.getChattingName(1);        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
+
+        /*  
+        // 채팅방 생성 (관리자)
+        
+        model = new MysqlImpl();     // IModel 생성
+        int uuid = 0;
+        try {
+            uuid = model.createChattingRoom("운영체제", "qazkyj0310@gmail.com");        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+
+        /*  
+        // 로그인한 email에 따라서 uuid값 가져옴
+        
+        model = new MysqlImpl();     // IModel 생성
+        ArrayList<ChatRoomToUser> user = null;
+        try {
+            user = model.getChattingRoomToUser(AppManager.getInstance().getLoginUser().getEmail());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void startActivity() {

@@ -1,10 +1,18 @@
 package com.example.classplus.MysqlDataConnector;
 
 import com.example.classplus.Constant;
+<<<<<<< HEAD
 import com.example.classplus.DTO.ChatRoomInfo;
+=======
+import com.example.classplus.DTO.ChatRoomToUser;
+>>>>>>> c0a48b6326f6120255c9e0a4f6a91770cf98cdfe
 import com.example.classplus.DTO.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class FakeModel implements IModel{
 
@@ -24,6 +32,7 @@ public class FakeModel implements IModel{
     }
 
     @Override
+
     public int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) {
         return 0;
     }
@@ -36,6 +45,11 @@ public class FakeModel implements IModel{
     @Override
     public void setChattingRoomAdmin(int chattingRoomUUID, String userEmail) {
 
+    }
+
+    @Override
+    public int createChattingRoom(String roomName, String admin_email) throws ExecutionException, InterruptedException {
+        return 0;
     }
 
     @Override

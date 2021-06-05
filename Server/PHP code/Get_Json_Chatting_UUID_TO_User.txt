@@ -5,9 +5,9 @@
 
     include('dbcon.php');
 
-    $email = $_GET['email'];
+    $user_email = $_GET['user_email'];
 
-    $stmt = $con->prepare("select * from user WHERE email = '$email'");
+    $stmt = $con->prepare("select * from chatting_user WHERE user_email = '$user_email'");
     $stmt->execute();
 
     if ($stmt->rowCount() > 0)
@@ -19,10 +19,7 @@
             extract($row);
 
             array_push($data,
-                array('email'=>$email,
-                'name'=>$name,
-                'major'=>$major,
-                'isStudent'=>$isStudent
+                array('uuid'=>$uuid
             ));
         }
 
