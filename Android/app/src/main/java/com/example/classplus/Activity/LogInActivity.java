@@ -60,16 +60,6 @@ public class LogInActivity extends AppCompatActivity {
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
 
-        model = new MysqlImpl();     // IModel 생성
-        int uuid = 0;
-        try {
-            uuid = model.createChattingRoom("운영체제", ChatRoomInfo.ChatRoomType.TEAM);        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         //FileExplorer explorer = new FileExplorer();
         //explorer.getCsvPath(this);
 

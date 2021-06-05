@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.classplus.AppManager;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Fragment.TeamChatFragment;
@@ -119,6 +120,20 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
+
+        /*
+        // 채팅방 생성 (채팅방 이름, 채팅방 type)
+
+        model = new MysqlImpl();     // IModel 생성
+        int uuid = 0;
+        try {
+            uuid = model.createChattingRoom("운영체제", ChatRoomInfo.ChatRoomType.TEAM);        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
     }
