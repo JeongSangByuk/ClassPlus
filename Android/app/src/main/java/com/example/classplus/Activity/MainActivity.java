@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         model = new MysqlImpl();     // IModel 생성
         model.setChattingRoomAdmin(3, "cjk@naver.com");*/
-        
+
     }
 
     public void startActivity() {
