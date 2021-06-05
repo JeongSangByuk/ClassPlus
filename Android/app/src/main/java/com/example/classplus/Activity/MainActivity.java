@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         model = new MysqlImpl();     // IModel 생성
         int uuid = 0;
         try {
-            uuid = model.createChattingRoom("운영체제", ChatRoomInfo.ChatRoomType.TEAM);        // uuid 에는 채팅방 고유 번호인 uuid 넣어야함
+            uuid = model.createChattingRoom("운영체제", ChatRoomInfo.ChatRoomType.TEAM);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

@@ -116,9 +116,11 @@ public class MysqlImpl implements IModel {
         return uuid;
     }
 
+    //ChattingAdminEmailUpdator
     @Override
     public void setChattingRoomAdmin(int chattingRoomUUID, String userEmail) {
-
+        ChattingAdminEmailUpdator task = new ChattingAdminEmailUpdator();
+        task.execute("http://" + Constant.IP_ADDRESS + "/updatechattingtoemail.php", Integer.toString(chattingRoomUUID), userEmail);
     }
 
     @Override

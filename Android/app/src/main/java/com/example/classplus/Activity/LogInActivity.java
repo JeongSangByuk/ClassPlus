@@ -60,6 +60,10 @@ public class LogInActivity extends AppCompatActivity {
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
 
+        model = new MysqlImpl();     // IModel 생성
+        model.setChattingRoomAdmin(3, "cjk@naver.com");
+
+
         //FileExplorer explorer = new FileExplorer();
         //explorer.getCsvPath(this);
 
