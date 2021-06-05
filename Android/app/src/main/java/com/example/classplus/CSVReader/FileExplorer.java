@@ -20,14 +20,14 @@ public class FileExplorer {
         final String[] csvPath = new String[1];
 
         new ChooserDialog(activity)
-                .withStartFile(Environment.DIRECTORY_DOWNLOADS)
-                        .withChosenListener(new ChooserDialog.Result() {
+                .withStartFile(Environment.getExternalStorageDirectory().getAbsolutePath())
+                .withChosenListener(new ChooserDialog.Result() {
                     @Override
                     public void onChoosePath(String path, File pathFile) {
                         csvPath[0] = path;
                     }
                 })
-                // to handle the back key pressed or clicked outside the dialog:
+
                 .withOnCancelListener(new DialogInterface.OnCancelListener() {
                     public void onCancel(DialogInterface dialog) {
                         Log.d("CANCEL", "CANCEL");

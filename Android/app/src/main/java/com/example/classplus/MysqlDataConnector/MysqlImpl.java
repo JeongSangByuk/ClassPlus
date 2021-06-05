@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.classplus.Activity.MainActivity;
 import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 
@@ -78,7 +79,7 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public int createChattingRoom(String roomName) {
+    public int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) {
         return 0;
     }
 
@@ -107,7 +108,7 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public int createChattingRoom(String roomName, String admin_email) throws ExecutionException, InterruptedException {
+    public int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         ChattingRoomCreator task = new ChattingRoomCreator();
         int uuid = Integer.parseInt(task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtable.php", roomName, admin_email).get());
         return uuid;

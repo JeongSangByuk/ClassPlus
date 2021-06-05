@@ -1,5 +1,6 @@
 package com.example.classplus.MysqlDataConnector;
 
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 
@@ -20,11 +21,11 @@ public interface IModel {
     // 로그인한 유저에 맞는 uuid값 반환 받음
     public ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException;
     
-    int createChattingRoom(String roomName); // 채팅방 이름 후 uuid 반환
+    int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type); // 채팅방 이름 후 uuid 반환
 
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
 
-    int createChattingRoom(String roomName, String admin_email) throws ExecutionException, InterruptedException;
+    int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException;
 
     int enterChattingRoom(int uuid, ArrayList<String> emails); // 성공 SUCCESS 반환, 실패 FAILURE
 

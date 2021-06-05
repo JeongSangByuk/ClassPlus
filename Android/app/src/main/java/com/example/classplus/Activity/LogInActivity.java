@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.classplus.AppManager;
+import com.example.classplus.CSVReader.FileExplorer;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.User;
 import com.example.classplus.MysqlDataConnector.FakeModel;
@@ -58,11 +59,9 @@ public class LogInActivity extends AppCompatActivity {
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
 
+        //FileExplorer explorer = new FileExplorer();
+        //explorer.getCsvPath(this);
 
-        /*
-        FileExplorer explorer = new FileExplorer();
-        explorer.getCsvPath(this);
-        */
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
