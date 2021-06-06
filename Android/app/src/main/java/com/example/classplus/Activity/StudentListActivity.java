@@ -2,6 +2,7 @@ package com.example.classplus.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,24 +46,37 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
     String className;
     int uuid;
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
 
+        activity = this;
         floatingActionButton = findViewById(R.id.bnt_studentlist_insertion);
         teamChattingMakingDialog = new TeamChattingMakingDialog();
         chattingRoomManagement = new ChattingRoomManagement();
 
         Intent intent = getIntent();
-        uuid = intent.getIntExtra("uuid", 0);
-        className = intent.getStringExtra("className");
-        students = ((ChatRoomInfo) intent.getSerializableExtra("chatRoomInfo")).getStudents();
+        Bundle workBundle = intent.getParcelableExtra("chatRoomInfo_bundle");
+        ChatRoomInfo chatRoomInfo = (ChatRoomInfo) workBundle.getSerializable("chatRoomInfo");
+
+        uuid = chatRoomInfo.getUUID();
+        className = chatRoomInfo.getName();
+        students = chatRoomInfo.getStudents();
 
         ((TextView)findViewById(R.id.tv_student_list_title)).setText(className + " 학생 목록");
 
-        InitializeUserData();
+        try {
+            InitializeUserData();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         ListView listView = (ListView)findViewById(R.id.lv_students);
 
@@ -84,7 +98,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
                     public void onDismiss(DialogInterface dialog) {
                         numberOfPeople = Integer.valueOf(result);
                         Log.d("numberOfPeople", String.valueOf(numberOfPeople));
-                        showSecondDialog();
+                        showSecondDialog(activity);
                     }
                 });
 
@@ -95,7 +109,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
     }
 
-    private void showSecondDialog()
+    private void showSecondDialog(Activity activity)
     {
         String[] secondListItems = {"랜덤", "선택"};
         AlertDialog dialog =  teamChattingMakingDialog.getDialog("어떻게 팀을 만들까요?",
@@ -108,7 +122,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
                 Log.d("Type", type);
 
                 try {
-                    chattingRoomManagement.dividTeam(numberOfPeople,students,className,uuid);
+                    chattingRoomManagement.dividTeam(numberOfPeople,students,className,uuid, activity);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -122,11 +136,14 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
     }
 
-    private void InitializeUserData() {
-        students =  new ArrayList<User>();
-        students.add(new User("sawon@","사원","디컨", true, 0));
-        students.add(new User("sawon@","상벽","소웨", true, 0));
-        students.add(new User("sawon@","영진","디컨", true, 0));
+    private void InitializeUserData() throws InterruptedException, ExecutionException, JSONException {
+        ArrayList<String> emails = AppManager.getInstance().getMysql().getChattingRoomUser(uuid);
+        students = new ArrayList<>();
+
+        for(String email : emails)
+        {
+            students.add(AppManager.getInstance().getMysql().getUserinfo(email));
+        }
     }
 
 }

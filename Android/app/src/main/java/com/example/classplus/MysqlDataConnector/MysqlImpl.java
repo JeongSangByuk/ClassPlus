@@ -88,7 +88,9 @@ public class MysqlImpl implements IModel {
     @Override
     public ArrayList<ChatRoomInfo> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
         ChattingRoomToUserSender task = new ChattingRoomToUserSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.name()).get();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.toString()).get();
+
+        if(result.trim().length()==0) return new ArrayList<ChatRoomInfo>();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
             ArrayList<ChatRoomInfo> chatRoom = new ArrayList<>();
@@ -104,14 +106,21 @@ public class MysqlImpl implements IModel {
                 chatRoomInfo.setName(classplussObject.getString("room_name"));
 
                 ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
-                for(int j = 0 ; j < emails.size(); j++)
+
+                Log.d("sss", "email size:"+emails.size());
+                for(int j = 0 ; j < emails.size(); j++) {
+                    Log.d("sss", "emails:"+emails.get(j));
                     students.add(getUserinfo(emails.get(j)));
+                }
 
                 chatRoomInfo.setStudents(students);
                 chatRoomInfo.setType(type);
 
                 chatRoom.add(chatRoomInfo);
             }
+
+            for(int i = 0; i < chatRoom.size(); i++)
+                Log.d("sss", "chatRoom : " + chatRoom.get(i).getName());
             return chatRoom;
         } else {
             return null;
@@ -136,7 +145,7 @@ public class MysqlImpl implements IModel {
         ChattingRoomToUserCreator task = null;
         for(int i = 0; i < emails.size(); i++) {
             task = new ChattingRoomToUserCreator();
-            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), type.name());
+            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), roomName, type.name());
         }
         return Constant.SUCCESS;
     }
@@ -148,7 +157,7 @@ public class MysqlImpl implements IModel {
 
     @Override
     public ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException {
-        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        ChattingRoomUserSender task = new ChattingRoomUserSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getchattingroomuser.php", Integer.toString(uuid)).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
@@ -168,7 +177,7 @@ public class MysqlImpl implements IModel {
 
     @Override
     public ArrayList<ChatRoomInfo> getChattingRoomByAdmin(String admin_email) throws JSONException, ExecutionException, InterruptedException {
-        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        ChattingRoomByAdminSender task = new ChattingRoomByAdminSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidandtypechattingtable.php", admin_email).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {

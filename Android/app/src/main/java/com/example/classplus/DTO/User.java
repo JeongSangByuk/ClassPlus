@@ -4,7 +4,9 @@ import android.util.Log;
 
 import com.example.classplus.R;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable  {
 
     private String email;
     private String name;

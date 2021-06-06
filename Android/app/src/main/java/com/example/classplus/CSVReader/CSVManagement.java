@@ -2,6 +2,7 @@ package com.example.classplus.CSVReader;
 
 import android.util.Log;
 
+import com.example.classplus.AppManager;
 import com.opencsv.CSVReader;
 
 import java.io.FileInputStream;
@@ -35,9 +36,12 @@ public class CSVManagement {
 
             list.remove(0);
 
+            String email;
             for(String[] str : list){
 
-                emailList.add(str[emailIndex]);
+                email = str[emailIndex].trim();
+
+                emailList.add(email);
 
             }
 

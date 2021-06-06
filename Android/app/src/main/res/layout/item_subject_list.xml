@@ -57,7 +57,7 @@
             android:layout_weight="1"
 
             android:fontFamily="@font/nanumsquarer"
-            android:text="시간표 확인"
+            android:text="통합 시간표 확인"
             android:textSize="15dp" />
 
         <Button
@@ -69,7 +69,7 @@
             android:layout_weight="1"
 
             android:fontFamily="@font/nanumsquarer"
-            android:text="팀 채팅 확인"
+            android:text="팀 채팅 만들기"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
