@@ -11,7 +11,6 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
-import com.example.classplus.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +54,7 @@ public class MysqlImpl implements IModel {
             boolean isStudent = false;
             if(classplussObject.getString("isStudent").equals("1")) isStudent = true;
             User user = new User(classplussObject.getString("email"), classplussObject.getString("name"),
-                    classplussObject.getString("major"), isStudent, R.drawable.study1);
+                    classplussObject.getString("major"), isStudent, classplussObject.getInt("imgNum"));
             return user;
         } else {
             return null;
@@ -87,26 +86,33 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public ArrayList<ChatRoomToUser> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
+    public ArrayList<ChatRoomInfo> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
         ChattingRoomToUserSender task = new ChattingRoomToUserSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email).get();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.name()).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
-            ArrayList<ChatRoomToUser> chatRoomToUsers = new ArrayList<ChatRoomToUser>();
+            ArrayList<ChatRoomInfo> chatRoom = new ArrayList<>();
             JSONObject jsonObject = new JSONObject(result);
             JSONArray classplusArray = jsonObject.getJSONArray("classplus");
             for(int i=0; i<classplusArray.length(); i++)
             {
                 JSONObject classplussObject = classplusArray.getJSONObject(i);
+                ArrayList<User> students = new ArrayList<>();
 
-                ChatRoomToUser chatroom = new ChatRoomToUser();
-                chatroom.setUser_email(user_email);
-                chatroom.setUuid(classplussObject.getInt("uuid"));
-                chatroom.setRoom_name(classplussObject.getString("room_name"));
+                ChatRoomInfo chatRoomInfo = new ChatRoomInfo();
+                chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
+                chatRoomInfo.setName(classplussObject.getString("room_name"));
 
-                chatRoomToUsers.add(chatroom);
+                ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
+                for(int j = 0 ; j < emails.size(); j++)
+                    students.add(getUserinfo(emails.get(j)));
+
+                chatRoomInfo.setStudents(students);
+                chatRoomInfo.setType(type);
+
+                chatRoom.add(chatRoomInfo);
             }
-            return chatRoomToUsers;
+            return chatRoom;
         } else {
             return null;
         }
@@ -130,7 +136,7 @@ public class MysqlImpl implements IModel {
         ChattingRoomToUserCreator task = null;
         for(int i = 0; i < emails.size(); i++) {
             task = new ChattingRoomToUserCreator();
-            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i));
+            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), type.name());
         }
         return Constant.SUCCESS;
     }
@@ -141,7 +147,48 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public ArrayList<String> getChattingRoomUser(int uuid) {
-        return null;
+    public ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException {
+        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getchattingroomuser.php", Integer.toString(uuid)).get();
+
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
+            ArrayList<String> user_emails = new ArrayList<>();
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray classplusArray = jsonObject.getJSONArray("classplus");
+            for(int i=0; i<classplusArray.length(); i++)
+            {
+                JSONObject classplussObject = classplusArray.getJSONObject(i);
+                user_emails.add(classplussObject.getString("user_email"));
+            }
+            return user_emails;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<ChatRoomInfo> getChattingRoomByAdmin(String admin_email) throws JSONException, ExecutionException, InterruptedException {
+        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidandtypechattingtable.php", admin_email).get();
+
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
+            ArrayList<ChatRoomInfo> chatRoom = new ArrayList<>();
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray classplusArray = jsonObject.getJSONArray("classplus");
+            for(int i=0; i<classplusArray.length(); i++)
+            {
+                JSONObject classplussObject = classplusArray.getJSONObject(i);
+
+                ChatRoomInfo chatRoomInfo = new ChatRoomInfo();
+                chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
+                chatRoomInfo.setType(ChatRoomInfo.ChatRoomType.valueOf(classplussObject.getString("type")));
+                chatRoomInfo.setName(classplussObject.getString("name"));
+
+                chatRoom.add(chatRoomInfo);
+            }
+            return chatRoom;
+        } else {
+            return null;
+        }
     }
 }

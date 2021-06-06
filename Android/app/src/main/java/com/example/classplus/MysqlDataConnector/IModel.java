@@ -27,14 +27,13 @@ public interface IModel {
 
     String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException;
 
-    ArrayList<ChatRoomToUser> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException;
+    ArrayList<ChatRoomInfo> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException;
 
     int enterChattingRoom(int uuid, ArrayList<String> emails, String roomName, ChatRoomInfo.ChatRoomType type); // 성공 SUCCESS 반환, 실패 FAILURE
 
     int exitChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
 
-    /*추*/
+    ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException;
 
-    ArrayList<String> getChattingRoomUser(int uuid);
+    ArrayList<ChatRoomInfo> getChattingRoomByAdmin(String admin_email) throws JSONException, ExecutionException, InterruptedException;
 }
-

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.classplus.AppManager;
 import com.example.classplus.ChattingRoomManagement.ChattingRoomManagement;
@@ -20,6 +21,7 @@ import com.example.classplus.RecyclerviewController.StudentsListViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -57,6 +59,8 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
         uuid = intent.getIntExtra("uuid", 0);
         className = intent.getStringExtra("className");
         students = ((ChatRoomInfo) intent.getSerializableExtra("chatRoomInfo")).getStudents();
+
+        ((TextView)findViewById(R.id.tv_student_list_title)).setText(className + " 학생 목록");
 
         InitializeUserData();
 

@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_student_list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OOO 학생"
@@ -26,7 +26,7 @@
         android:id="@+id/lv_students"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_title"
+        android:layout_below="@+id/tv_student_list_title"
         android:layout_marginTop="0dp" />
     </RelativeLayout>
 

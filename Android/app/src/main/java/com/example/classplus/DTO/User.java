@@ -17,13 +17,12 @@ public class User {
     }
 
     public User(String email, String name, String major, boolean isStudent,int imgNumber)
-
     {
         this.email =email;
         this.name = name;
         this.major = major;
         this.isStudent = isStudent;
-        this.imgNumber = getImageNum(imgNumber);
+        this.imgNumber = imgNumber;
     }
 
     public int getImgNumber() {
@@ -86,6 +85,4 @@ public class User {
         }
         return 0;
     }
-
-
 }

@@ -21,9 +21,10 @@ public class ChatRoomInfo {
     private boolean isRead;
     private ChatRoomType type;
 
-    public ChatRoomInfo(){}
+    public ChatRoomInfo() {
+    }
 
-    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
+    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img) {
         this.uuid = uuid;
         this.name = name;
         this.lastTime = lastTime;
@@ -43,24 +44,24 @@ public class ChatRoomInfo {
     }
 
 
-    private void setImageNum(int img){
-        switch (img){
-            case 0 :
+    private void setImageNum(int img) {
+        switch (img) {
+            case 0:
                 this.img = R.drawable.study1;
                 break;
-            case 1 :
+            case 1:
                 this.img = R.drawable.study2;
                 break;
-            case 2 :
+            case 2:
                 this.img = R.drawable.study3;
                 break;
-            case 3 :
+            case 3:
                 this.img = R.drawable.study4;
                 break;
-            case 4 :
+            case 4:
                 this.img = R.drawable.study5;
                 break;
-            case 5 :
+            case 5:
                 this.img = R.drawable.study6;
                 break;
         }
@@ -118,9 +119,13 @@ public class ChatRoomInfo {
         this.img = img;
     }
 
-    public int getUUID() { return uuid;}
+    public int getUUID() {
+        return uuid;
+    }
 
-    public void setUUID(int uuid) { this.uuid = uuid;}
+    public void setUUID(int uuid) {
+        this.uuid = uuid;
+    }
 
     public ChatRoomType getType() {
         return type;
