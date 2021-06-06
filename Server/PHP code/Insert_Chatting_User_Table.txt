@@ -15,21 +15,17 @@
         // 안드로이드 코드의 postParameters 변수에 적어준 이름을 가지고 값을 전달 받습니다.
 
         $uuid = $_POST['uuid'];
-	    $user_email    = $_POST['user_email'];
+	      $user_email = $_POST['user_email'];
+        $type = $_POST['type'];
 
-        if(empty($uuid)){
-            $errMSG = "모임명을 입력하세요.";
-        }
-        else if(empty($user_email)){
-            $errMSG = "설명을 입력하세요.";
-        }
-
-        if(!isset($errMSG))
+        if(!isset($errMSG)) // 이름과 나라 모두 입력이 되었다면
         {
             try{
-                $stmt = $con->prepare('INSERT INTO chatting_user(uuid, user_email)  VALUES(:uuid, :user_email)');
+                // SQL문을 실행하여 데이터를 MySQL 서버의 meeting 테이블에 저장합니다.
+                $stmt = $con->prepare('INSERT INTO chatting_user(uuid, user_email, type)  VALUES(:uuid, :user_email, :type)');
                 $stmt->bindParam(':uuid', $uuid);
-		    $stmt->bindParam(':user_email', $user_email);
+	   $stmt->bindParam(':user_email', $user_email);
+                $stmt->bindParam(':type', $type);
 
                 if($stmt->execute())
                 {
