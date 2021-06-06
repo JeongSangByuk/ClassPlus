@@ -12,18 +12,28 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.AppManager;
+import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.Workstack;
 import com.example.classplus.Dialog.WorkStackInsertionDialog;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.WorkstackRVAdapter;
+import com.example.classplus.firebase.FirebaseConnector;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +47,10 @@ public class WorkStackActivity extends AppCompatActivity {
     private WorkstackRVAdapter workstackRVAdapter;
     private ArrayList<Workstack> workstackList;
     private FloatingActionButton floatingActionButton;
+    private DatabaseReference dbRef;
+    private int chatRoomUUID;
+    // 처음 방에 입장했을때를 가르키는 boolean
+    private boolean isFirstAccess;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,11 +58,23 @@ public class WorkStackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workstack);
         setStatusBar();
 
-        FakeModel fakeModel = new FakeModel();
-        initData();
+        isFirstAccess = true;
+
+        Intent nowIntent = getIntent();
+        chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
+        dbRef = FirebaseConnector.getInstance().getDatabaseReference();
+
+        setDataListener();
 
         floatingActionButton = findViewById(R.id.bnt_workstackdialog_insertion);
         workStackRecyclerView = findViewById(R.id.recyclerview_workstack);
+
+        // 리사이클러뷰 역순 출력
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        workStackRecyclerView.setLayoutManager(mLayoutManager);
+
         workstackRVAdapter = new WorkstackRVAdapter(getApplicationContext(),workstackList);
         workStackRecyclerView.setAdapter(workstackRVAdapter);
 
@@ -64,7 +90,6 @@ public class WorkStackActivity extends AppCompatActivity {
     }
 
 
-
     // 워크스택 다이얼로그 종료 리스너
     ActivityResultLauncher<Intent> workstackActivityLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -75,9 +100,14 @@ public class WorkStackActivity extends AppCompatActivity {
 
                         String title = result.getData().getStringExtra("title");
                         String description = result.getData().getStringExtra("description");
-                        Log.d("qwe",String.valueOf(title + "  " + description));
-                        workstackList.add(new Workstack(AppManager.getInstance().getLoginUser().getName(),title,description,getCurrentTime(),AppManager.getInstance().getLoginUser().getImgNumber()));
+
+                        Workstack addedData = new Workstack(AppManager.getInstance().getLoginUser().getEmail(),AppManager.getInstance().getLoginUser().getName(),
+                                title,description,getCurrentTime(),AppManager.getInstance().getLoginUser().getImgNumber());
+                        workstackList.add(addedData);
+
+                        dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
                         workstackRVAdapter.notifyDataSetChanged();
+                        workStackRecyclerView.scrollToPosition(workstackList.size()-1);
                     }
                 }
             });
@@ -94,23 +124,80 @@ public class WorkStackActivity extends AppCompatActivity {
 
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
-        SimpleDateFormat simpleDate = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd HH:mm");
         return simpleDate.format(mDate);
     }
 
-    public void initData(){
+    public void setDataListener(){
         workstackList = new ArrayList<>();
-        workstackList.add(new Workstack("정상벽","PPT 제출", "PPT 진행 중입니다.","21:00",R.drawable.study1));
-        workstackList.add(new Workstack("최사원","발표 완료", "발표 완료했습니다.","21:00",R.drawable.study3));
-        workstackList.add(new Workstack("김영진", "개발 진행 30%","개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.개발 진행 30프로 입니다.개발 진행 30프로 입니다.","21:00",R.drawable.study2));
-        workstackList.add(new Workstack("정상벽","PPT 제출", "PPT 진행 중입니다.","21:00",R.drawable.study1));
-        workstackList.add(new Workstack("최사원","발표 완료", "발표 완료했습니다.","21:00",R.drawable.study3));
-        workstackList.add(new Workstack("김영진", "개발 진행 30%","개발 진행 30프로 입니다.","21:00",R.drawable.study2));
-        workstackList.add(new Workstack("정상벽", "PPT 제출","PPT 진행 중입니다.\nPPT 진행 중입니다.\nPPT 진행 중입니다.\nPPT 진행 중입니다.","21:00",R.drawable.study1));
-        workstackList.add(new Workstack("최사원", "PPT 제출","발표 완료했습니다.","21:00",R.drawable.study3));
-        workstackList.add(new Workstack("김영진","발표 완료", "개발 진행 30프로 입니다.","21:00",R.drawable.study2));
-        workstackList.add(new Workstack("정상벽", "PPT 제출","PPT 진행 중입니다.","21:00",R.drawable.study1));
-        workstackList.add(new Workstack("최사원", "발표 완료","발표 완료했습니다.","21:00",R.drawable.study3));
-        workstackList.add(new Workstack("김영진", "개발 진행 30%","개발 진행 30프로 입니다.","21:00",R.drawable.study2));
+//        workstackList.add(new Workstack("정상벽","PPT 제출", "PPT 진행 중입니다.","21:00",R.drawable.study1));
+//        workstackList.add(new Workstack("최사원","발표 완료", "발표 완료했습니다.","21:00",R.drawable.study3));
+//        workstackList.add(new Workstack("김영진", "개발 진행 30%","개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.개발 진행 30프로 입니다.개발 진행 30프로 입니다.","21:00",R.drawable.study2));
+
+
+        //  맨 처음 채팅방 진입시 데이터 읽어오는 리스너
+
+        dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                // 맨 처음 시작일 경우
+                if (workstackList.size() == 0) {
+                    for (DataSnapshot tempSnapshot : snapshot.getChildren()) {
+
+                        Workstack workStackData = tempSnapshot.getValue(Workstack.class);
+                        workstackList.add(workStackData);
+                    }
+                    workstackRVAdapter.notifyDataSetChanged();
+                    workStackRecyclerView.scrollToPosition(workstackList.size()-1);
+                    isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        // 데이터 추가될 때 추가해주는 리스너, 즉 내가 다른 사람이 워크스택 올렸을때.
+        dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                Workstack workStackData = snapshot.getValue(Workstack.class);
+
+                // 내가 보낸 워크 스택인일 경우 그냥 리턴 , but 맨처음 에는 return 하지 않는다!
+                if(!isFirstAccess && workStackData.getUserEmai().equals(AppManager.getInstance().getLoginUser().getEmail()))
+                    return;
+
+                workstackList.add(workStackData);
+                workstackRVAdapter.notifyDataSetChanged();
+                workStackRecyclerView.scrollToPosition(workstackList.size()-1);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

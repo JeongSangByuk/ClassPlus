@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.classplus.Activity.MainActivity;
 import com.example.classplus.Activity.WorkStackActivity;
+import com.example.classplus.Constant;
 import com.example.classplus.R;
+import com.google.firebase.database.DatabaseReference;
 
 public class WorkStackInsertionDialog extends AppCompatActivity {
 
@@ -35,7 +37,6 @@ public class WorkStackInsertionDialog extends AppCompatActivity {
         confirmBnt = findViewById(R.id.bnt_workstackdialog_confirm);
         titleEdittext = findViewById(R.id.et_workstack_title);
         descriptionEdittext = findViewById(R.id.et_workstackdialog_descrtiption);
-
 
 
         cancelBnt.setOnClickListener(new View.OnClickListener() {

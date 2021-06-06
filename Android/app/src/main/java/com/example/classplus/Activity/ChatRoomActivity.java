@@ -122,6 +122,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WorkStackActivity.class);
+                intent.putExtra("uuid",chatRoomUUID);
                 startActivity(intent);
             }
         });
