@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -50,6 +51,7 @@ public class WorkStackActivity extends AppCompatActivity {
     private int chatRoomUUID;
     // 처음 방에 입장했을때를 가르키는 boolean
     private boolean isFirstAccess;
+    private ImageView backBnt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class WorkStackActivity extends AppCompatActivity {
 
         floatingActionButton = findViewById(R.id.bnt_workstackdialog_insertion);
         workStackRecyclerView = findViewById(R.id.recyclerview_workstack);
+        backBnt = findViewById(R.id.iv_back_workstack);
 
         // 리사이클러뷰 역순 출력
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -85,6 +88,14 @@ public class WorkStackActivity extends AppCompatActivity {
                 workstackActivityLauncher.launch(intent);
             }
         });
+
+        backBnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
     }
@@ -112,7 +123,10 @@ public class WorkStackActivity extends AppCompatActivity {
                         workstackRVAdapter.notifyDataSetChanged();
                         workStackRecyclerView.scrollToPosition(workstackList.size()-1);
 
-                        //워크스택이 
+                        //워크스택이 추가되면 채팅방에 새로운 채팅을 보내면됨!
+                        ChatData addedChatData = new ChatData(AppManager.getInstance().getLoginUser().getEmail(),AppManager.getInstance().getLoginUser().getName(),
+                               description , getCurrentTime(),0, ChatData.MessageType.WORK_STACK.toString());
+                        dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedChatData);
                     }
                 }
             });
