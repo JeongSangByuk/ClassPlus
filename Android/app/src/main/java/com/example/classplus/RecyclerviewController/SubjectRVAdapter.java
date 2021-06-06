@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.classplus.DTO.Subject;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.R;
 
 import java.util.ArrayList;
 
 public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder> {
 
-    private ArrayList<Subject> subjectList;
+    private ArrayList<ChatRoomInfo> subjectList;
     private Context context;
 
-    public SubjectRVAdapter(Context context, ArrayList<Subject> subjectList) {
+    public SubjectRVAdapter(Context context, ArrayList<ChatRoomInfo> subjectList) {
         this.context = context;
         this.subjectList = subjectList;
     }
@@ -38,7 +38,8 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
     public void onBindViewHolder(@NonNull SubjectItemViewHolder holder, int position) {
 
         holder.name.setText(subjectList.get(position).getName());
-        holder.totalStudentCount.setText("총원 : " + subjectList.get(position).getTotalStudentCount());
+        //holder.totalStudentCount.setText("총원 : " + subjectList.get(position).getTotalCount);
+        holder.totalStudentCount.setText("총원 : 98");
     }
 
     @Override

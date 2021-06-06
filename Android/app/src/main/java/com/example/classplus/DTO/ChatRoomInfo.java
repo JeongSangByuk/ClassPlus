@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.example.classplus.R;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ChatRoomInfo {
