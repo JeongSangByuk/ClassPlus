@@ -69,7 +69,7 @@ public class ChattingRoomManagement {
             }
 
             cnt++;
-
+ 
             if(cnt == maxNumber || i==students.size()-1)
             {
                 cnt = 0;
