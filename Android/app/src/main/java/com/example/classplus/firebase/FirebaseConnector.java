@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.google.firebase.FirebaseApp;
@@ -25,6 +26,7 @@ public class FirebaseConnector {
 
     private static FirebaseDatabase database;
     private static DatabaseReference dbRef;
+
 
     public static FirebaseConnector getInstance(Activity activity) {
 
@@ -53,28 +55,28 @@ public class FirebaseConnector {
 
     public Boolean haveTeamChat(int totalChatUuid){
 
-        final Boolean[] exist = new Boolean[1];
+        DatabaseReference sync = database.getReference();
+        sync.keepSynced(true);
 
-        dbRef.child(Constant.FIREBASE_CHAT_TYPE_NODE_NAME).addListenerForSingleValueEvent(
+        boolean[] exist = {false};
 
+        sync.child(Constant.FIREBASE_CHAT_TYPE_NODE_NAME).addListenerForSingleValueEvent(
 
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         Log.d("ddd",String.valueOf(totalChatUuid));
                         if (snapshot.child(String.valueOf(totalChatUuid)).exists()) {
-
                             exist[0] = true;
                         }
                     }
+
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
-
-        if(exist[0]) Log.d("sssssss","!!!!!!!");
 
         return exist[0];
     }

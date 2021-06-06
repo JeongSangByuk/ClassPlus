@@ -57,7 +57,7 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
         timetable = holder.timetable;
         chatManager = holder.chatManager;
 
-        if(FirebaseConnector.getInstance().haveTeamChat(uuid))  chatManager.setText("팀 확인하기");
+        if(FirebaseConnector.getInstance().haveTeamChat(uuid)) chatManager.setText("팀 확인하기");
 
         chatManager.setOnClickListener(
                 new Button.OnClickListener() {
