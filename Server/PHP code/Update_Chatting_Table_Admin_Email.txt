@@ -14,11 +14,10 @@
     if( (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit'])) || $android )
     {
 
-      $name=$_POST['name'];
-      $admin_email=$_POST['admin_email'];
-      $type=$_POST['type'];
+      $uuid = $_POST['uuid'];
+  		$admin_email = $_POST['admin_email'];
 
-      $sql = "INSERT INTO chatting(name, admin_email, type) VALUES('$name', '$admin_email', '$type')";
+		  $sql = "UPDATE chatting SET admin_email = '$admin_email' WHERE uuid = $uuid;";
 
       if($con -> query($sql) == TRUE) {
         echo "".$con -> insert_id;

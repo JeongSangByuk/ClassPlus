@@ -80,8 +80,9 @@ public class MysqlImpl implements IModel {
 
     @Override
     public int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
-
-        return 0;
+        ChattingRoomToNameCreator task = new ChattingRoomToNameCreator();
+        int uuid = Integer.parseInt(task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtonametable.php", roomName, type.name()).get());
+        return uuid;
     }
 
     @Override
@@ -100,6 +101,8 @@ public class MysqlImpl implements IModel {
                 ChatRoomToUser chatroom = new ChatRoomToUser();
                 chatroom.setUser_email(user_email);
                 chatroom.setUuid(classplussObject.getInt("uuid"));
+                chatroom.setRoom_name(classplussObject.getString("room_name"));
+
                 chatRoomToUsers.add(chatroom);
             }
             return chatRoomToUsers;
@@ -109,28 +112,26 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type){
-        return 0;
-    }
-
-
-    @Override
-    public int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
+    public int createChattingRoom(String roomName, String email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         ChattingRoomCreator task = new ChattingRoomCreator();
-        int uuid = Integer.parseInt(task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtable.php", roomName, admin_email).get());
+        int uuid = Integer.parseInt(task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingtable.php", roomName, email, type.name()).get());
         return uuid;
     }
 
     @Override
     public void setChattingRoomAdmin(int chattingRoomUUID, String userEmail) {
-
+        ChattingAdminEmailUpdator task = new ChattingAdminEmailUpdator();
+        task.execute("http://" + Constant.IP_ADDRESS + "/updatechattingtoemail.php", Integer.toString(chattingRoomUUID), userEmail);
     }
 
     @Override
     public int enterChattingRoom(int uuid, ArrayList<String> emails) {
-        ChattingRoomToUserCreator task = new ChattingRoomToUserCreator();
-        task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php");
-        return 0;
+        ChattingRoomToUserCreator task = null;
+        for(int i = 0; i < emails.size(); i++) {
+            task = new ChattingRoomToUserCreator();
+            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i));
+        }
+        return Constant.SUCCESS;
     }
 
     @Override

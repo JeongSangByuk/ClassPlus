@@ -16,14 +16,12 @@ public interface IModel {
     User login(String email, String password) throws ExecutionException, InterruptedException; //login 못하면 User = NULL 반환
 
     User getUserinfo(String email) throws ExecutionException, InterruptedException, JSONException;
-
+    
     int createChattingRoom(String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException; // 채팅방 이름 후 uuid 반환
-
-    int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type);
 
     void setChattingRoomAdmin(int chattingRoomUUID, String userEmail);
 
-    int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException;
+    int createChattingRoom(String roomName, String email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException;
 
     String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException;
 

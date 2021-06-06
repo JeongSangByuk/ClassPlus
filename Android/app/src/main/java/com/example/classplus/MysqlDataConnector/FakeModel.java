@@ -1,7 +1,6 @@
 package com.example.classplus.MysqlDataConnector;
 
 import com.example.classplus.Constant;
-
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
@@ -30,16 +29,6 @@ public class FakeModel implements IModel{
     }
 
     @Override
-    public int createChattingRoomToUser(String roomName, String userEmail, ChatRoomInfo.ChatRoomType type) {
-        return 0;
-    }
-
-    @Override
-    public String getChattingName(int uuid) {
-        return "오픈소";
-    }
-
-    @Override
     public ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException {
         return null;
     }
@@ -52,6 +41,11 @@ public class FakeModel implements IModel{
     @Override
     public int createChattingRoom(String roomName, String admin_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         return 0;
+    }
+
+    @Override
+    public String getChattingName(int uuid) throws JSONException, ExecutionException, InterruptedException {
+        return null;
     }
 
     @Override

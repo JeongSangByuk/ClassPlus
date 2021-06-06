@@ -22,7 +22,6 @@ public class ChatRoomInfo {
     private boolean isRead;
     private ChatRoomType type;
 
-
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
         this.uuid = uuid;
         this.name = name;

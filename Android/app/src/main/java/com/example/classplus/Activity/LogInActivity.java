@@ -16,12 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.classplus.AppManager;
 import com.example.classplus.CSVReader.FileExplorer;
+
+import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomInfo;
+import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class LogInActivity extends AppCompatActivity {
@@ -46,7 +59,7 @@ public class LogInActivity extends AppCompatActivity {
         idEditText = findViewById(R.id.et_login_id);
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
-
+        
 
         FileExplorer explorer = new FileExplorer();
         explorer.showFileExplorer(this);

@@ -2,7 +2,6 @@ package com.example.classplus.MysqlDataConnector;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,7 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ChattingRoomCreator extends AsyncTask<String, Void, String> {
+public class ChattingAdminEmailUpdator extends AsyncTask<String, Void, String> {
     ProgressDialog progressDialog;
 
     @Override
@@ -26,12 +25,11 @@ public class ChattingRoomCreator extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String name = (String)params[1];
+        int uuid = Integer.parseInt(params[1]);
         String admin_email = (String)params[2];
-        String type = (String)params[3];
 
         String serverURL = (String) params[0];
-        String postParameters = "name=" + name + "&admin_email=" + admin_email+ "&type=" + type;
+        String postParameters = "uuid=" + uuid + "&admin_email=" + admin_email;
 
         try {
 

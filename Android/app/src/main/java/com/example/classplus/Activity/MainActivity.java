@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.classplus.AppManager;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Fragment.TeamChatFragment;
@@ -113,14 +114,50 @@ public class MainActivity extends AppCompatActivity {
         model = new MysqlImpl();     // IModel 생성
         ArrayList<ChatRoomToUser> user = null;
         try {
-            user = model.getChattingRoomToUser(AppManager.getInstance().getLoginUser().getEmail());
+            user = model.getChattingRoomToUser("qazkyj0310@gmail.com");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        AppManager.getInstance().setEnteredUserToChattingRoom(user);
+        ArrayList<ChatRoomToUser> users = AppManager.getInstance().getEnteredUserToChattingRoom();
+        */
+
+
+        /*
+        // 채팅방 생성 (채팅방 이름, 채팅방 type)
+
+        model = new MysqlImpl();     // IModel 생성
+        int uuid = 0;
+        try {
+            uuid = model.createChattingRoom("운영체제", ChatRoomInfo.ChatRoomType.TEAM);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }*/
+
+
+        /*
+        // 채팅방 이름 set (uuid에 따른)
+
+        model = new MysqlImpl();     // IModel 생성
+        model.setChattingRoomAdmin(3, "cjk@naver.com");*/
+
+
+        /*
+        // chatting_user 생성
+         
+        ArrayList<String> emails = new ArrayList<>();
+        emails.add("asdads");
+        emails.add("asd");
+        emails.add("dd");
+        model = new MysqlImpl();     // IModel 생성
+        model.enterChattingRoom(1, emails);*/
+
     }
 
     public void startActivity() {
