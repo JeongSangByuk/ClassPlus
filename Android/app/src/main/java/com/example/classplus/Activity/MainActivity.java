@@ -144,6 +144,17 @@ public class MainActivity extends AppCompatActivity {
         model = new MysqlImpl();     // IModel 생성
         model.setChattingRoomAdmin(3, "cjk@naver.com");*/
 
+
+        /*
+        // chatting_user 생성
+         
+        ArrayList<String> emails = new ArrayList<>();
+        emails.add("asdads");
+        emails.add("asd");
+        emails.add("dd");
+        model = new MysqlImpl();     // IModel 생성
+        model.enterChattingRoom(1, emails);*/
+
     }
 
     public void startActivity() {

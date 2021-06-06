@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class LogInActivity extends AppCompatActivity {
@@ -60,8 +61,8 @@ public class LogInActivity extends AppCompatActivity {
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
 
-        FileExplorer explorer = new FileExplorer();
-        explorer.getCsvPath(this);
+        //FileExplorer explorer = new FileExplorer();
+        //explorer.getCsvPath(this);
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override

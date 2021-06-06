@@ -116,7 +116,6 @@ public class MysqlImpl implements IModel {
         return uuid;
     }
 
-    //ChattingAdminEmailUpdator
     @Override
     public void setChattingRoomAdmin(int chattingRoomUUID, String userEmail) {
         ChattingAdminEmailUpdator task = new ChattingAdminEmailUpdator();
@@ -125,22 +124,12 @@ public class MysqlImpl implements IModel {
 
     @Override
     public int enterChattingRoom(int uuid, ArrayList<String> emails) {
-        ChattingRoomToUserCreator task = new ChattingRoomToUserCreator();
-
-        JSONArray jsonArray = new JSONArray();
-        for(int index = 0; index < emails.size(); index++) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("uuid", uuid);
-                jsonObject.put("user_email", emails.get(index));
-                jsonArray.put(jsonObject);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        ChattingRoomToUserCreator task = null;
+        for(int i = 0; i < emails.size(); i++) {
+            task = new ChattingRoomToUserCreator();
+            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i));
         }
-
-        task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", jsonArray.toString());
-        return 0;
+        return Constant.SUCCESS;
     }
 
     @Override

@@ -18,7 +18,6 @@ public class AppManager {
     }
 
     private static User loginUser;
-
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
     }
