@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.classplus.AppManager;
 import com.example.classplus.ChattingRoomManagement.ChattingRoomManagement;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Dialog.TeamChattingMakingDialog;
 import com.example.classplus.R;
@@ -55,23 +56,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
         Intent intent = getIntent();
         uuid = intent.getIntExtra("uuid", 0);
         className = intent.getStringExtra("className");
-
-        ArrayList<String> emails = AppManager.getInstance().getMysql().getChattingRoomUser(uuid);
-
-        for (String email : emails) {
-            try {
-                if(email.equals(AppManager.getInstance().getLoginUser().getEmail())) continue;
-                students.add(AppManager.getInstance().getMysql().getUserinfo(email));
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
+        students = ((ChatRoomInfo) intent.getSerializableExtra("chatRoomInfo")).getStudents();
 
         InitializeUserData();
 
@@ -119,7 +104,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
                 Log.d("Type", type);
 
                 try {
-                    chattingRoomManagement.dividTeam(numberOfPeople,students,className);
+                    chattingRoomManagement.dividTeam(numberOfPeople,students,className,uuid);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

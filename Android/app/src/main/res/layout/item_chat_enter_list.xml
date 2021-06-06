@@ -13,12 +13,12 @@
         android:id="@+id/tv_enter_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:layout_margin="3dp"
         android:layout_weight="1"
-        android:layout_gravity="right"
-        android:gravity="center"
         android:background="@drawable/background_msg_text_item"
         android:fontFamily="@font/nanumsquarer"
+        android:gravity="center"
 
         android:padding="10dp"
 

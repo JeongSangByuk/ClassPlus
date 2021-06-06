@@ -1,10 +1,8 @@
 package com.example.classplus.DTO;
 
-import androidx.annotation.Nullable;
-
 import com.example.classplus.R;
 
-import java.util.Random;
+import java.util.ArrayList;
 
 public class ChatRoomInfo {
 
@@ -17,10 +15,13 @@ public class ChatRoomInfo {
     private String lastTime;
     private String lastChat;
     private String lastChatID;
+    private ArrayList<User> students;
     private int img;
     private int totalNum;
     private boolean isRead;
     private ChatRoomType type;
+
+    public ChatRoomInfo(){}
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
         this.uuid = uuid;
@@ -28,7 +29,7 @@ public class ChatRoomInfo {
         this.lastTime = lastTime;
         this.lastChat = lastChat;
         this.lastChatID = "";
-        this.img = getImageNum(img);
+        setImageNum(img);
     }
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead) {
@@ -38,26 +39,31 @@ public class ChatRoomInfo {
         this.lastChat = lastChat;
         this.lastChatID = lastChatID;
         this.isRead = isRead;
-        this.img = getImageNum(img);
+        setImageNum(img);
     }
 
-    private int getImageNum(int img){
-        img = (int) (img/ 6);
+
+    private void setImageNum(int img){
         switch (img){
             case 0 :
-                return R.drawable.study1;
+                this.img = R.drawable.study1;
+                break;
             case 1 :
-                return R.drawable.study2;
+                this.img = R.drawable.study2;
+                break;
             case 2 :
-                return R.drawable.study3;
+                this.img = R.drawable.study3;
+                break;
             case 3 :
-                return R.drawable.study4;
+                this.img = R.drawable.study4;
+                break;
             case 4 :
-                return R.drawable.study5;
+                this.img = R.drawable.study5;
+                break;
             case 5 :
-                return R.drawable.study6;
+                this.img = R.drawable.study6;
+                break;
         }
-        return 0;
     }
 
     public boolean isRead() {
@@ -114,12 +120,21 @@ public class ChatRoomInfo {
 
     public int getUUID() { return uuid;}
 
+    public void setUUID(int uuid) { this.uuid = uuid;}
+
     public ChatRoomType getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = ChatRoomType.valueOf(type);
+    public void setType(ChatRoomType type) {
+        this.type = type;
     }
 
+    public ArrayList<User> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<User> students) {
+        this.students = students;
+    }
 }

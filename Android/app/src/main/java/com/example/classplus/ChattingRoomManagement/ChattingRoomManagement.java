@@ -48,7 +48,7 @@ public class ChattingRoomManagement {
 
     }
 
-    public void dividTeam(int maxNumber, ArrayList<User> students, String className) throws ExecutionException, InterruptedException {
+    public void dividTeam(int maxNumber, ArrayList<User> students, String className, int totalUUID) throws ExecutionException, InterruptedException {
         int uuid = 0;
 
         int cnt = 0;
@@ -56,6 +56,8 @@ public class ChattingRoomManagement {
 
         for(int i=0; i<students.size(); i++)
         {
+            if(students.get(i).getEmail().equals(AppManager.getInstance().getLoginUser().getEmail())) continue;
+            
             if(cnt == 0)
             {
                 roomCnt++;
@@ -77,28 +79,13 @@ public class ChattingRoomManagement {
                         R.drawable.study2, ChatData.MessageType.ENTER.toString());
 
                 FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
+                FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_TYPE_NODE_NAME).child(String.valueOf(totalUUID)).push().setValue(uuid);
 
             }
-
         }
     }
 
 
-    public void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) throws ExecutionException, InterruptedException {
-
-        String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
-        int uuid = createChattingRoom(chat_maker, emails, roomName, ChatRoomInfo.ChatRoomType.TEAM);
-
-        for(int i=0; i<emails.size(); i++)
-        {
-            ChatData addedData = new ChatData(emails.get(i), names.get(i), names.get(i)+"님이 입장했습니다.", getCurrentTime(),
-                    R.drawable.study2, ChatData.MessageType.ENTER.toString());
-
-            FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
-
-        }
-
-    }
 
    public int createChattingRoom(String chat_maker, ArrayList<String> students, String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         int uuid = model.createChattingRoom(roomName, chat_maker, type);

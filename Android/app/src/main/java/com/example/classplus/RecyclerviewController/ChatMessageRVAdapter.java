@@ -1,6 +1,7 @@
 package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +35,14 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         View view;
 
+        if(viewType == Constant.ENTER_VIEWTYPE){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
+            EnterChatViewHolder holder = new EnterChatViewHolder(view);
+            return holder;
+        }
 
-        if(viewType == Constant.WORKSTACK_VIEWTYPE){
+
+        else if(viewType == Constant.WORKSTACK_VIEWTYPE){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
             WorkstackChatViewHolder holder = new WorkstackChatViewHolder(view);
             return holder;
@@ -60,7 +67,12 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof WorkstackChatViewHolder)
+        if(holder instanceof EnterChatViewHolder)
+        {
+            ((EnterChatViewHolder) holder).msg.setText(chatList.get(position).getMessage());
+         }
+
+        else if(holder instanceof WorkstackChatViewHolder)
         {
             ((WorkstackChatViewHolder) holder).time.setText(chatList.get(position).getTime());
             ((WorkstackChatViewHolder) holder).content.setText(chatList.get(position).getUserName() + " : " +chatList.get(position).getMessage());
@@ -92,7 +104,10 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         Log.d("User", user_email);
 
-        if(chatList.get(position).getType() == ChatData.MessageType.WORK_STACK)
+        if(chatList.get(position).getType() == ChatData.MessageType.ENTER)
+            return Constant.ENTER_VIEWTYPE;
+
+        else if(chatList.get(position).getType() == ChatData.MessageType.WORK_STACK)
             return Constant.WORKSTACK_VIEWTYPE;
 
         // 여기서 자신인지 아닌지 판단. 자신일 경우 view_type = 1
