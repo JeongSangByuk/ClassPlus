@@ -212,21 +212,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == Constant.CHAT_ACTIVITY_REQUEST_CODE){
-//            int index = data.getIntExtra("index",0);
-//            teamChatFragment.chatRoomInfoList.get(index).setRead(true);
-//            teamChatFragment.totalChatRVAdapter.notifyDataSetChanged();
-//        }
-//    }
-
     public void moveToChatActivity(Intent intent){
         chatRoomActivityLauncher.launch(intent);
-        //startActivityForResult(intent, Constant.CHAT_ACTIVITY_REQUEST_CODE);
     }
 
     //fragment 전환하는 메소드

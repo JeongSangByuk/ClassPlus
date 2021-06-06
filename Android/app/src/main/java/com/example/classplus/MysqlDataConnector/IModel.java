@@ -1,8 +1,10 @@
 package com.example.classplus.MysqlDataConnector;
 
 import com.example.classplus.DTO.ChatRoomInfo;
+
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
+
 import com.example.classplus.DTO.User;
 
 import org.json.JSONArray;
@@ -31,9 +33,8 @@ public interface IModel {
 
     int exitChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
 
-
-
     /*추*/
 
     ArrayList<String> getChattingRoomUser(int uuid);
 }
+

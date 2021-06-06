@@ -69,6 +69,7 @@ public class TeamChatFragment extends Fragment {
         getTeamChatRoomData(); //테스트 데이터 삽입.
 
         totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList);
+
         recyclerviewTotalChat.setAdapter(totalChatRVAdapter);
 
         this.user_email = AppManager.getInstance().getLoginUser().getEmail();
@@ -156,6 +157,9 @@ public class TeamChatFragment extends Fragment {
 
                             boolean isRead = false;
                             //내가 보낸 메세지 인 경우 isRead 값 true
+
+                            //Log.d("qwe",user_email + "   " + chatData.getUser_email() + "   " + chatData.getUserName());
+
                             if(chatData.getUser_email().equals(user_email))
                                 isRead = true;
 

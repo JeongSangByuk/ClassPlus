@@ -11,6 +11,7 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
+import com.example.classplus.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,7 @@ public class MysqlImpl implements IModel {
             boolean isStudent = false;
             if(classplussObject.getString("isStudent").equals("1")) isStudent = true;
             User user = new User(classplussObject.getString("email"), classplussObject.getString("name"),
-                    classplussObject.getString("major"), isStudent);
+                    classplussObject.getString("major"), isStudent, R.drawable.study1);
             return user;
         } else {
             return null;

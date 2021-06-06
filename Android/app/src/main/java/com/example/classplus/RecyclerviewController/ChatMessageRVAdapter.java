@@ -62,8 +62,8 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         if(holder instanceof WorkstackChatViewHolder)
         {
-            ((WorkstackChatViewHolder) holder).content.setText(chatList.get(position).getMessage());
-
+            ((WorkstackChatViewHolder) holder).time.setText(chatList.get(position).getTime());
+            ((WorkstackChatViewHolder) holder).content.setText(chatList.get(position).getUserName() + " : " +chatList.get(position).getMessage());
         }
 
         // 내 채팅인 경우.

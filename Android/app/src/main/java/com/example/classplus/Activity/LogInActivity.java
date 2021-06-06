@@ -72,7 +72,6 @@ public class LogInActivity extends AppCompatActivity {
 
                 IModel model = new MysqlImpl();     // IModel 생성
                 User user = null;
-
                 try {
                     user = (User) model.login(email, password);
                 } catch (ExecutionException e) {
@@ -86,6 +85,18 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 다릅니다. ", Toast.LENGTH_LONG).show();
                 }
                 else {
+
+
+                    try {
+                        user = (User)model.getUserinfo(email);
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     AppManager.getInstance().setLoginUser(user);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);

@@ -98,14 +98,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("index",listIndex);
-        setResult(Activity.RESULT_OK,intent);
-        finish();
-    }
-
     // 상태바 색 바꾸기
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void setStatusBar() {
@@ -130,6 +122,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), WorkStackActivity.class);
+                intent.putExtra("uuid",chatRoomUUID);
                 startActivity(intent);
             }
         });

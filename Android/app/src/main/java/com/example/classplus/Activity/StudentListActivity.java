@@ -135,9 +135,9 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
     private void InitializeUserData() {
         students =  new ArrayList<User>();
-        students.add(new User("sawon@","사원","디컨", true));
-        students.add(new User("sawon@","상벽","소웨", true));
-        students.add(new User("sawon@","영진","디컨", true));
+        students.add(new User("sawon@","사원","디컨", true, 0));
+        students.add(new User("sawon@","상벽","소웨", true, 0));
+        students.add(new User("sawon@","영진","디컨", true, 0));
     }
 
 }
