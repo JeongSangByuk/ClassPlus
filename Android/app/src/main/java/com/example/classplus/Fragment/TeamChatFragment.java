@@ -135,27 +135,12 @@ public class TeamChatFragment extends Fragment {
 
     }
 
-    //test 용
-    public String getChatRoomName(int i){
-        switch (i){
-            case 0 :
-                return "운영체제";
-            case 1 :
-                return "오픈 소스 2조";
-            case 2 :
-                return "고급 c 조교";
-        }
-        return "";
-    }
-
     private void setEventListener(){
-
-        //test용 roomUUID list
-        //int[] UUIDList = {0,1,2};
 
         // 모든 채팅방에 대한 리스너 달기.
         for(int i=0;i<updatedChatRoomInfoList.size(); i++) {
             int chatRoomUUID = updatedChatRoomInfoList.get(i).getUUID();
+            String chatRoomName = updatedChatRoomInfoList.get(i).getName();
 
             dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addValueEventListener(new ValueEventListener() {
 
@@ -176,20 +161,12 @@ public class TeamChatFragment extends Fragment {
 
                             ChatData chatData = tempSnapshot.getValue(ChatData.class);
 
-                            boolean isRead = false;
-                            //내가 보낸 메세지 인 경우 isRead 값 true
-
-                            //Log.d("qwe",user_email + "   " + chatData.getUser_email() + "   " + chatData.getUserName());
-
-                            if(chatData.getUser_email().equals(user_email))
-                                isRead = true;
-
-                            chatRoomInfoList.add(0,new ChatRoomInfo(chatRoomUUID, getChatRoomName(chatRoomUUID),chatData.getTime(),chatData.getMessage()
-                                    ,2, tempSnapshot.getKey(),isRead));
+                            chatRoomInfoList.add(0,new ChatRoomInfo(chatRoomUUID, chatRoomName,chatData.getTime(),chatData.getMessage()
+                                    ,chatRoomUUID%6, tempSnapshot.getKey(),false));
 
                             //이후 데베에 insert
-                            ChatRoomLocalDB.getInstance(context).insertRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID, getChatRoomName(chatRoomUUID),
-                                    chatData.getTime(),chatData.getMessage(),2, tempSnapshot.getKey(),isRead);
+                            ChatRoomLocalDB.getInstance(context).insertRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID,chatRoomName,
+                                    chatData.getTime(),chatData.getMessage(),chatRoomUUID%6, tempSnapshot.getKey(),false);
                         }
 
                         //마지막에 한번만 화면 업데이트.

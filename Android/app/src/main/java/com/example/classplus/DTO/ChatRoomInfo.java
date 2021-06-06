@@ -116,7 +116,7 @@ public class ChatRoomInfo {
     }
 
     public void setImg(int img) {
-        this.img = img;
+        setImageNum(img);
     }
 
     public int getUUID() {

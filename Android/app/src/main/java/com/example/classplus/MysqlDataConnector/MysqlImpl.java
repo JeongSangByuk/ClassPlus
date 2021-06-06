@@ -107,13 +107,13 @@ public class MysqlImpl implements IModel {
                 chatRoomInfo.setLastChat("-");
                 chatRoomInfo.setLastChatID("-");
                 chatRoomInfo.setLastTime("-");
-                chatRoomInfo.setImg(chatRoomInfo.getUUID()%6);
+                chatRoomInfo.setImg(classplussObject.getInt("uuid") %6);
 
-//                ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
-//                for(int j = 0 ; j < emails.size(); j++)
-//                    students.add(getUserinfo(emails.get(j)));
-//
-//                chatRoomInfo.setStudents(students);
+                ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
+                for(int j = 0 ; j < emails.size(); j++)
+                    students.add(getUserinfo(emails.get(j)));
+
+                chatRoomInfo.setStudents(students);
 
                 chatRoomInfo.setType(type);
 
@@ -155,7 +155,7 @@ public class MysqlImpl implements IModel {
 
     @Override
     public ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException {
-        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        ChattingRoomUserSender task = new ChattingRoomUserSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getchattingroomuser.php", Integer.toString(uuid)).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
@@ -175,7 +175,7 @@ public class MysqlImpl implements IModel {
 
     @Override
     public ArrayList<ChatRoomInfo> getChattingRoomByAdmin(String admin_email) throws JSONException, ExecutionException, InterruptedException {
-        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        ChattingRoomByAdminSender task = new ChattingRoomByAdminSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidandtypechattingtable.php", admin_email).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
