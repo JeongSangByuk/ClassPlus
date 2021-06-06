@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         model = new MysqlImpl();     // IModel 생성
         ArrayList<ChatRoomToUser> user = null;
         try {
-            user = model.getChattingRoomToUser(AppManager.getInstance().getLoginUser().getEmail());
+            user = model.getChattingRoomToUser("qazkyj0310@gmail.com");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         AppManager.getInstance().setEnteredUserToChattingRoom(user);
+        ArrayList<ChatRoomToUser> users = AppManager.getInstance().getEnteredUserToChattingRoom();
         */
 
 

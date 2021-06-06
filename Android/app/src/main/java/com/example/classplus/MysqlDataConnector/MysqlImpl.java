@@ -101,6 +101,8 @@ public class MysqlImpl implements IModel {
                 ChatRoomToUser chatroom = new ChatRoomToUser();
                 chatroom.setUser_email(user_email);
                 chatroom.setUuid(classplussObject.getInt("uuid"));
+                chatroom.setRoom_name(classplussObject.getString("room_name"));
+
                 chatRoomToUsers.add(chatroom);
             }
             return chatRoomToUsers;

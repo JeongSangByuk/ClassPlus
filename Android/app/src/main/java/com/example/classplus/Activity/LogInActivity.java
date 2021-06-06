@@ -23,11 +23,14 @@ import com.example.classplus.AppManager;
 import com.example.classplus.CSVReader.FileExplorer;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
+import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
+
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.File;
