@@ -1,10 +1,6 @@
 package com.example.classplus.DTO;
 
-import androidx.annotation.Nullable;
-
 import com.example.classplus.R;
-
-import java.util.Random;
 
 public class ChatRoomInfo {
 
@@ -121,14 +117,14 @@ public class ChatRoomInfo {
 
     public int getUUID() { return uuid;}
 
-    public int setUUID(int uuid) { this.uuid = this.uuid;}
+    public void setUUID(int uuid) { this.uuid = uuid;}
 
     public ChatRoomType getType() {
         return type;
     }
 
     public void setType(ChatRoomType type) {
-        this.type = ChatRoomType.valueOf(type);
+        this.type = type;
     }
 
 }
