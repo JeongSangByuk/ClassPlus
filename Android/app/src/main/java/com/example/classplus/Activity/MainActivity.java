@@ -121,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
+        AppManager.getInstance().setEnteredUserToChattingRoom(user);
+        */
 
 
         /*
