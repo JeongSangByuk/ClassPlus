@@ -62,7 +62,10 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
             @Override
             public void onClick(View v) {
                 chatList.get(position).setRead(true);
-                ChatRoomLocalDB.getInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getInstance(context).getWritableDatabase(),chatList.get(position).getUUID());
+
+                ChatRoomLocalDB.getChatDbInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase(),
+                        Constant.ROOM_TEAM_CHAT_TABLE,chatList.get(position).getUUID());
+
                 notifyDataSetChanged();
 
                 MainActivity mainActivity = (MainActivity) context;

@@ -8,25 +8,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
 
 public class ChatRoomLocalDB extends SQLiteOpenHelper {
 
     private static ChatRoomLocalDB instance = null;
-    public static String roomChatTable = "roomChat";
-
 
     public ChatRoomLocalDB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
-    public static ChatRoomLocalDB getInstance(Context context){
+    public static ChatRoomLocalDB getChatDbInstance(Context context){
         if (instance == null) {
-            instance = new ChatRoomLocalDB(context, roomChatTable, null, 1);
+            instance = new ChatRoomLocalDB(context, Constant.LOCAL_CHAT_DB, null, 1);
         }
         return instance;
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -40,11 +40,15 @@ public class ChatRoomLocalDB extends SQLiteOpenHelper {
 
     public void createTable(SQLiteDatabase database) {
 
-        String sqlString = "CREATE TABLE " + roomChatTable + " (uuid INTEGER, name TEXT, lastTime TEXT,lastChat TEXT, " +
+        String sqlString = "CREATE TABLE " + Constant.ROOM_TEAM_CHAT_TABLE + " (uuid INTEGER, name TEXT, lastTime TEXT,lastChat TEXT, " +
+                "img INTEGER, lastChatID TEXT, isRead INTEGER)";
+
+        String sqlString2 = "CREATE TABLE " + Constant.ROOM_TOTAL_CHAT_TABLE + " (uuid INTEGER, name TEXT, lastTime TEXT,lastChat TEXT, " +
                 "img INTEGER, lastChatID TEXT, isRead INTEGER)";
 
         try {
             database.execSQL(sqlString);
+            database.execSQL(sqlString2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,30 +65,30 @@ public class ChatRoomLocalDB extends SQLiteOpenHelper {
         }
     }
 
-    public void insertRoomInfo(SQLiteDatabase database,int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead ){
+    public void insertRoomInfo(SQLiteDatabase database, String tableName,int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead ){
         int readingFlag = (isRead)? 1 : 0;
-        String sqlString = "insert into " + roomChatTable + "(uuid,name,lastTime,lastChat,img,lastChatID,isRead)"
+        String sqlString = "insert into " + tableName + "(uuid,name,lastTime,lastChat,img,lastChatID,isRead)"
                 + " values('" + uuid + "', '" + name + "', '" + lastTime + "', '" + lastChat + "', '" + img + "', '" + lastChatID + "', '" + readingFlag + "')";
 
         runDb(database, sqlString);
     }
 
-    public void updateRoomInfo(SQLiteDatabase database, int uuid,String lastTime,String lastChat,String lastChatID,boolean isRead){
+    public void updateRoomInfo(SQLiteDatabase database,String tableName, int uuid,String lastTime,String lastChat,String lastChatID,boolean isRead){
         int readingFlag = (isRead)? 1 : 0;
-        String sqlString = "UPDATE " + roomChatTable + " SET lastTime = '" + lastTime + "', lastChat = '" + lastChat + "', lastChatID = '"
+        String sqlString = "UPDATE " + tableName + " SET lastTime = '" + lastTime + "', lastChat = '" + lastChat + "', lastChatID = '"
                 + lastChatID +  "', isRead = '" + readingFlag + "' WHERE uuid = '" + uuid  + "'";
         runDb(database, sqlString);
 
     }
 
-    public void updateReadingFlagTrue(SQLiteDatabase database,int uuid ){
+    public void updateReadingFlagTrue(SQLiteDatabase database,String tableName,int uuid ){
 
-        String sqlString = "UPDATE " + roomChatTable +" SET isRead = '" + 1 + "' WHERE uuid = '" + uuid  + "'";
+        String sqlString = "UPDATE " + tableName +" SET isRead = '" + 1 + "' WHERE uuid = '" + uuid  + "'";
         runDb(database, sqlString);
     }
 
-    public ChatRoomInfo getChatRoomInfo(SQLiteDatabase database, int index){
-        String sqlSelect = "SELECT * FROM " + roomChatTable;
+    public ChatRoomInfo getChatRoomInfo(SQLiteDatabase database,String tableName, int index){
+        String sqlSelect = "SELECT * FROM " + tableName;
         Cursor cursor = null;
         int count = 0;
 
@@ -102,8 +106,8 @@ public class ChatRoomLocalDB extends SQLiteOpenHelper {
         return null;
     }
 
-    public Integer getRoomCount(SQLiteDatabase database) {
-        String sqlSelect = "SELECT * FROM " + roomChatTable;
+    public Integer getRoomCount(SQLiteDatabase database, String tableName) {
+        String sqlSelect = "SELECT * FROM " + tableName;
         Cursor cursor = null;
         cursor = database.rawQuery(sqlSelect, null);
 

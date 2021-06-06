@@ -88,28 +88,29 @@ public class TeamChatFragment extends Fragment {
 
         this.user_email = AppManager.getInstance().getLoginUser().getEmail();
 
-        Log.d("user", user_email);
-
         return view;
     }
 
     public void getTeamChatRoomData() throws InterruptedException, ExecutionException, JSONException {
 
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
-        roomChatLocalReadableDB = ChatRoomLocalDB.getInstance(context).getReadableDatabase();
-        roomChatLocalWritadbleDB = ChatRoomLocalDB.getInstance(context).getWritableDatabase();
-        firstRoomCount = ChatRoomLocalDB.getInstance(context).getRoomCount(roomChatLocalReadableDB);
+        roomChatLocalReadableDB = ChatRoomLocalDB.getChatDbInstance(context).getReadableDatabase();
+        roomChatLocalWritadbleDB = ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase();
+        firstRoomCount = ChatRoomLocalDB.getChatDbInstance(context).getRoomCount(roomChatLocalReadableDB,Constant.ROOM_TEAM_CHAT_TABLE);
 
         Log.d("qwe", "now firstRoomCount : "+ String.valueOf(firstRoomCount));
 
         // 로컬 db에 있는 room 정보 add
         for (int i =0;i<firstRoomCount;i++){
-            chatRoomInfoList.add( ChatRoomLocalDB.getInstance(context).getChatRoomInfo(roomChatLocalReadableDB,i));
+            chatRoomInfoList.add( ChatRoomLocalDB.getChatDbInstance(context).getChatRoomInfo(roomChatLocalReadableDB,Constant.ROOM_TEAM_CHAT_TABLE,i));
         }
 
         // 로그인
         updatedChatRoomInfoList = AppManager.getInstance().getMysql()
                 .getChattingRoom(AppManager.getInstance().getLoginUser().getEmail(),ChatRoomInfo.ChatRoomType.TEAM);
+
+        if(updatedChatRoomInfoList.size() ==0)
+            return;
 
         // 데베에 저장된 값이 있을 경우만, 새로운 채팅방이 있는지 확인한다.
         if(firstRoomCount != 0) {
@@ -165,7 +166,7 @@ public class TeamChatFragment extends Fragment {
                                     ,chatRoomUUID%6, tempSnapshot.getKey(),false));
 
                             //이후 데베에 insert
-                            ChatRoomLocalDB.getInstance(context).insertRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID,chatRoomName,
+                            ChatRoomLocalDB.getChatDbInstance(context).insertRoomInfo(roomChatLocalWritadbleDB,Constant.ROOM_TEAM_CHAT_TABLE, chatRoomUUID,chatRoomName,
                                     chatData.getTime(),chatData.getMessage(),chatRoomUUID%6, tempSnapshot.getKey(),false);
                         }
 
@@ -204,7 +205,8 @@ public class TeamChatFragment extends Fragment {
                                 isRead = true;
 
                             chatRoomInfoList.get(listIndex).setRead(isRead);
-                            ChatRoomLocalDB.getInstance(context).updateRoomInfo(roomChatLocalWritadbleDB, chatRoomUUID, chatData.getTime(), chatData.getMessage(), tempSnapshot.getKey(),isRead);
+                            ChatRoomLocalDB.getChatDbInstance(context).updateRoomInfo(roomChatLocalWritadbleDB,Constant.ROOM_TEAM_CHAT_TABLE
+                                    , chatRoomUUID, chatData.getTime(), chatData.getMessage(), tempSnapshot.getKey(),isRead);
 
                             totalChatRVAdapter.notifyDataSetChanged();
                         }
