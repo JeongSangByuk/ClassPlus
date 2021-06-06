@@ -3,6 +3,8 @@ package com.example.classplus;
 public class Constant {
 
     public final static String FIREBASE_CHAT_NODE_NAME = "chat";
+    public final static String FIREBASE_WORKSTACK_NODE_NAME = "workstack";
+
     public final static String IP_ADDRESS = "49.50.175.57";
     public final static char LOGIN_SUCCESS = '1';
 

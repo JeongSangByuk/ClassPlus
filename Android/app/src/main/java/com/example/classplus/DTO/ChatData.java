@@ -23,11 +23,9 @@ public class ChatData {
         this.userName = userName;
         this.message = message;
         this.time = time;
-        this.userImg = userImg;
+        this.userImg = getImageNum(userImg);
         this.type = MessageType.valueOf(type);
     }
-
-
 
     public String getUser_email() {
         return user_email;
@@ -66,15 +64,34 @@ public class ChatData {
     }
 
     public void setUserImg(int userImg) {
-        this.userImg = userImg;
+        this.userImg = getImageNum(userImg);
     }
-
-
+    
     public MessageType getType() {
         return type;
     }
 
     public void setType(MessageType type) {
         this.type = type;
+    }
+
+    private int getImageNum(int img){
+
+        img = (int) (img/ 6);
+        switch (img){
+            case 0 :
+                return R.drawable.study1;
+            case 1 :
+                return R.drawable.study2;
+            case 2 :
+                return R.drawable.study3;
+            case 3 :
+                return R.drawable.study4;
+            case 4 :
+                return R.drawable.study5;
+            case 5 :
+                return R.drawable.study6;
+        }
+        return 0;
     }
 }

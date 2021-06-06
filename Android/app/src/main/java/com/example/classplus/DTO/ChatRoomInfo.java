@@ -29,7 +29,7 @@ public class ChatRoomInfo {
         this.lastTime = lastTime;
         this.lastChat = lastChat;
         this.lastChatID = "";
-        setImageNum(img);
+        this.img = getImageNum(img);
     }
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead) {
@@ -39,30 +39,27 @@ public class ChatRoomInfo {
         this.lastChat = lastChat;
         this.lastChatID = lastChatID;
         this.isRead = isRead;
-        setImageNum(img);
+        this.img = getImageNum(img);
     }
 
-    private void setImageNum(int img){
+    private int getImageNum(int img){
+
+        img = (int) (img/ 6);
         switch (img){
             case 0 :
-                this.img = R.drawable.study1;
-                break;
+                return R.drawable.study1;
             case 1 :
-                this.img = R.drawable.study2;
-                break;
+                return R.drawable.study2;
             case 2 :
-                this.img = R.drawable.study3;
-                break;
+                return R.drawable.study3;
             case 3 :
-                this.img = R.drawable.study4;
-                break;
+                return R.drawable.study4;
             case 4 :
-                this.img = R.drawable.study5;
-                break;
+                return R.drawable.study5;
             case 5 :
-                this.img = R.drawable.study6;
-                break;
+                return R.drawable.study6;
         }
+        return 0;
     }
 
     public boolean isRead() {

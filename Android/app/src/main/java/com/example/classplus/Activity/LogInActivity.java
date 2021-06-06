@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
@@ -106,6 +107,7 @@ public class LogInActivity extends AppCompatActivity {
             if (result2 == Constant.LOGIN_SUCCESS) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("email", email);
+                AppManager.getInstance().setLoginUser(model.getUserinfo(email));
                 startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 다릅니다. ", Toast.LENGTH_LONG).show();

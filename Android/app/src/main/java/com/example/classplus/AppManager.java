@@ -22,7 +22,7 @@ public class AppManager {
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
     }
-    public static User getLoginUser() {
+    public User getLoginUser() {
         return loginUser;
     }
 

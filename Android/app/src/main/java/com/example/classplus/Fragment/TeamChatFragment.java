@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Activity.MainActivity;
+import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
@@ -73,7 +74,7 @@ public class TeamChatFragment extends Fragment {
 
         getTeamChatRoomData(); //테스트 데이터 삽입.
 
-        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList,this.user_email);
+        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList, user_email);
         recyclerviewTotalChat.setAdapter(totalChatRVAdapter);
 
         return view;
@@ -157,6 +158,9 @@ public class TeamChatFragment extends Fragment {
 
                             boolean isRead = false;
                             //내가 보낸 메세지 인 경우 isRead 값 true
+
+                            //Log.d("qwe",user_email + "   " + chatData.getUser_email() + "   " + chatData.getUserName());
+
                             if(chatData.getUser_email().equals(user_email))
                                 isRead = true;
 

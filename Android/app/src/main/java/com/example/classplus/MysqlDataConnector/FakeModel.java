@@ -1,6 +1,7 @@
 package com.example.classplus.MysqlDataConnector;
 
 import com.example.classplus.Constant;
+import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.User;
 
 import java.util.ArrayList;
@@ -9,12 +10,12 @@ public class FakeModel implements IModel{
 
     @Override
     public User login(String email, String password) {
-        return new User("ss@ss","상벽","소웨",true);
+        return new User("test","상벽","소웨",true,123);
     }
 
     @Override
     public User getUserinfo(String email) {
-        return new User(email,"상벽","소웨",true);
+        return new User(email,email,"소웨",true,123);
     }
 
     @Override
@@ -40,5 +41,11 @@ public class FakeModel implements IModel{
     @Override
     public int exitChattingRoom(int uuid, String email) {
         return Constant.SUCCESS;
+    }
+
+    @Override
+    public ArrayList<ChatRoomInfo> getChatRoomInfo(String email) {
+
+        return null;
     }
 }
