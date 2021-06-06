@@ -4,18 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.classplus.AppManager;
+import com.example.classplus.ChattingRoomManagement.ChattingRoomManagement;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Dialog.TeamChattingMakingDialog;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.StudentsListViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class StudentListActivity extends AppCompatActivity {  //과목~
 
@@ -23,6 +29,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
     private FloatingActionButton floatingActionButton;
     TeamChattingMakingDialog teamChattingMakingDialog;
+    ChattingRoomManagement chattingRoomManagement;
 
     public void setResult(String result) {
         this.result = result;
@@ -33,6 +40,9 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
     private String result;
     private String type;
 
+    String className;
+    int uuid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +50,11 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
         floatingActionButton = findViewById(R.id.bnt_studentlist_insertion);
         teamChattingMakingDialog = new TeamChattingMakingDialog();
-        /*
+        chattingRoomManagement = new ChattingRoomManagement();
+
         Intent intent = getIntent();
-        int uuid = intent.getIntExtra("uuid", 0);
+        uuid = intent.getIntExtra("uuid", 0);
+        className = intent.getStringExtra("className");
 
         ArrayList<String> emails = AppManager.getInstance().getMysql().getChattingRoomUser(uuid);
 
@@ -59,7 +71,7 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
             }
 
         }
-         */
+
 
         InitializeUserData();
 
@@ -105,6 +117,14 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
             public void onDismiss(DialogInterface dialog) {
                 type = result;
                 Log.d("Type", type);
+
+                try {
+                    chattingRoomManagement.dividTeam(numberOfPeople,students,className);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
