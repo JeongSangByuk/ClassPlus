@@ -27,11 +27,8 @@ public class AppManager {
         return loginUser;
     }
 
-<<<<<<< HEAD
-=======
     private static ArrayList<ChatRoomToUser> chatRoomToUser;
     public void setEnteredUserToChattingRoom(ArrayList<ChatRoomToUser> enterChattingRoom) { this.chatRoomToUser = enterChattingRoom; }
     public static ArrayList<ChatRoomToUser> getEnteredUserToChattingRoom() { return chatRoomToUser; }
->>>>>>> e3e6d8ae66daf884275979cbad004edfaae4ff26
 
 }

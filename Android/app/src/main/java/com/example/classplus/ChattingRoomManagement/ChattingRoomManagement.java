@@ -6,6 +6,7 @@ import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 import com.example.classplus.firebase.FirebaseConnector;
 
@@ -20,7 +21,7 @@ public class ChattingRoomManagement {
 
     public ChattingRoomManagement()
     {
-        model = new FakeModel();
+        model = new MysqlImpl();
     }
 
     private String getCurrentTime() {
@@ -31,7 +32,7 @@ public class ChattingRoomManagement {
         return simpleDate.format(mDate);
     }
 
-    void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
+    public void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
         String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
         students.add(chat_maker);
 
@@ -47,7 +48,7 @@ public class ChattingRoomManagement {
 
     }
 
-    void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) throws ExecutionException, InterruptedException {
+    public void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) throws ExecutionException, InterruptedException {
 
         String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
         int uuid = createChattingRoom(chat_maker, emails, roomName, ChatRoomInfo.ChatRoomType.TEAM);
@@ -63,10 +64,10 @@ public class ChattingRoomManagement {
 
     }
 
-   int createChattingRoom(String chat_maker, ArrayList<String> students, String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
+   public int createChattingRoom(String chat_maker, ArrayList<String> students, String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         int uuid = model.createChattingRoom(roomName, chat_maker, type);
         students.add(chat_maker);
-        model.enterChattingRoom(uuid, students);
+        model.enterChattingRoom(uuid, students, roomName, type);
 
         return uuid;
     }

@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.classplus.AppManager;
 import com.example.classplus.CSVReader.FileExplorer;
 
+import com.example.classplus.ChattingRoomManagement.ClassNameGetterDialog;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
@@ -25,6 +26,7 @@ import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
+import com.example.classplus.firebase.FirebaseConnector;
 
 import org.json.JSONException;
 
@@ -51,6 +53,18 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        try {
+            AppManager.getInstance().setLoginUser(model.login("sawon49@naver.com", "ssss"));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        FirebaseConnector.getInstance(this);
+
         setContentView(R.layout.activity_login);
 
         setStatusBar();
@@ -59,10 +73,9 @@ public class LogInActivity extends AppCompatActivity {
         idEditText = findViewById(R.id.et_login_id);
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
-        
 
-        FileExplorer explorer = new FileExplorer();
-        explorer.showFileExplorer(this);
+        ClassNameGetterDialog classNameGetterDialog = new ClassNameGetterDialog();
+        classNameGetterDialog.showDialog(this);
 
 
         logInButton.setOnClickListener(new View.OnClickListener() {

@@ -41,6 +41,7 @@ public class ChatRoomInfo {
         setImageNum(img);
     }
 
+
     private void setImageNum(int img){
         switch (img){
             case 0 :
@@ -117,5 +118,13 @@ public class ChatRoomInfo {
     }
 
     public int getUUID() { return uuid;}
+
+    public ChatRoomType getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = ChatRoomType.valueOf(type);
+    }
 
 }

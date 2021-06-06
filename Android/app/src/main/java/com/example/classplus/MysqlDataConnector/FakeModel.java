@@ -49,7 +49,7 @@ public class FakeModel implements IModel{
     }
 
     @Override
-    public int enterChattingRoom(int uuid, ArrayList<String> emails) {
+    public int enterChattingRoom(int uuid, ArrayList<String> emails, String room, ChatRoomInfo.ChatRoomType type) {
         return Constant.SUCCESS;
     }
 

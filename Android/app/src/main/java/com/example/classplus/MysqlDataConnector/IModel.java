@@ -27,7 +27,7 @@ public interface IModel {
 
     ArrayList<ChatRoomToUser> getChattingRoomToUser(String user_email) throws ExecutionException, InterruptedException, JSONException;
 
-    int enterChattingRoom(int uuid, ArrayList<String> emails); // 성공 SUCCESS 반환, 실패 FAILURE
+    int enterChattingRoom(int uuid, ArrayList<String> emails, String roomName, ChatRoomInfo.ChatRoomType type); // 성공 SUCCESS 반환, 실패 FAILURE
 
     int exitChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
 }

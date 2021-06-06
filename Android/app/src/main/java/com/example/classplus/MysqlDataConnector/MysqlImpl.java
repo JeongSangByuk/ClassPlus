@@ -125,7 +125,7 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public int enterChattingRoom(int uuid, ArrayList<String> emails) {
+    public int enterChattingRoom(int uuid, ArrayList<String> emails, String roomName, ChatRoomInfo.ChatRoomType type) {
         ChattingRoomToUserCreator task = null;
         for(int i = 0; i < emails.size(); i++) {
             task = new ChattingRoomToUserCreator();

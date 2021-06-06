@@ -13,6 +13,7 @@ import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class FileExplorer {
     
@@ -25,7 +26,7 @@ public class FileExplorer {
         chattingRoomManagement = new ChattingRoomManagement();
     }
 
-    public void showFileExplorer(Activity activity)
+    public void showFileExplorer(Activity activity, String className)
     {
         new ChooserDialog(activity)
                 .withStartFile(Environment.DIRECTORY_DOWNLOADS)
@@ -37,7 +38,13 @@ public class FileExplorer {
                             Toast.makeText(activity, path, Toast.LENGTH_SHORT).show();
                             ArrayList<String> emailLsit = csvManagement.getEmailList(path);
                             Toast.makeText(activity, "팀채팅을 생성하는 중입니다.", Toast.LENGTH_SHORT).show();
-
+                            try {
+                                chattingRoomManagement.createTotalChattingRoom(emailLsit, className);
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
                         } else {
                             Toast.makeText(activity, "csv파일이 아닙니다.", Toast.LENGTH_SHORT).show();
