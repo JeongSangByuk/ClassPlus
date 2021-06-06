@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -9,13 +9,17 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context=".Activity.StudentListActivity">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OOO 학생"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <ListView
@@ -24,4 +28,17 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_title"
         android:layout_marginTop="0dp" />
-</RelativeLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bnt_studentlist_insertion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/mainColor"
+        android:layout_gravity="end|bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/floatingplus"
+        />
+
+</FrameLayout>

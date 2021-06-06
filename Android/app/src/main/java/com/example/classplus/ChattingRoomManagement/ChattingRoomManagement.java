@@ -4,6 +4,7 @@ import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
+import com.example.classplus.DTO.User;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
@@ -20,7 +21,7 @@ public class ChattingRoomManagement {
 
     public ChattingRoomManagement()
     {
-        model = new MysqlImpl();
+        model = AppManager.getInstance().getMysql();
     }
 
     private String getCurrentTime() {
@@ -46,6 +47,42 @@ public class ChattingRoomManagement {
 
 
     }
+
+    public void dividTeam(int maxNumber, ArrayList<User> students, String className) throws ExecutionException, InterruptedException {
+        int uuid = 0;
+
+        int cnt = 0;
+        int roomCnt = 0;
+
+        for(int i=0; i<students.size(); i++)
+        {
+            if(cnt == 0)
+            {
+                roomCnt++;
+                uuid = model.createChattingRoom(
+                        className+ " " +String.valueOf(roomCnt)+"팀",
+                        ChatRoomInfo.ChatRoomType.TEAM );
+
+
+            }
+
+            cnt++;
+
+            if(cnt == maxNumber || i==students.size()-1)
+            {
+                cnt = 0;
+
+                ChatData addedData = new ChatData(students.get(i).getEmail(), students.get(i).getName(),
+                        students.get(i).getName()+"님이 입장했습니다.", getCurrentTime(),
+                        R.drawable.study2, ChatData.MessageType.ENTER.toString());
+
+                FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
+
+            }
+
+        }
+    }
+
 
     public void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) throws ExecutionException, InterruptedException {
 

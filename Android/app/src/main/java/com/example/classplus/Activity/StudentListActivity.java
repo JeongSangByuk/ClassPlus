@@ -2,42 +2,54 @@ package com.example.classplus.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.classplus.AppManager;
 import com.example.classplus.DTO.User;
+import com.example.classplus.Dialog.TeamChattingMakingDialog;
 import com.example.classplus.R;
-
-import org.json.JSONException;
+import com.example.classplus.RecyclerviewController.StudentsListViewAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
-public class StudentListActivity extends AppCompatActivity {
+public class StudentListActivity extends AppCompatActivity {  //과목~
+
+    private ArrayList<User> students;
+
+    private FloatingActionButton floatingActionButton;
+    TeamChattingMakingDialog teamChattingMakingDialog;
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    private int numberOfPeople;
+
+    private String result;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
-        ListView lv_students = (ListView) findViewById(R.id.lv_students);
 
-
+        floatingActionButton = findViewById(R.id.bnt_studentlist_insertion);
+        teamChattingMakingDialog = new TeamChattingMakingDialog();
+        /*
         Intent intent = getIntent();
         int uuid = intent.getIntExtra("uuid", 0);
 
         ArrayList<String> emails = AppManager.getInstance().getMysql().getChattingRoomUser(uuid);
-        ArrayList<User> user = new ArrayList<User>();
 
-        for(String email : emails)
-        {
+        for (String email : emails) {
             try {
-                user.add(AppManager.getInstance().getMysql().getUserinfo(email));
+                if(email.equals(AppManager.getInstance().getLoginUser().getEmail())) continue;
+                students.add(AppManager.getInstance().getMysql().getUserinfo(email));
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -47,23 +59,65 @@ public class StudentListActivity extends AppCompatActivity {
             }
 
         }
+         */
 
-        // android.R.layout.simple_list_item_1는 안드로이드 제공하는 리스트의 기본 레이아웃
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1);
-        adapter.addAll(foods);
-        lv_students.setAdapter(adapter);
+        InitializeUserData();
 
-        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListView listView = (ListView)findViewById(R.id.lv_students);
+
+        StudentsListViewAdapter myAdapter = new StudentsListViewAdapter(this, students);
+
+        listView.setAdapter(myAdapter);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 클릭한 아이템 이름 가져옴
-                ListView listview = (ListView) parent;
-                String clickedFood = (String) listview.getItemAtPosition(position);
-                // 토스트 메세지로 표시
-                Toast.makeText(StudentListActivity.this,
-                        clickedFood + "을(를) 클릭하셨습니다.", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+
+                String[] listItems = {"2", "3", "4", "5"};
+                AlertDialog dialog =  teamChattingMakingDialog.getDialog("팀원을 최대 몇명할까요?",
+                        StudentListActivity.this, listItems,"다음");
+
+
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        numberOfPeople = Integer.valueOf(result);
+                        Log.d("numberOfPeople", String.valueOf(numberOfPeople));
+                        showSecondDialog();
+                    }
+                });
+
+                dialog.show();
+
             }
         });
+
     }
+
+    private void showSecondDialog()
+    {
+        String[] secondListItems = {"랜덤", "선택"};
+        AlertDialog dialog =  teamChattingMakingDialog.getDialog("어떻게 팀을 만들까요?",
+                StudentListActivity.this, secondListItems,"완료");
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                type = result;
+                Log.d("Type", type);
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+    private void InitializeUserData() {
+        students =  new ArrayList<User>();
+        students.add(new User("sawon@","사원","디컨", true));
+        students.add(new User("sawon@","상벽","소웨", true));
+        students.add(new User("sawon@","영진","디컨", true));
+    }
+
 }

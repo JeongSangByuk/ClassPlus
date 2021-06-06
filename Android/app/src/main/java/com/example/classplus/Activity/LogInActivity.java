@@ -53,15 +53,6 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        try {
-            AppManager.getInstance().setLoginUser(model.login("sawon49@naver.com", "ssss"));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         FirebaseConnector.getInstance(this);
 
         setContentView(R.layout.activity_login);
