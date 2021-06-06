@@ -182,6 +182,7 @@ public class MysqlImpl implements IModel {
                 ChatRoomInfo chatRoomInfo = new ChatRoomInfo();
                 chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
                 chatRoomInfo.setType(ChatRoomInfo.ChatRoomType.valueOf(classplussObject.getString("type")));
+                chatRoomInfo.setName(classplussObject.getString("name"));
 
                 chatRoom.add(chatRoomInfo);
             }
