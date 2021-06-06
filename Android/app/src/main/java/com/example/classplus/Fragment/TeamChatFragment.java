@@ -23,6 +23,8 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.LocalDatabase.ChatRoomLocalDB;
+import com.example.classplus.MysqlDataConnector.IModel;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.ChatInfoRVAdapter;
 import com.example.classplus.firebase.FirebaseConnector;
@@ -31,6 +33,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -44,6 +48,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class TeamChatFragment extends Fragment {
 
@@ -52,6 +57,7 @@ public class TeamChatFragment extends Fragment {
     private View view;
     private Context context;
     public ArrayList<ChatRoomInfo> chatRoomInfoList;
+    public ArrayList<ChatRoomInfo> updatedChatRoomInfoList;
     private DatabaseReference dbRef;
     private SQLiteDatabase roomChatLocalReadableDB;
     private SQLiteDatabase roomChatLocalWritadbleDB;
@@ -66,7 +72,15 @@ public class TeamChatFragment extends Fragment {
 
         recyclerviewTotalChat = view.findViewById(R.id.recyclerview_team_chat);
 
-        getTeamChatRoomData(); //테스트 데이터 삽입.
+        try {
+            getTeamChatRoomData(); //테스트 데이터 삽입.
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList);
 
@@ -79,7 +93,7 @@ public class TeamChatFragment extends Fragment {
         return view;
     }
 
-    public void getTeamChatRoomData(){
+    public void getTeamChatRoomData() throws InterruptedException, ExecutionException, JSONException {
 
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
         roomChatLocalReadableDB = ChatRoomLocalDB.getInstance(context).getReadableDatabase();
@@ -94,20 +108,26 @@ public class TeamChatFragment extends Fragment {
         }
 
         // 로그인
-//        ChatDataConnecting task = new ChatDataConnecting();
-//        task.execute("http://" + Constant.IP_ADDRESS + "/login.php", user_email,password);
+        updatedChatRoomInfoList = AppManager.getInstance().getMysql()
+                .getChattingRoom(AppManager.getInstance().getLoginUser().getEmail(),ChatRoomInfo.ChatRoomType.TEAM);
 
-        // 받아온다고 가정하고
-        // chatting_user 테이블에서 프론트에서 입력한 user_email의 UUID 값들을 반환해주는 메소드
-        // 채팅방 UUID를 통해서 채팅방 정보 받을 수 있는 메소드(= 채팅방 이름)
+        // 데베에 저장된 값이 있을 경우만, 새로운 채팅방이 있는지 확인한다.
+        if(firstRoomCount != 0) {
 
+            for (int i = 0; i < updatedChatRoomInfoList.size(); i++) {
+                boolean isOverlap = false;
 
-        // 실시간 DB TEST 데이터 받아서 이부분에서 add
+                for (int j = 0; j < chatRoomInfoList.size(); j++) {
 
-//        chatRoomInfoList.add(new ChatRoomInfo(0, "운영 체제 팀프로젝트","","",2));
-//        chatRoomInfoList.add(new ChatRoomInfo(1, "오픈 소스 2조","","",4));
-//        chatRoomInfoList.add(new ChatRoomInfo(2, "고급 c 조교방","","",5));
-
+                    if (updatedChatRoomInfoList.get(i).getUUID() == chatRoomInfoList.get(j).getUUID()) {
+                        isOverlap = true;
+                        break;
+                    }
+                }
+                if (!isOverlap)
+                    chatRoomInfoList.add(updatedChatRoomInfoList.get(i));
+            }
+        }
         //firebase DB Connect
         dbRef = FirebaseConnector.getInstance().getDatabaseReference();
         setEventListener();
@@ -131,10 +151,11 @@ public class TeamChatFragment extends Fragment {
     private void setEventListener(){
 
         //test용 roomUUID list
-        int[] UUIDList = {0,1,2};
+        //int[] UUIDList = {0,1,2};
 
         // 모든 채팅방에 대한 리스너 달기.
-        for(int chatRoomUUID : UUIDList ) {
+        for(int i=0;i<updatedChatRoomInfoList.size(); i++) {
+            int chatRoomUUID = updatedChatRoomInfoList.get(i).getUUID();
 
             dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).addValueEventListener(new ValueEventListener() {
 
@@ -172,7 +193,7 @@ public class TeamChatFragment extends Fragment {
                         }
 
                         //마지막에 한번만 화면 업데이트.
-                        if(chatRoomInfoList.size() == UUIDList.length){
+                        if(chatRoomInfoList.size() == updatedChatRoomInfoList.size()){
                             totalChatRVAdapter.notifyDataSetChanged();
                             firstRoomCount = chatRoomInfoList.size();
                         }
@@ -181,7 +202,7 @@ public class TeamChatFragment extends Fragment {
 
                     // 로켈 DB에서 이미 채팅방 정보를 가지고와서 채팅방 내역이 있는 경우, 리스너를 통해 업데이트할지를 본다.
                     int i = 0;
-                    int listIndex = findChangingIndex(chatRoomUUID);
+                    int listIndex = findChangingIndex(chatRoomUUID,chatRoomInfoList);
 
                     for (DataSnapshot tempSnapshot : snapshot.getChildren()) {
 
@@ -222,7 +243,7 @@ public class TeamChatFragment extends Fragment {
         }
     }
 
-    private int findChangingIndex(int uuid){
+    private int findChangingIndex(int uuid, ArrayList<ChatRoomInfo> chatRoomInfoList){
 
         for(int i = 0; i<chatRoomInfoList.size();i++){
             if(chatRoomInfoList.get(i).getUUID() == uuid)
