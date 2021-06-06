@@ -108,8 +108,6 @@ public class WorkStackActivity extends AppCompatActivity {
 
                         String title = result.getData().getStringExtra("title");
                         String description = result.getData().getStringExtra("description");
-                        Log.d("qwe",AppManager.getInstance().getLoginUser().getEmail() +"  " + AppManager.getInstance().getLoginUser().getName() + "  " +
-                                AppManager.getInstance().getLoginUser().getImgNumber());
 
                         Workstack addedData = new Workstack(AppManager.getInstance().getLoginUser().getEmail(),AppManager.getInstance().getLoginUser().getName(),
                                 title,description,getCurrentTime(),AppManager.getInstance().getLoginUser().getImgNumber());

@@ -105,6 +105,11 @@ public class MysqlImpl implements IModel {
                 chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
                 chatRoomInfo.setName(classplussObject.getString("room_name"));
 
+                chatRoomInfo.setLastChat("-");
+                chatRoomInfo.setLastChatID("-");
+                chatRoomInfo.setLastTime("-");
+                chatRoomInfo.setImg(classplussObject.getInt("uuid") %6);
+
                 ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
 
                 Log.d("sss", "email size:"+emails.size());
@@ -114,6 +119,7 @@ public class MysqlImpl implements IModel {
                 }
 
                 chatRoomInfo.setStudents(students);
+
                 chatRoomInfo.setType(type);
 
                 chatRoom.add(chatRoomInfo);
