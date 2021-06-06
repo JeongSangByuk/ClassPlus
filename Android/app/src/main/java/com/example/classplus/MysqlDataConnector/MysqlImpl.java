@@ -88,7 +88,8 @@ public class MysqlImpl implements IModel {
     @Override
     public ArrayList<ChatRoomToUser> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
         ChattingRoomToUserSender task = new ChattingRoomToUserSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email).get();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.name()).get();
+        // PHP코드만 type json에 추가만 하면 될듯
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
             ArrayList<ChatRoomToUser> chatRoomToUsers = new ArrayList<ChatRoomToUser>();
@@ -123,13 +124,14 @@ public class MysqlImpl implements IModel {
         ChattingAdminEmailUpdator task = new ChattingAdminEmailUpdator();
         task.execute("http://" + Constant.IP_ADDRESS + "/updatechattingtoemail.php", Integer.toString(chattingRoomUUID), userEmail);
     }
-
+    
     @Override
     public int enterChattingRoom(int uuid, ArrayList<String> emails, String roomName, ChatRoomInfo.ChatRoomType type) {
         ChattingRoomToUserCreator task = null;
         for(int i = 0; i < emails.size(); i++) {
             task = new ChattingRoomToUserCreator();
-            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i));
+            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), type.name());
+            // 수정
         }
         return Constant.SUCCESS;
     }

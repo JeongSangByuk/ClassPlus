@@ -25,8 +25,11 @@ public class ChattingRoomToUserSender extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String user_email = params[1];
+        String type = params[2];
         String serverURL = (String) params[0];
-        serverURL = serverURL + "?" + "user_email=" + user_email;
+
+
+        serverURL = serverURL + "?" + "user_email=" + user_email + "&type=" + type;
         try {
             URL url = new URL(serverURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
