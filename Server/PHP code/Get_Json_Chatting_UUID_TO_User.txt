@@ -19,7 +19,8 @@
             extract($row);
 
             array_push($data,
-                array('uuid'=>$uuid
+                array('uuid'=>$uuid,
+                      'room_name'=>$room_name
             ));
         }
 
