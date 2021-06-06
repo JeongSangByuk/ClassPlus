@@ -4,6 +4,7 @@ import com.example.classplus.R;
 
 public class ChatData {
 
+
     public enum MessageType {
         ENTER, TALK, EXIT, WORK_STACK
     }
@@ -15,8 +16,10 @@ public class ChatData {
     private int userImg;
     private MessageType type;
 
+    public ChatData()
+    {
 
-    public ChatData(){}
+    }
 
     public ChatData(String user_email, String userName, String message, String time, int userImg, String type) {
         this.user_email = user_email;

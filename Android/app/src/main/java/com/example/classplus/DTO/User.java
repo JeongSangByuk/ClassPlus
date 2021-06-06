@@ -12,7 +12,12 @@ public class User {
     private int imgNumber; //0~6 사이값 set
     private boolean isStudent;
 
+    public User(String email) {
+        this.email = email;
+    }
+
     public User(String email, String name, String major, boolean isStudent,int imgNumber)
+
     {
         this.email =email;
         this.name = name;
@@ -53,11 +58,11 @@ public class User {
         this.major = major;
     }
 
-    public boolean isStudent() {
+    public boolean getIsStudent() {
         return isStudent;
     }
 
-    public void setStudent(boolean student) {
+    public void setIsStudent(boolean student) {
         isStudent = student;
     }
 

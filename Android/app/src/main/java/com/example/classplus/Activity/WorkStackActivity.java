@@ -24,7 +24,6 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.Workstack;
 import com.example.classplus.Dialog.WorkStackInsertionDialog;
-import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.WorkstackRVAdapter;
 import com.example.classplus.firebase.FirebaseConnector;
@@ -59,6 +58,7 @@ public class WorkStackActivity extends AppCompatActivity {
         setStatusBar();
 
         isFirstAccess = true;
+        workstackList = new ArrayList<>();
 
         Intent nowIntent = getIntent();
         chatRoomUUID = nowIntent.getIntExtra("uuid", 0);
@@ -100,14 +100,19 @@ public class WorkStackActivity extends AppCompatActivity {
 
                         String title = result.getData().getStringExtra("title");
                         String description = result.getData().getStringExtra("description");
+                        Log.d("qwe",AppManager.getInstance().getLoginUser().getEmail() +"  " + AppManager.getInstance().getLoginUser().getName() + "  " +
+                                AppManager.getInstance().getLoginUser().getImgNumber());
 
                         Workstack addedData = new Workstack(AppManager.getInstance().getLoginUser().getEmail(),AppManager.getInstance().getLoginUser().getName(),
                                 title,description,getCurrentTime(),AppManager.getInstance().getLoginUser().getImgNumber());
                         workstackList.add(addedData);
 
                         dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
+                        isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
                         workstackRVAdapter.notifyDataSetChanged();
                         workStackRecyclerView.scrollToPosition(workstackList.size()-1);
+
+                        //워크스택이 
                     }
                 }
             });
@@ -129,37 +134,10 @@ public class WorkStackActivity extends AppCompatActivity {
     }
 
     public void setDataListener(){
-        workstackList = new ArrayList<>();
+
 //        workstackList.add(new Workstack("정상벽","PPT 제출", "PPT 진행 중입니다.","21:00",R.drawable.study1));
 //        workstackList.add(new Workstack("최사원","발표 완료", "발표 완료했습니다.","21:00",R.drawable.study3));
 //        workstackList.add(new Workstack("김영진", "개발 진행 30%","개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.\n개발 진행 30프로 입니다.개발 진행 30프로 입니다.개발 진행 30프로 입니다.","21:00",R.drawable.study2));
-
-
-        //  맨 처음 채팅방 진입시 데이터 읽어오는 리스너
-
-        dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                // 맨 처음 시작일 경우
-                if (workstackList.size() == 0) {
-                    for (DataSnapshot tempSnapshot : snapshot.getChildren()) {
-
-                        Workstack workStackData = tempSnapshot.getValue(Workstack.class);
-                        workstackList.add(workStackData);
-                    }
-                    workstackRVAdapter.notifyDataSetChanged();
-                    workStackRecyclerView.scrollToPosition(workstackList.size()-1);
-                    isFirstAccess = false; // 이 후부터는 처음 입장이 아니다.
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         // 데이터 추가될 때 추가해주는 리스너, 즉 내가 다른 사람이 워크스택 올렸을때.
         dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).addChildEventListener(new ChildEventListener() {
@@ -172,7 +150,7 @@ public class WorkStackActivity extends AppCompatActivity {
                 // 내가 보낸 워크 스택인일 경우 그냥 리턴 , but 맨처음 에는 return 하지 않는다!
                 if(!isFirstAccess && workStackData.getUserEmai().equals(AppManager.getInstance().getLoginUser().getEmail()))
                     return;
-
+                Log.d("qwert",workStackData.getDescription());
                 workstackList.add(workStackData);
                 workstackRVAdapter.notifyDataSetChanged();
                 workStackRecyclerView.scrollToPosition(workstackList.size()-1);
@@ -198,6 +176,10 @@ public class WorkStackActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

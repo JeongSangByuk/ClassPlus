@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.classplus" >
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    package="com.example.classplus">
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Activity.StudentListActivity"></activity>
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.ChatRoomActivity"
-            android:windowSoftInputMode="adjustResize"/>
-
-        <activity android:name=".Activity.LogInActivity" >
+        <activity
+            android:name=".Activity.ChatRoomActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Activity.LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.WorkStackActivity"/>
-
-        <activity android:name=".Dialog.WorkStackInsertionDialog"
+        <activity android:name=".Activity.WorkStackActivity" />
+        <activity
+            android:name=".Dialog.WorkStackInsertionDialog"
             android:theme="@style/PopUpTheme" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="face"/>
+            android:value="face" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

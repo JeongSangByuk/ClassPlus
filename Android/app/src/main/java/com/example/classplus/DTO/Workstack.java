@@ -1,5 +1,7 @@
 package com.example.classplus.DTO;
 
+import com.example.classplus.R;
+
 public class Workstack {
     private String userEmai;
     private String userName;
@@ -16,7 +18,7 @@ public class Workstack {
         this.title = message;
         this.time = time;
         this.description = description;
-        this.userImg = userImg;
+        this.userImg = getImageNum(userImg);
     }
 
     public String getUserEmai() {
@@ -65,5 +67,26 @@ public class Workstack {
 
     public void setUserImg(int userImg) {
         this.userImg = userImg;
+    }
+
+    private int getImageNum(int img){
+
+        img = (int) (img % 6);
+
+        switch (img){
+            case 0 :
+                return R.drawable.study1;
+            case 1 :
+                return R.drawable.study2;
+            case 2 :
+                return R.drawable.study3;
+            case 3 :
+                return R.drawable.study4;
+            case 4 :
+                return R.drawable.study5;
+            case 5 :
+                return R.drawable.study6;
+        }
+        return 0;
     }
 }

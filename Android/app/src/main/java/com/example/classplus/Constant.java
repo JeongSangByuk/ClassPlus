@@ -7,6 +7,7 @@ public class Constant {
 
     public final static String IP_ADDRESS = "49.50.175.57";
     public final static char LOGIN_SUCCESS = '1';
+    public final static char GET_USER_INFORMATION_SUCCESS = '{';
 
     public final static int SUCCESS = 0;
     public final static int FAILURE = 1;

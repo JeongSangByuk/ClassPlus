@@ -1,6 +1,7 @@
 package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
+
 
         if(viewType == Constant.WORKSTACK_VIEWTYPE){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
@@ -87,6 +89,8 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
+
+        Log.d("User", user_email);
 
         if(chatList.get(position).getType() == ChatData.MessageType.WORK_STACK)
             return Constant.WORKSTACK_VIEWTYPE;

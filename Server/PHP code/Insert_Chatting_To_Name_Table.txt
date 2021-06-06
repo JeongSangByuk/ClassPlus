@@ -15,10 +15,9 @@
     {
 
       $name=$_POST['name'];
-      $admin_email=$_POST['admin_email'];
       $type=$_POST['type'];
 
-      $sql = "INSERT INTO chatting(name, admin_email, type) VALUES('$name', '$admin_email', '$type')";
+      $sql = "INSERT INTO chatting(name, type) VALUES('$name', '$type')";
 
       if($con -> query($sql) == TRUE) {
         echo "".$con -> insert_id;

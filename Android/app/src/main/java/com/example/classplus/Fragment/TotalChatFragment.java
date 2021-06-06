@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.classplus.AppManager;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.ChatInfoRVAdapter;
@@ -27,8 +28,8 @@ public class TotalChatFragment extends Fragment {
     //test login
     private String user_email;
 
-    public TotalChatFragment(String user_email) {
-        this.user_email = user_email;
+    public TotalChatFragment() {
+        this.user_email = AppManager.getInstance().getLoginUser().getEmail();
     }
 
     @Nullable
@@ -40,7 +41,7 @@ public class TotalChatFragment extends Fragment {
 
         testInit(); //테스트 데이터 삽입.
 
-        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList,this.user_email);
+        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList);
         recyclerviewTotalChat.setAdapter(totalChatRVAdapter);
 
         return view;

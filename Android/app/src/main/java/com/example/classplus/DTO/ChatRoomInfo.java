@@ -9,7 +9,7 @@ import java.util.Random;
 public class ChatRoomInfo {
 
     public enum ChatRoomType {
-        TEAM, WHOLE
+        TEAM, TOTAL
     }
 
     private int uuid;
@@ -21,7 +21,6 @@ public class ChatRoomInfo {
     private int totalNum;
     private boolean isRead;
     private ChatRoomType type;
-
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
         this.uuid = uuid;
@@ -43,7 +42,6 @@ public class ChatRoomInfo {
     }
 
     private int getImageNum(int img){
-
         img = (int) (img/ 6);
         switch (img){
             case 0 :
@@ -115,5 +113,13 @@ public class ChatRoomInfo {
     }
 
     public int getUUID() { return uuid;}
+
+    public ChatRoomType getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = ChatRoomType.valueOf(type);
+    }
 
 }
