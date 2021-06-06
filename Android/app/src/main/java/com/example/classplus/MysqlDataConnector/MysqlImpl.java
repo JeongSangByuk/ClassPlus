@@ -54,7 +54,7 @@ public class MysqlImpl implements IModel {
             boolean isStudent = false;
             if(classplussObject.getString("isStudent").equals("1")) isStudent = true;
             User user = new User(classplussObject.getString("email"), classplussObject.getString("name"),
-                    classplussObject.getString("major"), isStudent);
+                    classplussObject.getString("major"), isStudent, classplussObject.getInt("imgNum"));
             return user;
         } else {
             return null;
@@ -97,10 +97,17 @@ public class MysqlImpl implements IModel {
             for(int i=0; i<classplusArray.length(); i++)
             {
                 JSONObject classplussObject = classplusArray.getJSONObject(i);
+                ArrayList<User> students = new ArrayList<>();
 
                 ChatRoomInfo chatRoomInfo = new ChatRoomInfo();
                 chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
                 chatRoomInfo.setName(classplussObject.getString("room_name"));
+
+                ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
+                for(int j = 0 ; j < emails.size(); j++)
+                    students.add(getUserinfo(emails.get(j)));
+
+                chatRoomInfo.setStudents(students);
                 chatRoomInfo.setType(type);
 
                 chatRoom.add(chatRoomInfo);
@@ -157,5 +164,10 @@ public class MysqlImpl implements IModel {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public ArrayList<ChatRoomInfo> getChattingRoomUuidType(String admin_email) {
+        return null;
     }
 }

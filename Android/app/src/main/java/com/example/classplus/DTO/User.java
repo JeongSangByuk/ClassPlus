@@ -6,17 +6,19 @@ public class User {
     private String name;
     private String major;
     private boolean isStudent;
+    private int imageNumber;
 
     public User(String email) {
         this.email = email;
     }
 
-    public User(String email, String name, String major, boolean isStudent)
+    public User(String email, String name, String major, boolean isStudent, int imageNumber)
     {
         this.email =email;
         this.name = name;
         this.major = major;
         this.isStudent = isStudent;
+        this.imageNumber = imageNumber;
     }
 
     public String getEmail() {
@@ -51,5 +53,11 @@ public class User {
         isStudent = student;
     }
 
+    public int getImageNumber() {
+        return imageNumber;
+    }
 
+    public void setImageNumber(int student) {
+        this.imageNumber = imageNumber;
+    }
 }

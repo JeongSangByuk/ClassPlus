@@ -32,4 +32,6 @@ public interface IModel {
     int exitChattingRoom(int uuid, String email); // 성공 SUCCESS 반환, 실패 FAILURE
 
     ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException;
+
+    ArrayList<ChatRoomInfo> getChattingRoomUuidType(String admin_email);
 }

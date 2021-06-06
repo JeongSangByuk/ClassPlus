@@ -2,6 +2,8 @@ package com.example.classplus.DTO;
 
 import com.example.classplus.R;
 
+import java.util.ArrayList;
+
 public class ChatRoomInfo {
 
     public enum ChatRoomType {
@@ -13,6 +15,7 @@ public class ChatRoomInfo {
     private String lastTime;
     private String lastChat;
     private String lastChatID;
+    private ArrayList<User> students;
     private int img;
     private int totalNum;
     private boolean isRead;
@@ -127,4 +130,11 @@ public class ChatRoomInfo {
         this.type = type;
     }
 
+    public ArrayList<User> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<User> students) {
+        this.students = students;
+    }
 }
