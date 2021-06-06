@@ -148,7 +148,7 @@ public class MysqlImpl implements IModel {
 
     @Override
     public ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException {
-        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        ChattingRoomUserSender task = new ChattingRoomUserSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getchattingroomuser.php", Integer.toString(uuid)).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
@@ -168,7 +168,7 @@ public class MysqlImpl implements IModel {
 
     @Override
     public ArrayList<ChatRoomInfo> getChattingRoomByAdmin(String admin_email) throws JSONException, ExecutionException, InterruptedException {
-        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        ChattingRoomByAdminSender task = new ChattingRoomByAdminSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidandtypechattingtable.php", admin_email).get();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
