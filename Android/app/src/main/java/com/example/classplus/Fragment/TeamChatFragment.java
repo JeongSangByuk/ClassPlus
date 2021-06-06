@@ -103,6 +103,7 @@ public class TeamChatFragment extends Fragment {
         // 로컬 db에 있는 room 정보 add
         for (int i =0;i<firstRoomCount;i++){
             chatRoomInfoList.add( ChatRoomLocalDB.getChatDbInstance(context).getChatRoomInfo(roomChatLocalReadableDB,Constant.ROOM_TEAM_CHAT_TABLE,i));
+            chatRoomInfoList.get(i).setType(ChatRoomInfo.ChatRoomType.TEAM);
         }
 
         // 로그인
@@ -163,7 +164,7 @@ public class TeamChatFragment extends Fragment {
                             ChatData chatData = tempSnapshot.getValue(ChatData.class);
 
                             chatRoomInfoList.add(0,new ChatRoomInfo(chatRoomUUID, chatRoomName,chatData.getTime(),chatData.getMessage()
-                                    ,chatRoomUUID%6, tempSnapshot.getKey(),false));
+                                    ,chatRoomUUID%6, tempSnapshot.getKey(),false, ChatRoomInfo.ChatRoomType.TEAM));
 
                             //이후 데베에 insert
                             ChatRoomLocalDB.getChatDbInstance(context).insertRoomInfo(roomChatLocalWritadbleDB,Constant.ROOM_TEAM_CHAT_TABLE, chatRoomUUID,chatRoomName,
@@ -198,6 +199,7 @@ public class TeamChatFragment extends Fragment {
                             chatRoomInfoList.get(listIndex).setLastChatID(tempSnapshot.getKey());
                             chatRoomInfoList.get(listIndex).setLastTime(chatData.getTime());
                             chatRoomInfoList.get(listIndex).setLastChat(chatData.getMessage());
+                            chatRoomInfoList.get(listIndex).setType(ChatRoomInfo.ChatRoomType.TEAM);
 
                             boolean isRead = false;
                             //내가 보낸 메세지 인 경우 isRead 값 true

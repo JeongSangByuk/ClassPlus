@@ -88,6 +88,7 @@ public class TotalChatFragment extends Fragment {
         // 로컬 db에 있는 room 정보 add
         for (int i =0;i<firstRoomCount;i++){
             chatRoomInfoList.add( ChatRoomLocalDB.getChatDbInstance(context).getChatRoomInfo(roomChatLocalReadableDB,Constant.ROOM_TOTAL_CHAT_TABLE,i));
+            chatRoomInfoList.get(i).setType(ChatRoomInfo.ChatRoomType.TOTAL);
         }
 
         // 로그인
@@ -148,7 +149,7 @@ public class TotalChatFragment extends Fragment {
                             ChatData chatData = tempSnapshot.getValue(ChatData.class);
 
                             chatRoomInfoList.add(0,new ChatRoomInfo(chatRoomUUID, chatRoomName,chatData.getTime(),chatData.getMessage()
-                                    ,chatRoomUUID%6, tempSnapshot.getKey(),false));
+                                    ,chatRoomUUID%6, tempSnapshot.getKey(),false,ChatRoomInfo.ChatRoomType.TOTAL));
 
                             //이후 데베에 insert
                             ChatRoomLocalDB.getChatDbInstance(context).insertRoomInfo(roomChatLocalWritadbleDB,Constant.ROOM_TOTAL_CHAT_TABLE, chatRoomUUID,chatRoomName,

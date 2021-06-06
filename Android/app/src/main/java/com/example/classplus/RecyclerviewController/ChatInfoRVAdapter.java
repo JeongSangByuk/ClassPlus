@@ -2,6 +2,7 @@ package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +64,14 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
             public void onClick(View v) {
                 chatList.get(position).setRead(true);
 
-                ChatRoomLocalDB.getChatDbInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase(),
-                        Constant.ROOM_TEAM_CHAT_TABLE,chatList.get(position).getUUID());
+                Log.d("qweqwe",chatList.get(position).getType().toString());
+
+                if(chatList.get(position).getType().equals(ChatRoomInfo.ChatRoomType.TEAM))
+                    ChatRoomLocalDB.getChatDbInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase(),
+                            Constant.ROOM_TEAM_CHAT_TABLE,chatList.get(position).getUUID());
+                else
+                    ChatRoomLocalDB.getChatDbInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase(),
+                            Constant.ROOM_TOTAL_CHAT_TABLE,chatList.get(position).getUUID());
 
                 notifyDataSetChanged();
 

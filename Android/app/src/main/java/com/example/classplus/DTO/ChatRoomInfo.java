@@ -43,6 +43,17 @@ public class ChatRoomInfo {
         setImageNum(img);
     }
 
+    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead, ChatRoomType type) {
+        this.uuid = uuid;
+        this.name = name;
+        this.lastTime = lastTime;
+        this.lastChat = lastChat;
+        this.lastChatID = lastChatID;
+        this.isRead = isRead;
+        this.type = type;
+        setImageNum(img);
+    }
+
 
     private void setImageNum(int img) {
         switch (img) {
