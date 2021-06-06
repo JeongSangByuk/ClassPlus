@@ -95,9 +95,6 @@ public class WorkStackActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-
     }
 
 
