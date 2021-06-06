@@ -22,6 +22,8 @@ public class ChatRoomInfo {
     private boolean isRead;
     private ChatRoomType type;
 
+    public ChatRoomInfo(){}
+
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat,int img) {
         this.uuid = uuid;
         this.name = name;
@@ -119,11 +121,13 @@ public class ChatRoomInfo {
 
     public int getUUID() { return uuid;}
 
+    public int setUUID(int uuid) { this.uuid = this.uuid;}
+
     public ChatRoomType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ChatRoomType type) {
         this.type = ChatRoomType.valueOf(type);
     }
 

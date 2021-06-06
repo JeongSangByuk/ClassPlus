@@ -86,27 +86,27 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public ArrayList<ChatRoomToUser> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
+    public ArrayList<ChatRoomInfo> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
         ChattingRoomToUserSender task = new ChattingRoomToUserSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.name()).get();
         // PHP코드만 type json에 추가만 하면 될듯
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
-            ArrayList<ChatRoomToUser> chatRoomToUsers = new ArrayList<ChatRoomToUser>();
+            ArrayList<ChatRoomInfo> chatRoom = new ArrayList<>();
             JSONObject jsonObject = new JSONObject(result);
             JSONArray classplusArray = jsonObject.getJSONArray("classplus");
             for(int i=0; i<classplusArray.length(); i++)
             {
                 JSONObject classplussObject = classplusArray.getJSONObject(i);
 
-                ChatRoomToUser chatroom = new ChatRoomToUser();
-                chatroom.setUser_email(user_email);
-                chatroom.setUuid(classplussObject.getInt("uuid"));
-                chatroom.setRoom_name(classplussObject.getString("room_name"));
+                ChatRoomInfo chatRoomInfo = new ChatRoomInfo();
+                chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
+                chatRoomInfo.setName(classplussObject.getString("room_name"));
+                chatRoomInfo.setType(type);
 
-                chatRoomToUsers.add(chatroom);
+                chatRoom.add(chatRoomInfo);
             }
-            return chatRoomToUsers;
+            return chatRoom;
         } else {
             return null;
         }
@@ -131,7 +131,6 @@ public class MysqlImpl implements IModel {
         for(int i = 0; i < emails.size(); i++) {
             task = new ChattingRoomToUserCreator();
             task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), type.name());
-            // 수정
         }
         return Constant.SUCCESS;
     }
