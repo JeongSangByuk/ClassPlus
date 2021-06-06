@@ -143,12 +143,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.bottom_navigation_chat:
-                    teamChatFragment = new TeamChatFragment(user_email);
+                    teamChatFragment = new TeamChatFragment();
                     replaceFragment(teamChatFragment);
                     break;
 
                 case R.id.bottom_navigation_total_chat:
-                    replaceFragment(new TotalChatFragment(user_email));
+                    replaceFragment(new TotalChatFragment());
                     break;
 
                 case R.id.bottom_navigation_setting:

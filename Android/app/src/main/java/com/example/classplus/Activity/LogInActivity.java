@@ -1,15 +1,10 @@
 package com.example.classplus.Activity;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,19 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.classplus.AppManager;
 import com.example.classplus.CSVReader.FileExplorer;
-import com.example.classplus.Constant;
 import com.example.classplus.DTO.User;
 import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class LogInActivity extends AppCompatActivity {
@@ -61,7 +49,7 @@ public class LogInActivity extends AppCompatActivity {
 
 
         FileExplorer explorer = new FileExplorer();
-        explorer.getCsvPath(this);
+        explorer.showFileExplorer(this);
 
 
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +60,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 IModel model = new MysqlImpl();     // IModel 생성
                 User user = null;
+
                 try {
                     user = (User) model.login(email, password);
                 } catch (ExecutionException e) {
@@ -79,6 +68,7 @@ public class LogInActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
 
                 if(user == null) {
                     Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 다릅니다. ", Toast.LENGTH_LONG).show();

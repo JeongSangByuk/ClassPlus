@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
-class ChattingRoomManagement {
+public class ChattingRoomManagement {
 
     IModel model;
 
@@ -32,14 +32,14 @@ class ChattingRoomManagement {
     }
 
     void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
-        String chat_maker = AppManager.getLoginUser().getEmail();
+        String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
         students.add(chat_maker);
 
-        String message = AppManager.getLoginUser().getName() + "님에 의해 생성된\n" + roomName + "대방 입니다.";
+        String message = AppManager.getInstance().getLoginUser().getName() + "님에 의해 생성된\n" + roomName + "대방 입니다.";
 
         int uuid = createChattingRoom(chat_maker, students, roomName, ChatRoomInfo.ChatRoomType.TOTAL);
 
-        ChatData addedData = new ChatData(chat_maker, AppManager.getLoginUser().getName(), message , getCurrentTime(),
+        ChatData addedData = new ChatData(chat_maker, AppManager.getInstance().getLoginUser().getName(), message , getCurrentTime(),
                 R.drawable.study2, ChatData.MessageType.ENTER.toString());
 
         FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
@@ -49,7 +49,7 @@ class ChattingRoomManagement {
 
     void createTeamChattingRoom(ArrayList<String> names, ArrayList<String> emails, String roomName) throws ExecutionException, InterruptedException {
 
-        String chat_maker = AppManager.getLoginUser().getEmail();
+        String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
         int uuid = createChattingRoom(chat_maker, emails, roomName, ChatRoomInfo.ChatRoomType.TEAM);
 
         for(int i=0; i<emails.size(); i++)

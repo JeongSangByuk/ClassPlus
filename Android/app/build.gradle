@@ -55,5 +55,7 @@ dependencies {
 
     implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
 
+    compile "com.opencsv:opencsv:3.4"
+
 }
 apply plugin: 'com.google.gms.google-services'

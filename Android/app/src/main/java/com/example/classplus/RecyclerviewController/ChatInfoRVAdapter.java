@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Activity.ChatRoomActivity;
+import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.Activity.MainActivity;
@@ -27,10 +28,10 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
     private MainActivity mainActivity;
     private String user_email;
 
-    public ChatInfoRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList, String user_email) {
+    public ChatInfoRVAdapter(Context context, ArrayList<ChatRoomInfo> chatList) {
         this.context = context;
         this.chatList = chatList;
-        this.user_email = user_email;
+        this.user_email = AppManager.getInstance().getLoginUser().getEmail();
     }
 
     @NonNull

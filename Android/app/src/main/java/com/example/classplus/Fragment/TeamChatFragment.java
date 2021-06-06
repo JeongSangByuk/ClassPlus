@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Activity.MainActivity;
+import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
@@ -55,13 +56,7 @@ public class TeamChatFragment extends Fragment {
     private SQLiteDatabase roomChatLocalReadableDB;
     private SQLiteDatabase roomChatLocalWritadbleDB;
     private int firstRoomCount;
-
-    //test login
     private String user_email;
-
-    public TeamChatFragment(String user_email) {
-        this.user_email = user_email;
-    }
 
     @Nullable
     @Override
@@ -73,8 +68,12 @@ public class TeamChatFragment extends Fragment {
 
         getTeamChatRoomData(); //테스트 데이터 삽입.
 
-        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList,this.user_email);
+        totalChatRVAdapter = new ChatInfoRVAdapter(getActivity(),chatRoomInfoList);
         recyclerviewTotalChat.setAdapter(totalChatRVAdapter);
+
+        this.user_email = AppManager.getInstance().getLoginUser().getEmail();
+
+        Log.d("user", user_email);
 
         return view;
     }

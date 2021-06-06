@@ -16,7 +16,7 @@ public class FakeModel implements IModel{
 
     @Override
     public User login(String email, String password) {
-        return new User("ss@ss","상벽","소웨",true);
+        return new User(email,"상벽","소웨",true);
     }
 
     @Override
