@@ -22,7 +22,6 @@ import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
-import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
@@ -47,7 +46,7 @@ public class LogInActivity extends AppCompatActivity {
     private char result2;
     private String email;
 
-    IModel model = new FakeModel();
+    IModel model;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -73,10 +72,6 @@ public class LogInActivity extends AppCompatActivity {
         idEditText = findViewById(R.id.et_login_id);
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
-
-        ClassNameGetterDialog classNameGetterDialog = new ClassNameGetterDialog();
-        classNameGetterDialog.showDialog(this);
-
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,7 +4,6 @@ import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.DTO.ChatRoomInfo;
-import com.example.classplus.MysqlDataConnector.FakeModel;
 import com.example.classplus.MysqlDataConnector.IModel;
 import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
@@ -36,7 +35,7 @@ public class ChattingRoomManagement {
         String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
         students.add(chat_maker);
 
-        String message = AppManager.getInstance().getLoginUser().getName() + "님에 의해 생성된\n" + roomName + "대방 입니다.";
+        String message = AppManager.getInstance().getLoginUser().getName() + "교수 님에 의해 생성된\n" + roomName + "대화방 입니다.";
 
         int uuid = createChattingRoom(chat_maker, students, roomName, ChatRoomInfo.ChatRoomType.TOTAL);
 

@@ -2,6 +2,7 @@ package com.example.classplus;
 
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,10 +17,10 @@ public class AppManager {
     }
 
     private AppManager() {
-
+        mysql = new MysqlImpl();
     }
 
-    private static User loginUser;
+    private User loginUser;
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
     }
@@ -27,8 +28,15 @@ public class AppManager {
         return loginUser;
     }
 
-    private static ArrayList<ChatRoomToUser> chatRoomToUser;
-    public void setEnteredUserToChattingRoom(ArrayList<ChatRoomToUser> enterChattingRoom) { this.chatRoomToUser = enterChattingRoom; }
-    public static ArrayList<ChatRoomToUser> getEnteredUserToChattingRoom() { return chatRoomToUser; }
+    public MysqlImpl getMysql() {
+        return mysql;
+    }
+
+    public void setMysql(MysqlImpl mysql) {
+        this.mysql = mysql;
+    }
+
+    private MysqlImpl mysql;
+
 
 }

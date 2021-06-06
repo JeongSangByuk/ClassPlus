@@ -25,7 +25,11 @@ public class CSVManagement {
             int emailIndex = 0;
             for(int i=0; i<list.get(0).length; i++) {
 
-                if(list.get(0)[i].equals("이메일")) emailIndex = i;
+                if(list.get(0)[i].equals("이메일") || list.get(0)[i].equals("email") )
+                {
+                    emailIndex = i;
+                    break;
+                }
 
             }
 
