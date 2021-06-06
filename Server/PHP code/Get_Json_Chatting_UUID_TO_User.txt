@@ -6,8 +6,9 @@
     include('dbcon.php');
 
     $user_email = $_GET['user_email'];
+    $type = $_GET['type'];
 
-    $stmt = $con->prepare("select * from chatting_user WHERE user_email = '$user_email'");
+    $stmt = $con->prepare("select * from chatting_user WHERE user_email = '$user_email' and type = '$type'");
     $stmt->execute();
 
     if ($stmt->rowCount() > 0)
