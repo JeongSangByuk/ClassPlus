@@ -167,7 +167,27 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public ArrayList<ChatRoomInfo> getChattingRoomUuidType(String admin_email) {
-        return null;
+    public ArrayList<ChatRoomInfo> getChattingRoomUuidType(String admin_email) throws JSONException, ExecutionException, InterruptedException {
+        ChattingRoomToUserSender task = new ChattingRoomToUserSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidandtypechattingtable.php", admin_email).get();
+
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
+            ArrayList<ChatRoomInfo> chatRoom = new ArrayList<>();
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray classplusArray = jsonObject.getJSONArray("classplus");
+            for(int i=0; i<classplusArray.length(); i++)
+            {
+                JSONObject classplussObject = classplusArray.getJSONObject(i);
+
+                ChatRoomInfo chatRoomInfo = new ChatRoomInfo();
+                chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
+                chatRoomInfo.setType(ChatRoomInfo.ChatRoomType.valueOf(classplussObject.getString("type")));
+
+                chatRoom.add(chatRoomInfo);
+            }
+            return chatRoom;
+        } else {
+            return null;
+        }
     }
 }
