@@ -72,6 +72,10 @@ public class WorkStackActivity extends AppCompatActivity {
         workStackRecyclerView = findViewById(R.id.recyclerview_workstack);
         backBnt = findViewById(R.id.iv_back_workstack);
 
+        if(!AppManager.getInstance().getLoginUser().getIsStudent()){
+            floatingActionButton.setVisibility(View.INVISIBLE);
+        }
+
         // 리사이클러뷰 역순 출력
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setReverseLayout(true);

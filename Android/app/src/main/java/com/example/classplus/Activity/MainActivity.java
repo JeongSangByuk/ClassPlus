@@ -26,6 +26,7 @@ import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.DTO.ChatRoomToUser;
 import com.example.classplus.DTO.User;
 import com.example.classplus.Fragment.ProfessorPageFragment;
+import com.example.classplus.Fragment.ProfessorTeamChatFragment;
 import com.example.classplus.Fragment.TeamChatFragment;
 import com.example.classplus.Fragment.MyPageFragment;
 import com.example.classplus.Fragment.TotalChatFragment;
@@ -87,8 +88,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.bottom_navigation_chat:
-                    teamChatFragment = new TeamChatFragment();
-                    replaceFragment(teamChatFragment);
+                    if(AppManager.getInstance().getLoginUser().getIsStudent()){
+                        teamChatFragment = new TeamChatFragment();
+                        replaceFragment(teamChatFragment);
+                    }
+                    else {
+                        replaceFragment(new ProfessorTeamChatFragment());
+                    }
                     break;
 
                 case R.id.bottom_navigation_total_chat:
