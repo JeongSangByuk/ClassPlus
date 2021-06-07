@@ -50,19 +50,6 @@ public class TimeTable extends AppCompatActivity {
         });
     }
 
-
-    /*
-    FAFAA0- 1~5
-FFFA78- 6~10
-FFEB46- 11~15
-FFD732- 16~20
-FFB900- 21 ~ 25
-FFA500- 26 ~ 30
-FF9100- 31 ~ 35
-FF8200- 36~ 40
-8B4513- 40 초과
-     */
-
     private void selectNumber(int input) {
         setContentView(R.layout.activity_time_table);
         this.context = this;
