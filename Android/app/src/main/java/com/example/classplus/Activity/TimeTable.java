@@ -41,7 +41,9 @@ public class TimeTable extends AppCompatActivity {
 
         selectNumber(input);
 
-
+        activity = this;
+/*
+>>>>>>> 454fb2db8acf5de0f3b07816eaad64c140b748e4
         close = findViewById(R.id.close);
 
         close.setOnClickListener( new View.OnClickListener() {
@@ -51,7 +53,7 @@ public class TimeTable extends AppCompatActivity {
                   activity.finish();
 
              }
-        });
+        });*/
     }
 
     private void selectNumber(int input) {
