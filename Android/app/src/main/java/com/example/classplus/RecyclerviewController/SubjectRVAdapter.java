@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Activity.StudentListActivity;
+import com.example.classplus.Activity.TimeTable;
 import com.example.classplus.AppManager;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.Dialog.TeamChattingMakingDialog;
@@ -63,7 +64,7 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
         Log.d("teamUUID", "true");
 
         try {
-            if(AppManager.getInstance().getMysql().isTeamUUID(subjectList.get(position).getUUID())) chatManager.setText("팀 확인하기");
+            if(AppManager.getInstance().getMysql().isTeamUUID(subjectList.get(position).getUUID())) chatManager.setText("");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -76,9 +77,9 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
                     @Override
                     public void onClick(View view) {
 
-
-
-
+                        Intent intent = new Intent(context, TimeTable.class);
+                        context.startActivity(intent);
+                        
                     }
                 }
         );
@@ -89,7 +90,7 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
                     @Override
                     public void onClick(View view) {
 
-                        if(chatManager.getText().equals("팀 확인하기")){
+                        if(chatManager.getText().equals("")){
 
                         }
 
@@ -100,6 +101,7 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
                             bundle.putSerializable("chatRoomInfo", subjectList.get(position));
                             intent.putExtra("chatRoomInfo_bundle", bundle);
                             context.startActivity(intent);
+
 
                         }
                     }
