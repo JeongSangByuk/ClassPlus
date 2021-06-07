@@ -25,6 +25,17 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:layout_gravity="right"
+        android:id="@+id/close"
+        android:src="@drawable/ic_baseline_close_24"
+        />
+
+
 
     <com.example.classplus.TimeTable.TimetableView
         android:id="@+id/timetable"

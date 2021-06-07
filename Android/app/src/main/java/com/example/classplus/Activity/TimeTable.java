@@ -2,20 +2,32 @@ package com.example.classplus.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.classplus.DTO.User;
+import com.example.classplus.MysqlDataConnector.IModel;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 import com.example.classplus.TimeTable.Schedule;
 import com.example.classplus.TimeTable.Time;
 import com.example.classplus.TimeTable.TimetableView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class TimeTable extends AppCompatActivity {
     private Context context;
 
     private TimetableView timetable;
+    Activity activity;
+
+    ImageView close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +35,21 @@ public class TimeTable extends AppCompatActivity {
 
         int input = 3;
         selectNumber(input);
+
+        activity = this;
+
+        close = findViewById(R.id.close);
+
+        close.setOnClickListener( new View.OnClickListener() {
+              @Override
+              public void onClick(View v){
+
+                  activity.finish();
+
+             }
+        });
     }
+
 
     /*
     FAFAA0- 1~5
