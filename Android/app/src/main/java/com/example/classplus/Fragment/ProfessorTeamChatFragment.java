@@ -68,12 +68,12 @@ public class ProfessorTeamChatFragment extends Fragment {
 
         chatRoomInfoList = new ArrayList<ChatRoomInfo>();
 
-        chatRoomInfoList = AppManager.getInstance().getMysql().getChattingRoomByAdmin(AppManager.getInstance().getLoginUser().getEmail());
+        updatedChatRoomInfoList = AppManager.getInstance().getMysql().getChattingRoomByAdmin(AppManager.getInstance().getLoginUser().getEmail());
 
         // total 삭제.
-        for(int i =0;i<chatRoomInfoList.size(); i++){
-            if(chatRoomInfoList.get(i).getType().equals(ChatRoomInfo.ChatRoomType.TOTAL)){
-                chatRoomInfoList.remove(i);
+        for(int i =0;i<updatedChatRoomInfoList.size(); i++){
+            if(updatedChatRoomInfoList.get(i).getType().equals(ChatRoomInfo.ChatRoomType.TEAM)){
+                chatRoomInfoList.add(updatedChatRoomInfoList.get(i));
             }
         }
 

@@ -64,7 +64,8 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
             @Override
             public void onClick(View v) {
 
-                if(AppManager.getInstance().getLoginUser().getIsStudent()) {
+                if((AppManager.getInstance().getLoginUser().getIsStudent() && chatList.get(position).getType() == ChatRoomInfo.ChatRoomType.TEAM)
+                    || chatList.get(position).getType() == ChatRoomInfo.ChatRoomType.TOTAL) {
 
                     chatList.get(position).setRead(true);
 

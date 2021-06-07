@@ -39,7 +39,7 @@ public class ProfessorPageFragment extends Fragment {
     private RecyclerView recyclerviewMyPage;
     private ArrayList<ChatRoomInfo> subjectList;
     private SubjectRVAdapter subjectRVAdapter;
-    private Button btn_add_class;
+    private TextView btn_add_class;
     private Fragment fragment;
 
     @Nullable
