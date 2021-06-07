@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,8 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
 
         timetable = holder.timetable;
         chatManager = holder.chatManager;
+
+        Log.d("teamUUID", "true");
 
         try {
             if(AppManager.getInstance().getMysql().isTeamUUID(subjectList.get(position).getUUID())) chatManager.setText("팀 확인하기");
