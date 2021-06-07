@@ -1,4 +1,4 @@
-package com.example.classplus.ChattingRoomManagement;
+package com.example.classplus.Dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,8 +13,6 @@ import com.example.classplus.CSVReader.FileExplorer;
 import com.example.classplus.R;
 
 public class ClassNameGetterDialog {
-
-
 
     public AlertDialog showDialog(Activity activity, Fragment fragment)
     {

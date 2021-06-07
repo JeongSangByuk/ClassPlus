@@ -1,25 +1,20 @@
 package com.example.classplus.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.classplus.AppManager;
-import com.example.classplus.CSVReader.FileExplorer;
-import com.example.classplus.ChattingRoomManagement.ClassNameGetterDialog;
+import com.example.classplus.Dialog.ClassNameGetterDialog;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.R;
 import com.example.classplus.RecyclerviewController.SubjectRVAdapter;
