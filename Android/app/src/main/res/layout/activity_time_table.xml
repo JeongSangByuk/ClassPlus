@@ -22,7 +22,6 @@
             android:textColor="#FFFFFF"
             android:textSize="21dp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
     <ImageView
@@ -34,7 +33,6 @@
         android:id="@+id/close"
         android:src="@drawable/ic_baseline_close_24"
         />
-
 
 
     <com.example.classplus.TimeTable.TimetableView

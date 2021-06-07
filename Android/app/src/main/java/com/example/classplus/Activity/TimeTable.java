@@ -54,19 +54,6 @@ public class TimeTable extends AppCompatActivity {
         });
     }
 
-
-    /*
-    FAFAA0- 1~5
-FFFA78- 6~10
-FFEB46- 11~15
-FFD732- 16~20
-FFB900- 21 ~ 25
-FFA500- 26 ~ 30
-FF9100- 31 ~ 35
-FF8200- 36~ 40
-8B4513- 40 초과
-     */
-
     private void selectNumber(int input) {
         setContentView(R.layout.activity_time_table);
         this.context = this;
@@ -81,6 +68,9 @@ FF8200- 36~ 40
                 break;
             case 3:
                 thirdView();
+                break;
+            case 4:
+                fourView();
                 break;
             default:
                 break;
@@ -126,6 +116,18 @@ FF8200- 36~ 40
         thirdFRI();
     }
 
+    private void fourView() {
+        // 월
+        fourMON();
+        // 화
+        fourTUE();
+        // 수
+        fourWED();
+        // 목
+        fourTHU();
+        // 금
+        fourFRI();
+    }
 
     private void firstMON() {
         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
@@ -584,8 +586,7 @@ FF8200- 36~ 40
 
         schedules = new ArrayList<Schedule>();
         schedule = new Schedule();
-        schedule.setClassTitle("19"); // sets subject
-        schedule.setColor("#FFEB46");
+        schedule.setClassTitle("운영체제"); // sets subject
         schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
@@ -593,38 +594,19 @@ FF8200- 36~ 40
 
         schedules = new ArrayList<Schedule>();
         schedule = new Schedule();
-        schedule.setClassTitle("31"); // sets subject
-        schedule.setColor("#FF9100");
+        schedule.setClassTitle("인공지능"); // sets subject
         schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
         timetable.add(schedules);
 
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("23"); // sets subject
-        schedule.setColor("#FFB900");
-        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("14"); // sets subject
-        schedule.setColor("#FFEB46");
-        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
     }
 
     //schedule.setDay(1);
     private void thirdTUE() {
         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
         Schedule schedule = new Schedule();
-        schedule.setClassTitle("33"); // sets subject
-        schedule.setColor("#FF9100");
+        schedule.setClassTitle("데이터베이스"); // sets subject
         schedule.setDay(1);
         schedule.setStartTime(new Time(9, 0)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(10, 30)); // sets the end of class time (hour,minute)
@@ -633,51 +615,10 @@ FF8200- 36~ 40
 
         schedules = new ArrayList<Schedule>();
         schedule = new Schedule();
-        schedule.setClassTitle("44"); // sets subject
+        schedule.setClassTitle("C# 프로그래밍"); // sets subject
         schedule.setDay(1);
-        schedule.setColor("#8B4513");
-        schedule.setStartTime(new Time(10, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(12, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("23"); // sets subject
-        schedule.setDay(1);
-        schedule.setColor("#FFB900");
-        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("38"); // sets subject
-        schedule.setDay(1);
-        schedule.setColor("#FF8200");
         schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("46"); // sets subject
-        schedule.setDay(1);
-        schedule.setColor("#8B4513");
-        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("8"); // sets subject
-        schedule.setDay(1);
-        schedule.setColor("#FAFAA0");
-        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
         timetable.add(schedules);
     }
@@ -764,6 +705,205 @@ FF8200- 36~ 40
         schedule.setColor("#8B4513");
         schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+    }
+
+
+    //four
+    private void fourMON() {
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        Schedule schedule = new Schedule();
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("19"); // sets subject
+        schedule.setColor("#FFEB46");
+        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("31"); // sets subject
+        schedule.setColor("#FF9100");
+        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("23"); // sets subject
+        schedule.setColor("#FFB900");
+        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("14"); // sets subject
+        schedule.setColor("#FFEB46");
+        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+    }
+
+    //schedule.setDay(1);
+    private void fourTUE() {
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        Schedule schedule = new Schedule();
+        schedule.setClassTitle("33"); // sets subject
+        schedule.setColor("#FF9100");
+        schedule.setDay(1);
+        schedule.setStartTime(new Time(9, 0)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(10, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("44"); // sets subject
+        schedule.setDay(1);
+        schedule.setColor("#8B4513");
+        schedule.setStartTime(new Time(10, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(12, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("23"); // sets subject
+        schedule.setDay(1);
+        schedule.setColor("#FFB900");
+        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("38"); // sets subject
+        schedule.setDay(1);
+        schedule.setColor("#FF8200");
+        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("46"); // sets subject
+        schedule.setDay(1);
+        schedule.setColor("#8B4513");
+        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("8"); // sets subject
+        schedule.setDay(1);
+        schedule.setColor("#FAFAA0");
+        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+    }
+
+    //schedule.setDay(2);
+    private void fourWED() {
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        Schedule schedule = new Schedule();
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("3"); // sets subject
+        schedule.setDay(2);
+        schedule.setColor("#FAFAA0");
+        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("9"); // sets subject
+        schedule.setDay(2);
+        schedule.setColor("#FFFA78");
+        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+    }
+
+    //schedule.setDay(3);
+    private void fourTHU() {
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        Schedule schedule = new Schedule();
+        schedule.setClassTitle("21"); // sets subject
+        schedule.setDay(3);
+        schedule.setColor("#FFB900");
+        schedule.setStartTime(new Time(9, 0)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(10, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("33"); // sets subject
+        schedule.setDay(3);
+        schedule.setColor("#FF9100");
+        schedule.setStartTime(new Time(10, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(12, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+    }
+
+    //schedule.setDay(4);
+    private void fourFRI() {
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        Schedule schedule = new Schedule();
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setClassTitle("Capstone"); // sets subject
+        schedule.setDay(4);
+        schedule.setColor("#FFEB46");
+        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setDay(4);
+        schedule.setColor("#FFEB46");
+        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setDay(4);
+        schedule.setColor("#FFEB46");
+        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
+        schedules.add(schedule);
+        timetable.add(schedules);
+
+        schedules = new ArrayList<Schedule>();
+        schedule = new Schedule();
+        schedule.setDay(4);
+        schedule.setColor("#FFEB46");
+        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
         timetable.add(schedules);
     }
