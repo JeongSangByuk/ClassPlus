@@ -22,9 +22,7 @@
             android:textColor="#FFFFFF"
             android:textSize="21dp"
             android:textStyle="bold" />
-
     </RelativeLayout>
-
 
     <com.example.classplus.TimeTable.TimetableView
         android:id="@+id/timetable"
