@@ -28,7 +28,6 @@ public class isTeamUUIDSender extends AsyncTask<String, Void, String> {
 
         String serverURL = (String) params[0];
 
-
         serverURL = serverURL + "?" + "team_UUID=" + team_UUID;
         try {
             URL url = new URL(serverURL);
