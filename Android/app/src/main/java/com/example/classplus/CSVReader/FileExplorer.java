@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.classplus.ChattingRoomManagement.ChattingRoomManagement;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 
@@ -26,7 +29,7 @@ public class FileExplorer {
         chattingRoomManagement = new ChattingRoomManagement();
     }
 
-    public void showFileExplorer(Activity activity, String className)
+    public void showFileExplorer(Activity activity, String className, Fragment fragment)
     {
         new ChooserDialog(activity)
                 .withStartFile(Environment.DIRECTORY_DOWNLOADS)
@@ -40,6 +43,9 @@ public class FileExplorer {
                             Toast.makeText(activity, "팀채팅을 생성하는 중입니다.", Toast.LENGTH_SHORT).show();
                             try {
                                 chattingRoomManagement.createTotalChattingRoom(emailLsit, className);
+                                FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+                                ft.detach(fragment).attach(fragment).commit();
+
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             } catch (InterruptedException e) {

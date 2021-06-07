@@ -62,7 +62,7 @@ public class Workstack {
     }
 
     public int getUserImg() {
-        return userImg;
+        return getImageNum(userImg);
     }
 
     public void setUserImg(int userImg) {

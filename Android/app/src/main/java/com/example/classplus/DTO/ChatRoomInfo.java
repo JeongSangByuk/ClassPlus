@@ -2,9 +2,10 @@ package com.example.classplus.DTO;
 
 import com.example.classplus.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ChatRoomInfo {
+public class ChatRoomInfo implements Serializable {
 
     public enum ChatRoomType {
         TEAM, TOTAL
@@ -31,6 +32,7 @@ public class ChatRoomInfo {
         this.lastChat = lastChat;
         this.lastChatID = "";
         setImageNum(img);
+        students = new ArrayList<>();
     }
 
     public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead) {
@@ -40,6 +42,18 @@ public class ChatRoomInfo {
         this.lastChat = lastChat;
         this.lastChatID = lastChatID;
         this.isRead = isRead;
+        setImageNum(img);
+        students = new ArrayList<>();
+    }
+
+    public ChatRoomInfo(int uuid, String name, String lastTime, String lastChat, int img, String lastChatID, boolean isRead, ChatRoomType type) {
+        this.uuid = uuid;
+        this.name = name;
+        this.lastTime = lastTime;
+        this.lastChat = lastChat;
+        this.lastChatID = lastChatID;
+        this.isRead = isRead;
+        this.type = type;
         setImageNum(img);
     }
 
@@ -116,7 +130,7 @@ public class ChatRoomInfo {
     }
 
     public void setImg(int img) {
-        this.img = img;
+        setImageNum(img);
     }
 
     public int getUUID() {

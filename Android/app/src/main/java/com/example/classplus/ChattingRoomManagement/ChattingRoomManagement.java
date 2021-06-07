@@ -1,5 +1,8 @@
 package com.example.classplus.ChattingRoomManagement;
 
+import android.app.Activity;
+import android.util.Log;
+
 import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
@@ -34,7 +37,6 @@ public class ChattingRoomManagement {
 
     public void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
         String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
-        students.add(chat_maker);
 
         String message = AppManager.getInstance().getLoginUser().getName() + "교수 님에 의해 생성된\n" + roomName + "대화방 입니다.";
 
@@ -48,11 +50,13 @@ public class ChattingRoomManagement {
 
     }
 
-    public void dividTeam(int maxNumber, ArrayList<User> students, String className, int totalUUID) throws ExecutionException, InterruptedException {
+    public void dividTeam(int maxNumber, ArrayList<User> students, String className, int totalUUID, Activity activity) throws ExecutionException, InterruptedException {
         int uuid = 0;
 
         int cnt = 0;
         int roomCnt = 0;
+
+        ArrayList<String> emails = null;
 
         for(int i=0; i<students.size(); i++)
         {
@@ -63,32 +67,44 @@ public class ChattingRoomManagement {
                 roomCnt++;
                 uuid = model.createChattingRoom(
                         className+ " " +String.valueOf(roomCnt)+"팀",
-                        ChatRoomInfo.ChatRoomType.TEAM );
-
+                        AppManager.getInstance().getLoginUser().getEmail(),
+                        ChatRoomInfo.ChatRoomType.TEAM);
+                emails = new ArrayList<>();
 
             }
 
+            emails.add(students.get(i).getEmail());
             cnt++;
 
             if(cnt == maxNumber || i==students.size()-1)
             {
                 cnt = 0;
+                AppManager.getInstance().getMysql().enterChattingRoom(uuid, emails, className+ " " +String.valueOf(roomCnt)+"팀", ChatRoomInfo.ChatRoomType.TEAM);
 
                 ChatData addedData = new ChatData(students.get(i).getEmail(), students.get(i).getName(),
                         students.get(i).getName()+"님이 입장했습니다.", getCurrentTime(),
                         R.drawable.study2, ChatData.MessageType.ENTER.toString());
 
-                FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
-                FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_TYPE_NODE_NAME).child(String.valueOf(totalUUID)).push().setValue(uuid);
 
+                FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
+
+                AppManager.getInstance().getMysql().setUUID(totalUUID, uuid);
             }
         }
+
+        activity.finish();
     }
 
 
 
    public int createChattingRoom(String chat_maker, ArrayList<String> students, String roomName, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException {
         int uuid = model.createChattingRoom(roomName, chat_maker, type);
+
+        for(String student : students)
+        {
+            Log.d("email:", student);
+        }
+
         students.add(chat_maker);
         model.enterChattingRoom(uuid, students, roomName, type);
 

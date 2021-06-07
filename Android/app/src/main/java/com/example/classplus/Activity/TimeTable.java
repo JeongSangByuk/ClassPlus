@@ -2,20 +2,32 @@ package com.example.classplus.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.classplus.DTO.User;
+import com.example.classplus.MysqlDataConnector.IModel;
+import com.example.classplus.MysqlDataConnector.MysqlImpl;
 import com.example.classplus.R;
 import com.example.classplus.TimeTable.Schedule;
 import com.example.classplus.TimeTable.Time;
 import com.example.classplus.TimeTable.TimetableView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class TimeTable extends AppCompatActivity {
     private Context context;
 
     private TimetableView timetable;
+    Activity activity;
+
+    ImageView close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +36,19 @@ public class TimeTable extends AppCompatActivity {
         int input = 4;
         selectNumber(input);
 
-    }
+        activity = this;
 
-    /*
-    FAFAA0- 1~5
-FFFA78- 6~10
-FFEB46- 11~15
-FFD732- 16~20
-FFB900- 21 ~ 25
-FFA500- 26 ~ 30
-FF9100- 31 ~ 35
-FF8200- 36~ 40
-8B4513- 40 초과
-     */
+        close = findViewById(R.id.close);
+
+        close.setOnClickListener( new View.OnClickListener() {
+              @Override
+              public void onClick(View v){
+
+                  activity.finish();
+
+             }
+        });
+    }
 
     private void selectNumber(int input) {
         setContentView(R.layout.activity_time_table);

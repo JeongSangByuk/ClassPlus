@@ -2,6 +2,7 @@ package com.example.classplus.RecyclerviewController;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Activity.ChatRoomActivity;
+import com.example.classplus.Activity.WorkStackActivity;
 import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatRoomInfo;
@@ -61,20 +63,39 @@ public class ChatInfoRVAdapter extends RecyclerView.Adapter<ChatInfoViewHolder> 
         holder.frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chatList.get(position).setRead(true);
-                ChatRoomLocalDB.getInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getInstance(context).getWritableDatabase(),chatList.get(position).getUUID());
-                notifyDataSetChanged();
 
-                MainActivity mainActivity = (MainActivity) context;
+                if((AppManager.getInstance().getLoginUser().getIsStudent() && chatList.get(position).getType() == ChatRoomInfo.ChatRoomType.TEAM)
+                    || chatList.get(position).getType() == ChatRoomInfo.ChatRoomType.TOTAL) {
 
-                Intent intent = new Intent(mainActivity, ChatRoomActivity.class);
-                intent.putExtra("uuid", chatList.get(position).getUUID());
-                intent.putExtra("name", chatList.get(position).getName());
-                intent.putExtra("index", position);
-                intent.putExtra("user_id",user_email);
+                    chatList.get(position).setRead(true);
 
-                mainActivity.moveToChatActivity(intent);
-                //context.startActivity(intent);
+                    Log.d("qweqwe", chatList.get(position).getType().toString());
+
+                    if (chatList.get(position).getType().equals(ChatRoomInfo.ChatRoomType.TEAM))
+                        ChatRoomLocalDB.getChatDbInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase(),
+                                Constant.ROOM_TEAM_CHAT_TABLE, chatList.get(position).getUUID());
+                    else
+                        ChatRoomLocalDB.getChatDbInstance(context).updateReadingFlagTrue(ChatRoomLocalDB.getChatDbInstance(context).getWritableDatabase(),
+                                Constant.ROOM_TOTAL_CHAT_TABLE, chatList.get(position).getUUID());
+
+                    notifyDataSetChanged();
+
+                    MainActivity mainActivity = (MainActivity) context;
+
+                    Intent intent = new Intent(mainActivity, ChatRoomActivity.class);
+                    intent.putExtra("uuid", chatList.get(position).getUUID());
+                    intent.putExtra("name", chatList.get(position).getName());
+                    intent.putExtra("index", position);
+                    intent.putExtra("user_id", user_email);
+
+                    mainActivity.moveToChatActivity(intent);
+                    //context.startActivity(intent);
+                } else{
+
+                    Intent intent = new Intent(context, WorkStackActivity.class);
+                    intent.putExtra("uuid", chatList.get(position).getUUID());
+                    context.startActivity(intent);
+                }
 
             }
         });

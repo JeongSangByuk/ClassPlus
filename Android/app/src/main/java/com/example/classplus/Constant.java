@@ -18,6 +18,10 @@ public class Constant {
     public final static int WORKSTACK_VIEWTYPE = 3;
     public final static int ENTER_VIEWTYPE = 4;
 
+    public static String LOCAL_CHAT_DB = "chatDB";
+    public static String ROOM_TEAM_CHAT_TABLE = "roomTeamChat";
+    public static String ROOM_TOTAL_CHAT_TABLE = "roomTotalChat";
+
     public final static int CHAT_ACTIVITY_REQUEST_CODE = 1101;
 
 

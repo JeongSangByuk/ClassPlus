@@ -88,7 +88,9 @@ public class MysqlImpl implements IModel {
     @Override
     public ArrayList<ChatRoomInfo> getChattingRoom(String user_email, ChatRoomInfo.ChatRoomType type) throws ExecutionException, InterruptedException, JSONException {
         ChattingRoomToUserSender task = new ChattingRoomToUserSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.name()).get();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonuuidtouseremail.php", user_email, type.toString()).get();
+
+        if(result.trim().length()==0) return new ArrayList<ChatRoomInfo>();
 
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS) {
             ArrayList<ChatRoomInfo> chatRoom = new ArrayList<>();
@@ -103,15 +105,28 @@ public class MysqlImpl implements IModel {
                 chatRoomInfo.setUUID(classplussObject.getInt("uuid"));
                 chatRoomInfo.setName(classplussObject.getString("room_name"));
 
+                chatRoomInfo.setLastChat("-");
+                chatRoomInfo.setLastChatID("-");
+                chatRoomInfo.setLastTime("-");
+                chatRoomInfo.setImg(classplussObject.getInt("uuid") %6);
+
                 ArrayList<String> emails = getChattingRoomUser(classplussObject.getInt("uuid"));
-                for(int j = 0 ; j < emails.size(); j++)
+
+                Log.d("sss", "email size:"+emails.size());
+                for(int j = 0 ; j < emails.size(); j++) {
+                    Log.d("sss", "emails:"+emails.get(j));
                     students.add(getUserinfo(emails.get(j)));
+                }
 
                 chatRoomInfo.setStudents(students);
+
                 chatRoomInfo.setType(type);
 
                 chatRoom.add(chatRoomInfo);
             }
+
+            for(int i = 0; i < chatRoom.size(); i++)
+                Log.d("sss", "chatRoom : " + chatRoom.get(i).getName());
             return chatRoom;
         } else {
             return null;
@@ -208,9 +223,11 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public boolean isTeamUUID(int total_uuid) throws ExecutionException, InterruptedException {
+    public boolean isTeamUUID(int team_uuid) throws ExecutionException, InterruptedException {
         isTotalUUIDSender task = new isTotalUUIDSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonisteamuuid.php", Integer.toString(total_uuid)).get();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonisteamuuid.php", Integer.toString(team_uuid)).get();
+
+        if(result.trim().length()==0) return false;
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS)
             return true;
         return false;

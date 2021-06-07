@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.classplus.CSVReader.FileExplorer;
 import com.example.classplus.R;
 
@@ -14,7 +16,7 @@ public class ClassNameGetterDialog {
 
 
 
-    public AlertDialog showDialog(Activity activity)
+    public AlertDialog showDialog(Activity activity, Fragment fragment)
     {
         final EditText et = new EditText(activity);
         FrameLayout container = new FrameLayout(activity);
@@ -29,7 +31,7 @@ public class ClassNameGetterDialog {
 
         final AlertDialog.Builder alt_bld = new AlertDialog.Builder(activity, R.style.MyAlertDialogStyle);
 
-        alt_bld.setTitle("닉네임 변경").setMessage("변경할 닉네임을 입력하세요").setIcon(R.drawable.ic_baseline_class_24).setCancelable(
+        alt_bld.setTitle("강의 추가").setMessage("강의 이름을 입력해 주세요").setIcon(R.drawable.ic_baseline_class_24).setCancelable(
 
                 false).setView(container).setPositiveButton("확인",
 
@@ -40,8 +42,7 @@ public class ClassNameGetterDialog {
                         String className = et.getText().toString();
 
                         FileExplorer explorer = new FileExplorer();
-                        explorer.showFileExplorer(activity, className);
-
+                        explorer.showFileExplorer(activity, className, fragment);
 
                     }
                 });
