@@ -98,7 +98,6 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
                             intent.putExtra("chatRoomInfo_bundle", bundle);
                             context.startActivity(intent);
 
-
                         }
                     }
 
