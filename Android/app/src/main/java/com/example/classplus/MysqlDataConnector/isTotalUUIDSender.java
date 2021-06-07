@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class isTeamUUIDSender extends AsyncTask<String, Void, String> {
+class isTotalUUIDSender extends AsyncTask<String, Void, String> {
     ProgressDialog progressDialog;
 
     @Override
@@ -24,11 +24,11 @@ public class isTeamUUIDSender extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        int team_uuid = Integer.parseInt(params[1]);
+        int total_uuid = Integer.parseInt(params[1]);
 
         String serverURL = (String) params[0];
 
-        serverURL = serverURL + "?" + "team_uuid=" + team_uuid;
+        serverURL = serverURL + "?" + "total_uuid=" + total_uuid;
         try {
             URL url = new URL(serverURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

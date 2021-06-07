@@ -208,9 +208,9 @@ public class MysqlImpl implements IModel {
     }
 
     @Override
-    public boolean isTeamUUID(int team_uuid) throws ExecutionException, InterruptedException {
-        isTeamUUIDSender task = new isTeamUUIDSender();
-        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonisteamuuid.php", Integer.toString(team_uuid)).get();
+    public boolean isTeamUUID(int total_uuid) throws ExecutionException, InterruptedException {
+        isTotalUUIDSender task = new isTotalUUIDSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonisteamuuid.php", Integer.toString(total_uuid)).get();
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS)
             return true;
         return false;
