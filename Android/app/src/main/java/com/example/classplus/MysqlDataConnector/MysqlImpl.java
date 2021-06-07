@@ -198,11 +198,19 @@ public class MysqlImpl implements IModel {
         task.execute("http://" + Constant.IP_ADDRESS + "/inserttotalteamuuid.php", Integer.toString(total_uuid), Integer.toString(team_uuid));
     }
 
-    //isUUIDSender
     @Override
     public boolean isUUID(int total_uuid, int team_uuid) throws ExecutionException, InterruptedException {
         isUUIDSender task = new isUUIDSender();
         result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonistotalteamuuid.php", Integer.toString(total_uuid), Integer.toString(team_uuid)).get();
+        if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean isTeamUUID(int team_uuid) throws ExecutionException, InterruptedException {
+        isTeamUUIDSender task = new isTeamUUIDSender();
+        result = task.execute("http://" + Constant.IP_ADDRESS + "/getjsonisteamuuid.php", Integer.toString(team_uuid)).get();
         if(result.charAt(0) == Constant.GET_USER_INFORMATION_SUCCESS)
             return true;
         return false;

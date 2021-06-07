@@ -40,4 +40,6 @@ public interface IModel {
     void setUUID(int total_uuid, int team_uuid);
 
     boolean isUUID(int total_uuid, int team_uuid) throws ExecutionException, InterruptedException;
+
+    boolean isTeamUUID(int team_uuid) throws ExecutionException, InterruptedException;
 }
