@@ -87,7 +87,7 @@ public class ChattingRoomManagement {
 
 
                 FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
-                
+
                 AppManager.getInstance().getMysql().setUUID(totalUUID, uuid);
             }
         }
