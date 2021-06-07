@@ -24,13 +24,13 @@ public class isUUIDSender extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        int total_UUID = Integer.parseInt(params[1]);
-        int team_UUID = Integer.parseInt(params[2]);
+        int total_uuid = Integer.parseInt(params[1]);
+        int team_uuid = Integer.parseInt(params[2]);
 
         String serverURL = (String) params[0];
 
 
-        serverURL = serverURL + "?" + "total_UUID=" + total_UUID + "&team_UUID=" + team_UUID;
+        serverURL = serverURL + "?" + "total_uuid=" + total_uuid + "&team_uuid=" + team_uuid;
         try {
             URL url = new URL(serverURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
