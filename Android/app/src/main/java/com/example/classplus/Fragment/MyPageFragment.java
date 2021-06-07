@@ -45,7 +45,7 @@ public class MyPageFragment extends Fragment {
         name = view.findViewById(R.id.tv_name_mypage);
         email = view.findViewById(R.id.tv_email_mypage);
         department = view.findViewById(R.id.tv_departement_mypage);
-        timetable = view.findViewById(R.id.timetable);
+        timetable = view.findViewById(R.id.timetable_mypage);
 
 
         name.setText(AppManager.getInstance().getLoginUser().getName());
