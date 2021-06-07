@@ -38,7 +38,7 @@ public class ChattingRoomManagement {
     public void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
         String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
 
-        String message = AppManager.getInstance().getLoginUser().getName() + "교수 님에 의해 생성된\n" + roomName + "대화방 입니다.";
+        String message = AppManager.getInstance().getLoginUser().getName() + " 교수님에 의해 생성된\n" + roomName + "대화방 입니다.";
 
         int uuid = createChattingRoom(chat_maker, students, roomName, ChatRoomInfo.ChatRoomType.TOTAL);
 
