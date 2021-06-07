@@ -191,4 +191,10 @@ public class MysqlImpl implements IModel {
             return null;
         }
     }
+
+    @Override
+    public void setUUID(int total_uuid, int team_uuid) {
+        TotalTeamUUIDCreator task = new TotalTeamUUIDCreator();
+        task.execute("http://" + Constant.IP_ADDRESS + "/inserttotalteamuuid.php", Integer.toString(total_uuid), Integer.toString(team_uuid));
+    }
 }
