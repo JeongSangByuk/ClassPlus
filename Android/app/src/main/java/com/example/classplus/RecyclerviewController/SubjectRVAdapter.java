@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.classplus.Activity.StudentListActivity;
+import com.example.classplus.AppManager;
 import com.example.classplus.DTO.ChatRoomInfo;
 import com.example.classplus.Dialog.TeamChattingMakingDialog;
 import com.example.classplus.R;
@@ -20,6 +21,7 @@ import com.example.classplus.firebase.FirebaseConnector;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder> {
 
@@ -57,7 +59,14 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
         timetable = holder.timetable;
         chatManager = holder.chatManager;
 
-        if(FirebaseConnector.getInstance().haveTeamChat(uuid)) chatManager.setText("팀 확인하기");
+        try {
+            if(AppManager.getInstance().getMysql().isTeamUUID(subjectList.get(position).getUUID())) chatManager.setText("팀 확인하기");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         timetable.setOnClickListener(
                 new Button.OnClickListener() {
