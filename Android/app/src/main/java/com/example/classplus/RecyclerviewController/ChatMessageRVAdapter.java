@@ -36,7 +36,7 @@ public class ChatMessageRVAdapter extends RecyclerView.Adapter<RecyclerView.View
         View view;
 
         if(viewType == Constant.ENTER_VIEWTYPE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_myworkstack_list, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_enter_list, parent, false);
             EnterChatViewHolder holder = new EnterChatViewHolder(view);
             return holder;
         }
