@@ -72,6 +72,10 @@ public class WorkStackActivity extends AppCompatActivity {
         workStackRecyclerView = findViewById(R.id.recyclerview_workstack);
         backBnt = findViewById(R.id.iv_back_workstack);
 
+        if(!AppManager.getInstance().getLoginUser().getIsStudent()){
+            floatingActionButton.setVisibility(View.INVISIBLE);
+        }
+
         // 리사이클러뷰 역순 출력
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setReverseLayout(true);
@@ -110,7 +114,7 @@ public class WorkStackActivity extends AppCompatActivity {
                         String description = result.getData().getStringExtra("description");
 
                         Workstack addedData = new Workstack(AppManager.getInstance().getLoginUser().getEmail(),AppManager.getInstance().getLoginUser().getName(),
-                                title,description,getCurrentTime(),AppManager.getInstance().getLoginUser().getImgNumber());
+                                title,description,getCurrentTime("MM/dd HH:mm"),AppManager.getInstance().getLoginUser().getImgNumber());
                         workstackList.add(addedData);
 
                         dbRef.child(Constant.FIREBASE_WORKSTACK_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);
@@ -120,7 +124,7 @@ public class WorkStackActivity extends AppCompatActivity {
 
                         //워크스택이 추가되면 채팅방에 새로운 채팅을 보내면됨!
                         ChatData addedChatData = new ChatData(AppManager.getInstance().getLoginUser().getEmail(),AppManager.getInstance().getLoginUser().getName(),
-                               description , getCurrentTime(),0, ChatData.MessageType.WORK_STACK.toString());
+                               description , getCurrentTime("HH:mm"),0, ChatData.MessageType.WORK_STACK.toString());
                         dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedChatData);
                     }
                 }
@@ -134,11 +138,11 @@ public class WorkStackActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.parseColor("#ff6d00"));//색 지정
     }
 
-    private String getCurrentTime() {
+    private String getCurrentTime(String pattern) {
 
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
-        SimpleDateFormat simpleDate = new SimpleDateFormat("MM/dd HH:mm");
+        SimpleDateFormat simpleDate = new SimpleDateFormat();
         return simpleDate.format(mDate);
     }
 

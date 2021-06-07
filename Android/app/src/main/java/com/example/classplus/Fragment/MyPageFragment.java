@@ -36,27 +36,17 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_my_page_student,container,false);
-        recyclerviewMyPage = view.findViewById(R.id.recyclerview_mypage);
+
         img = view.findViewById(R.id.iv_img_mypage);
         name = view.findViewById(R.id.tv_name_mypage);
         email = view.findViewById(R.id.tv_email_mypage);
         department = view.findViewById(R.id.tv_departement_mypage);
 
-        testInit();
 
-        subjectRVAdapter = new SubjectRVAdapter(getActivity(),subjectList);
-        recyclerviewMyPage.setAdapter(subjectRVAdapter);
         name.setText(AppManager.getInstance().getLoginUser().getName());
         email.setText(AppManager.getInstance().getLoginUser().getEmail());
         department.setText(AppManager.getInstance().getLoginUser().getMajor());
 
         return view;
-    }
-
-    public void testInit(){
-        subjectList = new ArrayList<>();
-        subjectList.add(new ChatRoomInfo(0,"오픈소스","","",0));
-        subjectList.add(new ChatRoomInfo(1,"운영체제","","",1));
-        subjectList.add(new ChatRoomInfo(2,"c++","","",2));
     }
 }
