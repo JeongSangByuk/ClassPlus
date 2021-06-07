@@ -36,4 +36,8 @@ public interface IModel {
     ArrayList<String> getChattingRoomUser(int uuid) throws ExecutionException, InterruptedException, JSONException;
 
     ArrayList<ChatRoomInfo> getChattingRoomByAdmin(String admin_email) throws JSONException, ExecutionException, InterruptedException;
+
+    void setUUID(int total_uuid, int team_uuid);
+
+    boolean isUUID(int total_uuid, int team_uuid) throws ExecutionException, InterruptedException;
 }
