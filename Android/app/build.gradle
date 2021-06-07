@@ -45,13 +45,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.android.volley:volley:1.1.1';
 
+    //implementation 'com.github.tlaabs:TimetableView:1.0.3-fx1'
+
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
     implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
 
-    compile "com.opencsv:opencsv:3.4"
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.opencsv:opencsv:3.4"
+
+    //implementation project ':timetableview'
 
 }
 apply plugin: 'com.google.gms.google-services'
