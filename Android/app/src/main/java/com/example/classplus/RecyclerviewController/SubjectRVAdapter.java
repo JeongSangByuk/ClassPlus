@@ -72,19 +72,6 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
         }
 
 
-        timetable.setOnClickListener(
-                new Button.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Intent intent = new Intent(context, TimeTable.class);
-                        context.startActivity(intent);
-                        
-                    }
-                }
-        );
-
-
         chatManager.setOnClickListener(
                 new Button.OnClickListener() {
                     @Override
