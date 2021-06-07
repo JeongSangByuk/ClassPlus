@@ -60,9 +60,6 @@ public class LogInActivity extends AppCompatActivity {
         setStatusBar();
         setUnderLine();
 
-        Intent intent = new Intent(getApplicationContext(), TimeTable.class);
-        startActivity(intent);
-
         idEditText = findViewById(R.id.et_login_id);
         pwEditText = findViewById(R.id.et_login_pw);
         logInButton = findViewById(R.id.btn_login_activity);
