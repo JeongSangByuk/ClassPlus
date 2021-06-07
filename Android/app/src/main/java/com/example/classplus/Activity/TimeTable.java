@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,10 +34,13 @@ public class TimeTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int input = 3;
+        activity = this;
+
+        Intent intet = getIntent();
+        int input = intet.getIntExtra("index", 0);
+
         selectNumber(input);
 
-        activity = this;
 
         close = findViewById(R.id.close);
 
