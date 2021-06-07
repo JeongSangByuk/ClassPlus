@@ -27,10 +27,11 @@ public class ChattingRoomToUserCreator extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         int uuid = Integer.parseInt(params[1]);
         String user_email = (String)params[2];
-        String type = (String)params[3];
+        String room_name = (String)params[3];
+        String type = (String)params[4];
 
         String serverURL = (String) params[0];
-        String postParameters = "uuid=" + uuid + "&user_email=" + user_email+ "&type=" + type;
+        String postParameters = "uuid=" + uuid + "&user_email=" + user_email+ "&room_name=" + room_name+ "&type=" + type;
 
         try {
             URL url = new URL(serverURL);

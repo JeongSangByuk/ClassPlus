@@ -136,7 +136,7 @@ public class MysqlImpl implements IModel {
         ChattingRoomToUserCreator task = null;
         for(int i = 0; i < emails.size(); i++) {
             task = new ChattingRoomToUserCreator();
-            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), type.name());
+            task.execute("http://" + Constant.IP_ADDRESS + "/insertchattingusertable.php", Integer.toString(uuid), emails.get(i), roomName, type.name());
         }
         return Constant.SUCCESS;
     }

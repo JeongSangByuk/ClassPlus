@@ -2,7 +2,20 @@
     <string name="app_name">ClassPlus</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <color name="colorHeader">#fcfcfc</color>
+    <color name="colorHeaderText">#7d7d7d</color>
+    <color name="colorTableItem">#efefef</color>
 
+    <string-array name="header_title">시간표</string-array>
+
+    <string-array name="default_header_title">
+        <item></item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+    </string-array>
 
 </resources>
 

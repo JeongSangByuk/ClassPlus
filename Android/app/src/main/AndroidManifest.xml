@@ -11,10 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".Activity.StudentListActivity">
-
-        </activity>
+        <activity android:name=".Activity.TimeTable"></activity>
+        <activity android:name=".Activity.StudentListActivity"></activity>
         <activity android:name=".Activity.MainActivity" />
         <activity
             android:name=".Activity.ChatRoomActivity"
@@ -35,12 +33,12 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
