@@ -68,18 +68,16 @@ public class StudentListActivity extends AppCompatActivity {  //과목~
 
         ((TextView)findViewById(R.id.tv_student_list_title)).setText(className + " 학생 목록");
 
-        try {
-            InitializeUserData();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         ListView listView = (ListView)findViewById(R.id.lv_students);
 
+        for(int i=0; i<students.size(); i++)
+        {
+            if(AppManager.getInstance().getLoginUser().getEmail().equals(students.get(i).getEmail()))
+            {
+                students.remove(i);
+                break;
+            }
+        }
         StudentsListViewAdapter myAdapter = new StudentsListViewAdapter(this, students);
 
         listView.setAdapter(myAdapter);

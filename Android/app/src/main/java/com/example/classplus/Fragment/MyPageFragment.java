@@ -77,43 +77,9 @@ public class MyPageFragment extends Fragment {
         schedules = new ArrayList<Schedule>();
         schedule = new Schedule();
         schedule.setClassTitle("알고리즘"); // sets subject
-        schedule.setClassPlace("국형준");
         schedule.setColor("#FFB900");
-        schedule.setStartTime(new Time(10, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(12, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("오픈소스"); // sets subject
-        schedule.setColor("#66FFFF");
-        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("19"); // sets subject
-        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("6"); // sets subject
-        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("2"); // sets subject
-        schedule.setStartTime(new Time(18, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(20, 00)); // sets the end of class time (hour,minute)
+        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
+        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
         timetable.add(schedules);
     }
@@ -122,141 +88,29 @@ public class MyPageFragment extends Fragment {
     private void firstTUE() {
         ArrayList<Schedule> schedules = new ArrayList<Schedule>();
         Schedule schedule = new Schedule();
-        schedule.setClassTitle("13"); // sets subject
-        schedule.setDay(1);
-        schedule.setStartTime(new Time(9, 0)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(10, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
+
 
         schedules = new ArrayList<Schedule>();
         schedule = new Schedule();
-        schedule.setClassTitle("42"); // sets subject
+        schedule.setClassTitle("오픈소스"); // sets subject
         schedule.setDay(1);
-        schedule.setStartTime(new Time(10, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(12, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("36"); // sets subject
-        schedule.setDay(1);
+        schedule.setColor("#FF8200");
         schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("31"); // sets subject
-        schedule.setDay(1);
-        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("21"); // sets subject
-        schedule.setDay(1);
-        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("28"); // sets subject
-        schedule.setDay(1);
-        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
         timetable.add(schedules);
     }
 
     //schedule.setDay(2);
     private void firstWED() {
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-        Schedule schedule = new Schedule();
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("15"); // sets subject
-        schedule.setDay(2);
-        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("23"); // sets subject
-        schedule.setDay(2);
-        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
     }
 
     //schedule.setDay(3);
     private void firstTHU() {
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-        Schedule schedule = new Schedule();
-        schedule.setClassTitle("24"); // sets subject
-        schedule.setDay(3);
-        schedule.setStartTime(new Time(9, 0)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(10, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("11"); // sets subject
-        schedule.setDay(3);
-        schedule.setStartTime(new Time(10, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(12, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
 
     }
 
     //schedule.setDay(4);
     private void firstFRI() {
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
-        Schedule schedule = new Schedule();
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setClassTitle("13"); // sets subject
-        schedule.setDay(4);
-        schedule.setStartTime(new Time(12, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(13, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setDay(4);
-        schedule.setStartTime(new Time(13, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(15, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setDay(4);
-        schedule.setStartTime(new Time(15, 00)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(16, 30)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
-
-        schedules = new ArrayList<Schedule>();
-        schedule = new Schedule();
-        schedule.setDay(4);
-        schedule.setStartTime(new Time(16, 30)); // sets the beginning of class time (hour,minute)
-        schedule.setEndTime(new Time(18, 00)); // sets the end of class time (hour,minute)
-        schedules.add(schedule);
-        timetable.add(schedules);
     }
 }

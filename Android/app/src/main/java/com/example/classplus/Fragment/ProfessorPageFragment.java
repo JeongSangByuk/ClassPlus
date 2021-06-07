@@ -68,7 +68,6 @@ public class ProfessorPageFragment extends Fragment {
 
         testInit();
 
-        if(subjectList == null) Log.d("SsSSSSSSS","SsSSSasDFADSFADSF");
         subjectRVAdapter = new SubjectRVAdapter(getActivity(),subjectList);
         recyclerviewMyPage.setAdapter(subjectRVAdapter);
         name.setText(AppManager.getInstance().getLoginUser().getName());

@@ -43,7 +43,6 @@ public class CSVManagement {
 
                 emailList.add(email);
 
-                Log.d("sss","SDSDSD");
 
             }
 

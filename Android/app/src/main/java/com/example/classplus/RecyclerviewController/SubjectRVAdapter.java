@@ -61,8 +61,6 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
         timetable = holder.timetable;
         chatManager = holder.chatManager;
 
-        Log.d("teamUUID", "true");
-
         try {
             if(AppManager.getInstance().getMysql().isTeamUUID(subjectList.get(position).getUUID())) chatManager.setText("");
         } catch (ExecutionException e) {
@@ -70,6 +68,20 @@ public class SubjectRVAdapter extends RecyclerView.Adapter<SubjectItemViewHolder
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        timetable.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        int index = position%3 + 1;
+                        Intent intent = new Intent(context, TimeTable.class);
+                        intent.putExtra("index", index);
+                        context.startActivity(intent);
+
+                    }
+                }
+        );
 
 
         chatManager.setOnClickListener(

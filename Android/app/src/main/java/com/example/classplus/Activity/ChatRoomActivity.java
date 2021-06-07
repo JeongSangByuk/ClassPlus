@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.classplus.AppManager;
 import com.example.classplus.Constant;
 import com.example.classplus.DTO.ChatData;
 import com.example.classplus.R;
@@ -231,7 +232,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 }
 
                 //firebase 데이터 삽입 및 리사이클러뷰 업데이트
-                ChatData addedData = new ChatData(user_email,user_email, messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2, ChatData.MessageType.TALK.toString());
+                ChatData addedData = new ChatData(user_email, AppManager.getInstance().getLoginUser().getName(), messageEdittext.getText().toString(), getCurrentTime(), R.drawable.study2, ChatData.MessageType.TALK.toString());
                 chatDataList.add(addedData);
 
                 dbRef.child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(chatRoomUUID)).push().setValue(addedData);

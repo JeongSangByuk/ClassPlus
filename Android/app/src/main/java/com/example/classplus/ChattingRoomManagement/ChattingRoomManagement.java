@@ -38,7 +38,7 @@ public class ChattingRoomManagement {
     public void createTotalChattingRoom(ArrayList<String> students, String roomName) throws ExecutionException, InterruptedException {
         String chat_maker = AppManager.getInstance().getLoginUser().getEmail();
 
-        String message = AppManager.getInstance().getLoginUser().getName() + "교수 님에 의해 생성된\n" + roomName + "대화방 입니다.";
+        String message = AppManager.getInstance().getLoginUser().getName() + " 교수님에 의해 생성된\n" + roomName + "대화방 입니다.";
 
         int uuid = createChattingRoom(chat_maker, students, roomName, ChatRoomInfo.ChatRoomType.TOTAL);
 
@@ -69,27 +69,27 @@ public class ChattingRoomManagement {
                         className+ " " +String.valueOf(roomCnt)+"팀",
                         AppManager.getInstance().getLoginUser().getEmail(),
                         ChatRoomInfo.ChatRoomType.TEAM);
-                emails = new ArrayList<>();
+
+                AppManager.getInstance().getMysql().setUUID(totalUUID, uuid);
 
             }
 
+            emails = new ArrayList<>();
             emails.add(students.get(i).getEmail());
             cnt++;
 
-            if(cnt == maxNumber || i==students.size()-1)
-            {
-                cnt = 0;
-                AppManager.getInstance().getMysql().enterChattingRoom(uuid, emails, className+ " " +String.valueOf(roomCnt)+"팀", ChatRoomInfo.ChatRoomType.TEAM);
+            AppManager.getInstance().getMysql().enterChattingRoom(uuid, emails, className+ " " +String.valueOf(roomCnt)+"팀", ChatRoomInfo.ChatRoomType.TEAM);
 
-                ChatData addedData = new ChatData(students.get(i).getEmail(), students.get(i).getName(),
+
+            if(cnt == maxNumber || i==students.size()-1) cnt = 0;
+
+
+            ChatData addedData = new ChatData(students.get(i).getEmail(), students.get(i).getName(),
                         students.get(i).getName()+"님이 입장했습니다.", getCurrentTime(),
                         R.drawable.study2, ChatData.MessageType.ENTER.toString());
 
+            FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
 
-                FirebaseConnector.getInstance().getDatabaseReference().child(Constant.FIREBASE_CHAT_NODE_NAME).child(String.valueOf(uuid)).push().setValue(addedData);
-
-                AppManager.getInstance().getMysql().setUUID(totalUUID, uuid);
-            }
         }
 
         activity.finish();
