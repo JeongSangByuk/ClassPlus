@@ -16,7 +16,7 @@
 - 각각 수업의 교수님과 전체 수강 학생이 포함된 전체 채팅방, 각각 팀원만 포함된 팀 채팅방.
 - 실시간 채팅 기능, 워크 스택 기능(프로젝트의 진행 사항을 커밋하듯 스택을 쌓는 기능).<br><br>
 
-##  📚  Stack & Library
+##  📚  Stack & Library 
 - Android/Java
 - Apache/Atom/Ubuntu
 - Naver Cloud Platform
